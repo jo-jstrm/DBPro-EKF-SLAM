@@ -92,7 +92,7 @@ public class StreamingJobTest {
 		env.execute("Flink Streaming Java API Skeleton");
 	}
 
-	private static class ParseData extends RichMapFunction<String, Tuple3<Integer, Double, Double>> {
+	private static class ParseData extends RichMapFunction<String, Tuple4<String,Long, Double, Double>> {
 		private static final long serialVersionUID = 1L;
 
 
@@ -107,5 +107,5 @@ public class StreamingJobTest {
 			return new Tuple4<String, Long, Double, Double>("gps", Long.valueOf(data[0]), Double.valueOf(data[1]), Double.valueOf(data[2]));
 		}
 	}
-	}
+
 }

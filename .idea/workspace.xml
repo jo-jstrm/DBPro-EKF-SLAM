@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a0e545e7-aebc-4cdf-baf2-769a8b8a86f3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/StreamingJobTest.java" afterDir="false" />
+    <list default="true" id="da75aaa0-46c4-442c-9a22-8d9caa5f2700" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/dependency-reduced-pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/StreamingJobTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/StreamingJobTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/test.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -34,6 +38,7 @@
     </option>
   </component>
   <component name="MavenRunner">
+    <option name="jreName" value="11.0.4" />
     <option name="skipTests" value="true" />
   </component>
   <component name="ProjectCodeStyleSettingsMigration">
@@ -47,7 +52,7 @@
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="vcs.Git" />
+    <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.runner" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -69,7 +74,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.StreamingJob">
+  <component name="RunManager" selected="Application.test">
     <configuration name="StreamingJob" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.StreamingJob" />
       <module name="DBPro-EKF-SLAM" />
@@ -83,9 +88,9 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.test" />
-      <module name="DBPro-EKF-SLAM" />
+    <configuration name="StreamingJobTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.StreamingJobTest" />
+      <module name="dbpro-ekf-slam" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="edu.tuberlin.dbpro.ws19.ekfslam.*" />
@@ -96,10 +101,31 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="11.0.4" />
+      <option name="INCLUDE_PROVIDED_SCOPE" value="true" />
+      <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.test" />
+      <module name="dbpro-ekf-slam" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.tuberlin.dbpro.ws19.ekfslam.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.StreamingJob" />
+      <item itemvalue="Application.StreamingJobTest" />
+      <item itemvalue="Application.test" />
+    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.StreamingJob" />
         <item itemvalue="Application.test" />
+        <item itemvalue="Application.StreamingJobTest" />
+        <item itemvalue="Application.StreamingJob" />
       </list>
     </recent_temporary>
   </component>
@@ -108,13 +134,14 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="a0e545e7-aebc-4cdf-baf2-769a8b8a86f3" name="Default Changelist" comment="" />
+      <changelist id="da75aaa0-46c4-442c-9a22-8d9caa5f2700" name="Default Changelist" comment="" />
       <created>1573833110993</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1573833110993</updated>
       <workItem from="1573833114741" duration="1163000" />
       <workItem from="1574079703475" duration="2524000" />
+      <workItem from="1574110536759" duration="4177000" />
     </task>
     <task id="LOCAL-00001" summary="added resources">
       <created>1574079898027</created>
