@@ -11,7 +11,6 @@ import org.apache.flink.streaming.api.functions.sink.RichSinkFunction;
 import org.influxdb.InfluxDB;
 import org.influxdb.InfluxDBFactory;
 import org.influxdb.dto.Point;
-
 import java.util.concurrent.TimeUnit;
 
 public class InfluxDBSink<T extends DataPoint<? extends Number>> extends RichSinkFunction<T> {
