@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="da75aaa0-46c4-442c-9a22-8d9caa5f2700" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/dependency-reduced-pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/StreamingJobTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/StreamingJobTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/test.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -48,7 +43,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../DBPRO/IMPRO-DBPRO-WS19-20-Tutorial" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
@@ -74,7 +69,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.test">
+  <component name="RunManager" selected="Application.StreamingJobTest">
     <configuration name="StreamingJob" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.StreamingJob" />
       <module name="DBPro-EKF-SLAM" />
@@ -89,6 +84,7 @@
       </method>
     </configuration>
     <configuration name="StreamingJobTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="INCLUDE_PROVIDED_SCOPE" value="true" />
       <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.StreamingJobTest" />
       <module name="dbpro-ekf-slam" />
       <extension name="coverage">
@@ -123,8 +119,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.test" />
         <item itemvalue="Application.StreamingJobTest" />
+        <item itemvalue="Application.test" />
         <item itemvalue="Application.StreamingJob" />
       </list>
     </recent_temporary>
@@ -141,7 +137,8 @@
       <updated>1573833110993</updated>
       <workItem from="1573833114741" duration="1163000" />
       <workItem from="1574079703475" duration="2524000" />
-      <workItem from="1574110536759" duration="4177000" />
+      <workItem from="1574110536759" duration="4411000" />
+      <workItem from="1574157536575" duration="1841000" />
     </task>
     <task id="LOCAL-00001" summary="added resources">
       <created>1574079898027</created>
@@ -150,7 +147,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574079898027</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="added resources">
+      <created>1574115774900</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1574115774900</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
