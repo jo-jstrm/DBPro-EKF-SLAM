@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="da75aaa0-46c4-442c-9a22-8d9caa5f2700" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/util/KeyFunction.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/StreamingJobTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/StreamingJobTest.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -138,7 +140,8 @@
       <workItem from="1573833114741" duration="1163000" />
       <workItem from="1574079703475" duration="2524000" />
       <workItem from="1574110536759" duration="4411000" />
-      <workItem from="1574157536575" duration="1841000" />
+      <workItem from="1574157536575" duration="8005000" />
+      <workItem from="1574427335525" duration="2413000" />
     </task>
     <task id="LOCAL-00001" summary="added resources">
       <created>1574079898027</created>
@@ -154,7 +157,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574115774900</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="added resources">
+      <created>1574176680873</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1574176680873</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
