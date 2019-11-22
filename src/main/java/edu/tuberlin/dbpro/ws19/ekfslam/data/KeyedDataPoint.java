@@ -42,5 +42,4 @@ public class KeyedDataPoint<T> extends DataPoint<T> {
     public <R> KeyedDataPoint<R> withNewValue(R newValue){
         return new KeyedDataPoint<>(this.getKey(), this.getTimeStampMs(), newValue);
     }
-
 }
