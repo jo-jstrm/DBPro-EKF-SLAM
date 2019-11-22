@@ -17,7 +17,7 @@ import org.apache.flink.util.Collector;
 import org.apache.flink.api.common.functions.MapFunction;
 
 public class test {
-    public static void main (String[] args){
+    public static void main (String[] args) throws Exception {
         System.out.print("Hello there2");
 
         final ParameterTool params = ParameterTool.fromArgs(args);
@@ -28,10 +28,11 @@ public class test {
         @SuppressWarnings({"rawtypes", "serial"})
 
         //         Tuple3<key, time stamp, measurement>
-                DataStream<Tuple3<Integer, Double, Double>> gpsData = env.readTextFile("./src/main/resources/time_lan_lat.csv")
+                DataStream<Tuple3<Integer, Double, Double>> gpsData = env.readTextFile("./src/main/resources/time_lat_lon_aa3_gpsx.csv")
                 .map(new ParseData());
         gpsData.print();
 
+        env.execute("TestJob");
 
     }
 

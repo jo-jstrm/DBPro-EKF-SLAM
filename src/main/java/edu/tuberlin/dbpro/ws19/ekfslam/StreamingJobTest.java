@@ -18,8 +18,13 @@
 
 package edu.tuberlin.dbpro.ws19.ekfslam;
 
+import edu.tuberlin.dbpro.ws19.ekfslam.data.KeyedDataPoint;
+import edu.tuberlin.dbpro.ws19.ekfslam.sinks.InfluxDBSink;
+import edu.tuberlin.dbpro.ws19.ekfslam.util.KeyFunction;
+import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.api.java.tuple.Tuple4;
 import org.apache.flink.streaming.api.TimeCharacteristic;
+import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.api.common.functions.RichMapFunction;
 import org.apache.flink.api.java.tuple.Tuple;
@@ -38,6 +43,10 @@ import org.apache.flink.util.Collector;
 import org.influxdb.InfluxDB;
 import org.influxdb.InfluxDBFactory;
 import org.influxdb.dto.Query;
+import edu.tuberlin.dbpro.ws19.ekfslam.data.*;
+
+import java.io.DataOutputStream;
+import java.security.Key;
 
 /**
  * Skeleton for a Flink Streaming Job.
@@ -60,14 +69,17 @@ public class StreamingJobTest {
 		env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
 		@SuppressWarnings({"rawtypes", "serial"})
 
-		InfluxDB influxDB = InfluxDBFactory.connect("http://127.0.0.1:8086", "admin", "admin");
+		InfluxDB influxDB = InfluxDBFactory.connect("http://localhost:8086", "admin", "admin");
 		String dbName = "DBProTest";
 		influxDB.query(new Query("CREATE DATABASE " + dbName, dbName));
 		influxDB.setDatabase(dbName);
 
-		//Tuple4<key, timestamp, measurement, measurement>
-		DataStream<Tuple4<String, Long, Double, Double>> gpsData = env.readTextFile("src/main/resources/time_lat_lon_aa3_gpsx.csv")
+		//KeyedDataPoint<latitude>
+		DataStream<KeyedDataPoint<Double>> gpsData = env.readTextFile("src/main/resources/time_lat_lon_aa3_gpsx.csv")
 				.map(new ParseData());
+
+
+		gpsData.addSink(new InfluxDBSink<>("DBProTest", "gpsData"));
 		/*
 		 * Here, you can start creating your execution plan for Flink.
 		 *
@@ -92,19 +104,26 @@ public class StreamingJobTest {
 		env.execute("Flink Streaming Java API Skeleton");
 	}
 
-	private static class ParseData extends RichMapFunction<String, Tuple4<String, Long, Double, Double>> {
+	private static class ParseData extends RichMapFunction<String, KeyedDataPoint<Double>> {
 		private static final long serialVersionUID = 1L;
 
 
 		@Override
-		public Tuple4<String, Long, Double, Double> map(String record) {
+		public KeyedDataPoint<Double> map(String record) {
 			//String rawData = record.substring(1, record.length() - 1);
 			String[] data = record.split(",");
 
 			// the data look like this...
 			// timestamp, latitude, longitude
 
-			return new Tuple4<String, Long, Double, Double>("gps", Long.valueOf(data[0]), Double.valueOf(data[1]), Double.valueOf(data[2]));
+			//get timestamp, lat and lon from data
+			//store lat, lan in Tuple2<Double, Double>
+			long timestamp = Long.valueOf(data[0]);
+			Tuple2<Double,Double> latLong= new Tuple2<Double, Double>(Double.valueOf(data[1]),Double.valueOf(data[2]));
+
+			//create and return Datapoint with latitude
+			return new KeyedDataPoint<Double>("gps",timestamp, latLong.f0);
 		}
 	}
+
 }
