@@ -4,9 +4,6 @@
 
 package edu.tuberlin.dbpro.ws19.ekfslam.data;
 
-import java.util.Date;
-import java.text.SimpleDateFormat;
-
 public class KeyedDataPoint<T> extends DataPoint<T> {
 
     private String key;
@@ -23,13 +20,8 @@ public class KeyedDataPoint<T> extends DataPoint<T> {
 
     @Override
     public String toString() {
-        Date date = new Date(getTimeStampMs());
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-        return  sdf.format(date) + "," + getValue();
-        // short in tm
-        // return getTimeStampMs() + "," + getKey() + "," + getValue();
+        return getTimeStampMs() + "," + getKey() + "," + getValue();
     }
-
 
     public String getKey() {
         return key;
@@ -42,4 +34,5 @@ public class KeyedDataPoint<T> extends DataPoint<T> {
     public <R> KeyedDataPoint<R> withNewValue(R newValue){
         return new KeyedDataPoint<>(this.getKey(), this.getTimeStampMs(), newValue);
     }
+
 }

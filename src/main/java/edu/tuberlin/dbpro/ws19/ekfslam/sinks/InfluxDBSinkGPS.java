@@ -6,8 +6,12 @@ package edu.tuberlin.dbpro.ws19.ekfslam.sinks;
 
 import edu.tuberlin.dbpro.ws19.ekfslam.data.DataPoint;
 import edu.tuberlin.dbpro.ws19.ekfslam.data.KeyedDataPoint;
+import org.apache.flink.api.common.functions.RuntimeContext;
+import org.apache.flink.api.java.tuple.Tuple;
+import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.streaming.api.functions.sink.RichSinkFunction;
+import org.apache.flink.streaming.api.functions.sink.SinkFunction;
 import org.influxdb.InfluxDB;
 import org.influxdb.InfluxDBFactory;
 import org.influxdb.dto.Point;
@@ -18,7 +22,8 @@ public class InfluxDBSinkGPS<T extends DataPoint<? extends Number>> extends Rich
 
     private transient InfluxDB influxDB = null;
     private static String dataBaseName;
-    private static String fieldName = "value";
+    private static String field0Name = "latitude";
+    private static String field1Name = "longitude";
     private String measurement;
 
     /**
@@ -45,13 +50,16 @@ public class InfluxDBSinkGPS<T extends DataPoint<? extends Number>> extends Rich
     }
 
     @Override
-    public void invoke(T dataPoint) throws Exception {
+    public void invoke(DataPoint dataPoint, Context context) throws Exception {
+        Tuple2 value =  (Tuple2) dataPoint.getValue();
         Point.Builder builder = Point.measurement(measurement)
                 .time(dataPoint.getTimeStampMs(), TimeUnit.MILLISECONDS)
-                .addField(fieldName, dataPoint.getValue());
+                .addField(field0Name, (Double) value.f0)
+                .addField(field1Name, (Double) value.f1);
 
         if(dataPoint instanceof KeyedDataPoint){
             builder.tag("key", ((KeyedDataPoint) dataPoint).getKey());
+
         }
 
         Point p = builder.build();

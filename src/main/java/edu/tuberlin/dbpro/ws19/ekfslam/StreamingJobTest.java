@@ -20,6 +20,7 @@ package edu.tuberlin.dbpro.ws19.ekfslam;
 
 import edu.tuberlin.dbpro.ws19.ekfslam.data.KeyedDataPoint;
 import edu.tuberlin.dbpro.ws19.ekfslam.sinks.InfluxDBSink;
+import edu.tuberlin.dbpro.ws19.ekfslam.sinks.InfluxDBSinkGPS;
 import edu.tuberlin.dbpro.ws19.ekfslam.util.KeyFunction;
 import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.api.java.tuple.Tuple4;
@@ -75,11 +76,11 @@ public class StreamingJobTest {
 		influxDB.setDatabase(dbName);
 
 		//KeyedDataPoint<latitude>
-		DataStream<KeyedDataPoint<Tuple2<Double, Double>>> gpsData = env.readTextFile("src/main/resources/time_lat_lon_aa3_gpsx.csv")
+		DataStream<KeyedDataPoint> gpsData = env.readTextFile("src/main/resources/time_lat_lon_aa3_gpsx.csv")
 				.map(new ParseData());
 
 		gpsData.print();
-		//gpsData.addSink(new InfluxDBSink<>("DBProTest", "gpsData"));
+		gpsData.addSink(new InfluxDBSinkGPS("DBProTest", "gpstest"));
 		/*
 		 * Here, you can start creating your execution plan for Flink.
 		 *
@@ -101,15 +102,15 @@ public class StreamingJobTest {
 		 */
 
 		// execute program
-		env.execute("Flink Streaming Java API Skeleton");
+		env.execute("EKF-SLAM");
 	}
 
-	private static class ParseData extends RichMapFunction<String, KeyedDataPoint<Tuple2<Double, Double>>> {
+	private static class ParseData extends RichMapFunction<String, KeyedDataPoint> {
 		private static final long serialVersionUID = 1L;
 
 
 		@Override
-		public KeyedDataPoint<Tuple2<Double, Double>> map(String record) {
+		public KeyedDataPoint<Tuple2> map(String record) {
 			//String rawData = record.substring(1, record.length() - 1);
 			String[] data = record.split(",");
 
@@ -119,11 +120,9 @@ public class StreamingJobTest {
 			//get timestamp, lat and lon from data
 			//store lat, lan in Tuple2<Double, Double>
 			long timestamp = Long.valueOf(data[0]);
-			Tuple2<Double,Double> latLong= new Tuple2<Double, Double>(Double.valueOf(data[1]),Double.valueOf(data[2]));
-
-			//create and return Datapoint with latitude
-			return new KeyedDataPoint<Tuple2<Double, Double>>("gps",timestamp, latLong);
+			Tuple2 latLong = new Tuple2<Double, Double>(Double.valueOf(data[1]), Double.valueOf(data[2]));
+			Object d = latLong.getField(0);			//create and return Datapoint with latitude
+			return new KeyedDataPoint<Tuple2>("gps",timestamp, latLong);
 		}
 	}
-
 }

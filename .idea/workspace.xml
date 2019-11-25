@@ -2,11 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a0e545e7-aebc-4cdf-baf2-769a8b8a86f3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/sinks/InfluxDBSinkGPS.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/StreamingJobTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/StreamingJobTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/data/DataPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/data/DataPoint.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/data/KeyedDataPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/data/KeyedDataPoint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/sinks/InfluxDBSink.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/sinks/InfluxDBSink.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/sinks/InfluxDBSinkGPS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/sinks/InfluxDBSinkGPS.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -49,6 +50,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../DBPRO/IMPRO-DBPRO-WS19-20-Tutorial" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
@@ -56,6 +58,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="edu.tuberlin.dbpro.ws19.ekfslam.sinks" />
       <recent name="edu.tuberlin.dbpro.ws19.ekfslam" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
@@ -135,7 +138,7 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="da75aaa0-46c4-442c-9a22-8d9caa5f2700" name="Default Changelist" comment="" />
+      <changelist id="a0e545e7-aebc-4cdf-baf2-769a8b8a86f3" name="Default Changelist" comment="" />
       <created>1573833110993</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -145,6 +148,7 @@
       <workItem from="1574110536759" duration="4411000" />
       <workItem from="1574157536575" duration="8005000" />
       <workItem from="1574427335525" duration="2413000" />
+      <workItem from="1574674568325" duration="6882000" />
     </task>
     <task id="LOCAL-00001" summary="added resources">
       <created>1574079898027</created>
@@ -167,7 +171,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574176680873</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="added sinks">
+      <created>1574436509811</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1574436509811</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -188,6 +199,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="added resources" />
-    <option name="LAST_COMMIT_MESSAGE" value="added resources" />
+    <MESSAGE value="added sinks" />
+    <option name="LAST_COMMIT_MESSAGE" value="added sinks" />
   </component>
 </project>
