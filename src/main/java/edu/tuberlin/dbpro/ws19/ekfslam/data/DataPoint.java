@@ -52,4 +52,3 @@ public class DataPoint<T> {
         return "DataPoint(timestamp=" + timeStampMs + ", value=" + value + ")";
     }
 }
-
