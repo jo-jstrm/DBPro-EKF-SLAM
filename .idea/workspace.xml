@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a0e545e7-aebc-4cdf-baf2-769a8b8a86f3" name="Default Changelist" comment="Latest try to add colt 1.2.0 with maven">
+    <list default="true" id="a0e545e7-aebc-4cdf-baf2-769a8b8a86f3" name="Default Changelist" comment="added resources">
+      <change afterPath="$PROJECT_DIR$/.idea/$PRODUCT_WORKSPACE_FILE$" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/StreamingJobTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/colt/BeneColtTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/functions/EKFSLAM.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/DBPro-EKF-SLAM.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/R_User_Library.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/colt/ColtTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/colt/ColtTest.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -38,6 +46,11 @@
         <option name="importAutomatically" value="true" />
         <option name="jdkForImporter" value="1.8" />
       </MavenImportingSettings>
+    </option>
+    <option name="enabledProfiles">
+      <list>
+        <option value="add-dependencies-for-IDEA" />
+      </list>
     </option>
   </component>
   <component name="MavenRunner">
@@ -82,7 +95,20 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.StreamingJobDiscreteKalmanFilter">
+  <component name="RunManager" selected="Application.StreamingJobTest">
+    <configuration name="BeneColtTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.colt.BeneColtTest" />
+      <module name="dbpro-ekf-slam" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.tuberlin.dbpro.ws19.ekfslam.colt.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ColtTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.colt.ColtTest" />
       <module name="dbpro-ekf-slam" />
@@ -126,22 +152,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="StreamingJobMilestone" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="INCLUDE_PROVIDED_SCOPE" value="true" />
-      <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.StreamingJobMilestone" />
-      <module name="dbpro-ekf-slam" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="edu.tuberlin.dbpro.ws19.ekfslam.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="StreamingJobTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="INCLUDE_PROVIDED_SCOPE" value="true" />
       <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.StreamingJobTest" />
       <module name="dbpro-ekf-slam" />
       <extension name="coverage">
@@ -156,18 +167,18 @@
     </configuration>
     <list>
       <item itemvalue="Application.StreamingJob" />
-      <item itemvalue="Application.StreamingJobTest" />
       <item itemvalue="Application.StreamingJobDiscreteKalmanFilter" />
-      <item itemvalue="Application.StreamingJobMilestone" />
       <item itemvalue="Application.ColtTest" />
+      <item itemvalue="Application.BeneColtTest" />
+      <item itemvalue="Application.StreamingJobTest" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.StreamingJobTest" />
+        <item itemvalue="Application.BeneColtTest" />
+        <item itemvalue="Application.ColtTest" />
         <item itemvalue="Application.StreamingJobDiscreteKalmanFilter" />
         <item itemvalue="Application.StreamingJob" />
-        <item itemvalue="Application.ColtTest" />
-        <item itemvalue="Application.StreamingJobMilestone" />
-        <item itemvalue="Application.StreamingJobTest" />
       </list>
     </recent_temporary>
   </component>
