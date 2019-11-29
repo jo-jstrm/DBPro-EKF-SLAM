@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="colt">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../Uni/DBPRO/colt/lib/colt.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
