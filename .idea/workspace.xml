@@ -49,7 +49,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../DBPRO/IMPRO-DBPRO-WS19-20-Tutorial" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Problems" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="settings.github" />
@@ -201,7 +201,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574176680873</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="removed previous resources">
+      <created>1575042764713</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1575042764713</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -222,6 +229,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="added resources" />
-    <option name="LAST_COMMIT_MESSAGE" value="added resources" />
+    <MESSAGE value="removed previous resources" />
+    <option name="LAST_COMMIT_MESSAGE" value="removed previous resources" />
   </component>
 </project>
