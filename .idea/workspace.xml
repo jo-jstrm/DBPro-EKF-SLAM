@@ -229,7 +229,14 @@
       <option name="project" value="LOCAL" />
       <updated>1575043809102</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Extended the ColtTest class with a couple useful examples">
+      <created>1575046808224</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1575046808224</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -253,6 +260,7 @@
     <MESSAGE value="removed previous resources" />
     <MESSAGE value="Removed Colt completely" />
     <MESSAGE value="Latest try to add colt 1.2.0 with maven" />
-    <option name="LAST_COMMIT_MESSAGE" value="Latest try to add colt 1.2.0 with maven" />
+    <MESSAGE value="Extended the ColtTest class with a couple useful examples" />
+    <option name="LAST_COMMIT_MESSAGE" value="Extended the ColtTest class with a couple useful examples" />
   </component>
 </project>

@@ -4,6 +4,8 @@ package edu.tuberlin.dbpro.ws19.ekfslam.colt;
 import cern.colt.matrix.DoubleMatrix2D;
 import cern.colt.matrix.impl.DenseDoubleMatrix2D;
 
+import java.util.Date;
+
 public class ColtTest {
     public static void main(String[] args){
         System.out.println("Chill :)");
@@ -29,5 +31,10 @@ public class ColtTest {
         in Addition returns result matrixC, which must be given as an argument "null" if to be created automatically
          */
         System.out.println(matrixA.zMult(matrixB, null, 1.0,1.0, true, false));
+        //1172629399.28125
+        System.out.println(Long.parseLong("117262939928125"));
+        Date d = new Date();
+        String date = new java.text.SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new java.util.Date (Long.parseLong("1172629399281")));
+        System.out.println(date);
     }
 }
