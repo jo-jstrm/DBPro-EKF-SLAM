@@ -1,4 +1,4 @@
-package edu.tuberlin.dbpro.ws19.ekfslam.functions;
+package functions;
 
 import edu.tuberlin.dbpro.ws19.ekfslam.data.KeyedDataPoint;
 import org.apache.flink.api.common.functions.RichFlatMapFunction;

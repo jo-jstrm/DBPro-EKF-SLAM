@@ -21,7 +21,7 @@ package edu.tuberlin.dbpro.ws19.ekfslam;
 import edu.tuberlin.dbpro.ws19.ekfslam.data.KeyedDataPoint;
 import edu.tuberlin.dbpro.ws19.ekfslam.sinks.InfluxDBSinkGPS;
 import edu.tuberlin.dbpro.ws19.ekfslam.sinks.InfluxDBSinkSensor;
-import edu.tuberlin.dbpro.ws19.ekfslam.functions.DiskreteKalmanFilter;
+import functions.DiskreteKalmanFilter;
 import org.apache.flink.api.common.functions.RichMapFunction;
 import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.streaming.api.TimeCharacteristic;

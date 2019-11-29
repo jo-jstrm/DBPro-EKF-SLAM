@@ -61,7 +61,7 @@ import java.security.Key;
  * <p>If you change the name of the main class (with the public static void main(String[] args))
  * method, change the respective entry in the POM.xml file (simply search for 'mainClass').
  */
-public class StreamingJobMilestone{
+public class StreamingJobMilestone {
 
 	public static void main(String[] args) throws Exception {
 		// set up the streaming execution environment
@@ -107,6 +107,7 @@ public class StreamingJobMilestone{
 
 	private static class ParseData extends RichMapFunction<String, KeyedDataPoint> {
 		private static final long serialVersionUID = 1L;
+
 
 		@Override
 		public KeyedDataPoint<Tuple2> map(String record) {
