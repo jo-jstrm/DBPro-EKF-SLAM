@@ -61,7 +61,7 @@ import java.security.Key;
  * <p>If you change the name of the main class (with the public static void main(String[] args))
  * method, change the respective entry in the POM.xml file (simply search for 'mainClass').
  */
-public class StreamingJobTest {
+public class StreamingJobMilestone {
 
 	public static void main(String[] args) throws Exception {
 		// set up the streaming execution environment
