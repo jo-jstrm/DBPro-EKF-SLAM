@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a0e545e7-aebc-4cdf-baf2-769a8b8a86f3" name="Default Changelist" comment="" />
+    <list default="true" id="a0e545e7-aebc-4cdf-baf2-769a8b8a86f3" name="Default Changelist" comment="Latest try to add colt 1.2.0 with maven">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/colt/ColtTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/colt/ColtTest.java" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,11 +49,15 @@
   </component>
   <component name="ProjectId" id="1TeuvH2HPovuoHPt1kwjB5PXZvu" />
   <component name="PropertiesComponent">
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../DBPRO/IMPRO-DBPRO-WS19-20-Tutorial" />
-    <property name="project.structure.last.edited" value="Problems" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Uni/DBPRO/colt-1.2.0.zip!/" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="settings.github" />
@@ -74,7 +82,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.ColtTest">
+  <component name="RunManager" selected="Application.StreamingJobDiscreteKalmanFilter">
     <configuration name="ColtTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.colt.ColtTest" />
       <module name="dbpro-ekf-slam" />
@@ -155,10 +163,10 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.ColtTest" />
         <item itemvalue="Application.StreamingJobDiscreteKalmanFilter" />
-        <item itemvalue="Application.StreamingJobMilestone" />
         <item itemvalue="Application.StreamingJob" />
+        <item itemvalue="Application.ColtTest" />
+        <item itemvalue="Application.StreamingJobMilestone" />
         <item itemvalue="Application.StreamingJobTest" />
       </list>
     </recent_temporary>
@@ -208,7 +216,14 @@
       <option name="project" value="LOCAL" />
       <updated>1575042764713</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Removed Colt completely">
+      <created>1575043039726</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1575043039726</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -230,6 +245,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="added resources" />
     <MESSAGE value="removed previous resources" />
-    <option name="LAST_COMMIT_MESSAGE" value="removed previous resources" />
+    <MESSAGE value="Removed Colt completely" />
+    <MESSAGE value="Latest try to add colt 1.2.0 with maven" />
+    <option name="LAST_COMMIT_MESSAGE" value="Latest try to add colt 1.2.0 with maven" />
   </component>
 </project>
