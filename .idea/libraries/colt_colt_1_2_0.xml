@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="colt:colt:1.2.0" type="repository">
+    <properties maven-id="colt:colt:1.2.0" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/colt-1.2.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/concurrent-1.3.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/lib/concurrent-1.3.4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
