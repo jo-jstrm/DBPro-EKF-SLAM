@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a0e545e7-aebc-4cdf-baf2-769a8b8a86f3" name="Default Changelist" comment="Latest try to add colt 1.2.0 with maven">
+    <list default="true" id="a0e545e7-aebc-4cdf-baf2-769a8b8a86f3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/colt/ColtTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/colt/ColtTest.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -82,7 +81,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.StreamingJobDiscreteKalmanFilter">
+  <component name="RunManager" selected="Application.ColtTest">
     <configuration name="ColtTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.colt.ColtTest" />
       <module name="dbpro-ekf-slam" />
@@ -163,9 +162,9 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.ColtTest" />
         <item itemvalue="Application.StreamingJobDiscreteKalmanFilter" />
         <item itemvalue="Application.StreamingJob" />
-        <item itemvalue="Application.ColtTest" />
         <item itemvalue="Application.StreamingJobMilestone" />
         <item itemvalue="Application.StreamingJobTest" />
       </list>
@@ -223,7 +222,14 @@
       <option name="project" value="LOCAL" />
       <updated>1575043039726</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Latest try to add colt 1.2.0 with maven">
+      <created>1575043809102</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1575043809102</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
