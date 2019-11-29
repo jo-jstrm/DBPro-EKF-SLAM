@@ -6,9 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="dbpro-ekf-slam" />
         <module name="DBPro-EKF-SLAM" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="dbpro-ekf-slam" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>
