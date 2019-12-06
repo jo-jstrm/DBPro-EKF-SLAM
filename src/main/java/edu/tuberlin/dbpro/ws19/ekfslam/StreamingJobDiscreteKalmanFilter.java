@@ -64,9 +64,10 @@ public class StreamingJobDiscreteKalmanFilter {
 		DataStream<KeyedDataPoint> sensorData = env.readTextFile("src/main/resources/time_steering_speed_aa3_dr.csv")
 				.map(new StreamingJobDiscreteKalmanFilter.ParseData())
 				.keyBy("key")
-				.map(new DiskreteKalmanFilter());
+				.flatMap(new DiskreteKalmanFilter());
 
-		sensorData.print();
+		sensorData.map(new StreamingJobDiscreteKalmanFilter.getTuple3())
+				.writeAsCsv("src/main/resources/testcsv.csv", FileSystem.WriteMode.OVERWRITE);
 
 		/*DataStream<KeyedDataPoint> sensorDataFiltered = sensorData
 				.keyBy("key")

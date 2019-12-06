@@ -17,6 +17,7 @@ public class StreamingJobTest {
     public static void main(String[] args) throws Exception {
         // set up the streaming execution environment
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+        env.setParallelism(1);
 
         env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
         @SuppressWarnings({"rawtypes", "serial"})
@@ -33,7 +34,7 @@ public class StreamingJobTest {
                 .flatMap(new MoveFunction());
 
         fullData.map(new StreamingJobTest.getTuple3())
-                .writeAsCsv("src/main/resources/testcsv.csv", FileSystem.WriteMode.OVERWRITE);
+                .writeAsCsv("src/main/resources/testcsvODO.csv", FileSystem.WriteMode.OVERWRITE);
 
 
 

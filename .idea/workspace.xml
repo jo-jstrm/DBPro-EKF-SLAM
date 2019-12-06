@@ -2,13 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a0e545e7-aebc-4cdf-baf2-769a8b8a86f3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/functions/MoveFunction.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/testcsv.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/StreamingJobDiscreteKalmanFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/StreamingJobDiscreteKalmanFilter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/StreamingJobTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/StreamingJobTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/functions/DiskreteKalmanFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/functions/DiskreteKalmanFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/functions/EKFSLAM.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/functions/EkfSlam.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/functions/MoveFunction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/functions/MoveFunction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/testcsv.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/testcsv.csv" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -92,7 +91,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.StreamingJobDiscreteKalmanFilter">
+  <component name="RunManager" selected="Application.StreamingJobTest">
     <configuration name="BeneColtTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.colt.BeneColtTest" />
       <module name="dbpro-ekf-slam" />
@@ -171,8 +170,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.StreamingJobDiscreteKalmanFilter" />
         <item itemvalue="Application.StreamingJobTest" />
+        <item itemvalue="Application.StreamingJobDiscreteKalmanFilter" />
         <item itemvalue="Application.BeneColtTest" />
         <item itemvalue="Application.ColtTest" />
         <item itemvalue="Application.StreamingJob" />
@@ -196,7 +195,7 @@
       <workItem from="1574427335525" duration="2413000" />
       <workItem from="1575040522218" duration="891000" />
       <workItem from="1575278495473" duration="5690000" />
-      <workItem from="1575635112153" duration="10431000" />
+      <workItem from="1575635112153" duration="17426000" />
     </task>
     <task id="LOCAL-00001" summary="added resources">
       <created>1574079898027</created>
@@ -240,7 +239,14 @@
       <option name="project" value="LOCAL" />
       <updated>1575047983755</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="worked in dieskretekalmanfunction">
+      <created>1575646436585</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1575646436585</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -265,17 +271,7 @@
     <MESSAGE value="Removed Colt completely" />
     <MESSAGE value="Latest try to add colt 1.2.0 with maven" />
     <MESSAGE value="Added BeneTestColt, EKFSLAM-Function and Parse data for laser_full" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added BeneTestColt, EKFSLAM-Function and Parse data for laser_full" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/functions/DiskreteKalmanFilter.java</url>
-          <line>74</line>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="worked in dieskretekalmanfunction" />
+    <option name="LAST_COMMIT_MESSAGE" value="worked in dieskretekalmanfunction" />
   </component>
 </project>

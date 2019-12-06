@@ -46,7 +46,7 @@ public class MoveFunction extends RichFlatMapFunction<KeyedDataPoint, KeyedDataP
 
         double x = x_ + (Double) value.f0;
         double y = y_ + (Double) value.f1;
-        double theta = (Double) value.f2;
+        double theta = theta_ + (Double) value.f2;
 
         Tuple2 res = new Tuple2<Double, Double>(x,y);
         Tuple3 update = new Tuple3<Double, Double, Double>(x,y,theta);
@@ -60,9 +60,9 @@ public class MoveFunction extends RichFlatMapFunction<KeyedDataPoint, KeyedDataP
     public void open(Configuration config) {
         ValueStateDescriptor<Tuple3<Double, Double, Double>> descriptor = new ValueStateDescriptor<Tuple3<Double, Double, Double>>(
 
-                "average", // the state name
+                "odo", // the state name
                 TypeInformation.of(new TypeHint<Tuple3<Double, Double, Double>>() {}), // type information
-                Tuple3.of(0.0, 0.0, 0.5*Math.PI)); // default value of the state, if nothing was set  //TODO: check this initialisation!
+                Tuple3.of(0.0, 0.0, 0.0)); // default value of the state, if nothing was set  //TODO: check this initialisation!
         filterParams = getRuntimeContext().getState(descriptor);
     }
 }
