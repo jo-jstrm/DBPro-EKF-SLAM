@@ -1,18 +1,17 @@
 package edu.tuberlin.dbpro.ws19.ekfslam;
 
 import edu.tuberlin.dbpro.ws19.ekfslam.data.KeyedDataPoint;
-import edu.tuberlin.dbpro.ws19.ekfslam.sinks.InfluxDBSinkSensor;
+import edu.tuberlin.dbpro.ws19.ekfslam.functions.MoveFunction;
 import org.apache.flink.api.common.functions.RichMapFunction;
 import org.apache.flink.api.java.tuple.Tuple2;
-import org.apache.flink.api.java.tuple.Tuple4;
+import org.apache.flink.api.java.tuple.Tuple3;
+import org.apache.flink.core.fs.FileSystem;
 import org.apache.flink.streaming.api.TimeCharacteristic;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.influxdb.InfluxDB;
 import org.influxdb.InfluxDBFactory;
 import org.influxdb.dto.Query;
-
-import java.util.ArrayList;
 
 public class StreamingJobTest {
     public static void main(String[] args) throws Exception {
@@ -28,10 +27,18 @@ public class StreamingJobTest {
         influxDB.setDatabase(dbName);
 
         //KeyedDataPoint<latitude>
-        DataStream<KeyedDataPoint> fullData = env.readTextFile("src/main/resources/time_xIncr_yIncr_laserArr_full.csv")
-                .map(new StreamingJobTest.ParseData());
+        DataStream<KeyedDataPoint> fullData = env.readTextFile("src/main/resources/time_xIncr_yIncr_phi_odo.csv")
+                .map(new StreamingJobTest.ParseData())
+                .keyBy("key")
+                .flatMap(new MoveFunction());
 
-        fullData.print();
+        fullData.map(new StreamingJobTest.getTuple3())
+                .writeAsCsv("src/main/resources/testcsv.csv", FileSystem.WriteMode.OVERWRITE);
+
+
+
+
+        //fullData.addSink(new InfluxDBSinkGPS<>("DBProTest","testmove"));
 
         /*
          * Here, you can start creating your execution plan for Flink.
@@ -62,7 +69,7 @@ public class StreamingJobTest {
 
 
         @Override
-        public KeyedDataPoint<Tuple4> map(String record) {
+        public KeyedDataPoint<Tuple3> map(String record) {
             //String rawData = record.substring(1, record.length() - 1);
             String[] data = record.split(",");
 
@@ -74,12 +81,13 @@ public class StreamingJobTest {
             Long timestamp = (long) Math.round(Double.valueOf(data[0]));
             Double lat = Double.valueOf(data[1]);
             Double lon = Double.valueOf(data[2]);
-            Double phi = Double.valueOf(data[2]);
+            Double phi = Double.valueOf(data[3]);
+            System.out.println(timestamp);
 
-            String[] laserdata = data[3].split(",");
-            ArrayList<Double> values = new ArrayList<Double>();
+            //String[] laserdata = data[3].split(",");
+            //ArrayList<Double> values = new ArrayList<Double>();
 
-            for(String laservalue : laserdata){
+            /*for(String laservalue : laserdata){
                 if(laservalue.contains(" ")){
                     laservalue.replace(" ","");
                 }
@@ -96,7 +104,19 @@ public class StreamingJobTest {
             }
 
             Tuple4 tuple = new Tuple4(lat, lon, phi, values);
-            return new KeyedDataPoint<Tuple4>("fulldata",timestamp, tuple);
+            return new KeyedDataPoint<Tuple4>("fulldata",timestamp, tuple);*/
+            Tuple3 tuple = new Tuple3(lat,lon,phi);
+            return new KeyedDataPoint<Tuple3>("odo",timestamp,tuple);
+        }
+    }
+
+    private static class getTuple3 extends RichMapFunction<KeyedDataPoint, Tuple3<Long, Double, Double>>{
+
+        @Override
+        public Tuple3<Long, Double, Double> map(KeyedDataPoint value) throws Exception {
+            Tuple2<Double, Double> val = (Tuple2<Double, Double>) value.getValue();
+            long time = value.getTimeStampMs();
+            return new Tuple3<Long, Double, Double>(time, val.f0, val.f1);
         }
     }
 

@@ -21,9 +21,11 @@ package edu.tuberlin.dbpro.ws19.ekfslam;
 import edu.tuberlin.dbpro.ws19.ekfslam.data.KeyedDataPoint;
 import edu.tuberlin.dbpro.ws19.ekfslam.sinks.InfluxDBSinkGPS;
 import edu.tuberlin.dbpro.ws19.ekfslam.sinks.InfluxDBSinkSensor;
-import functions.DiskreteKalmanFilter;
+import edu.tuberlin.dbpro.ws19.ekfslam.functions.DiskreteKalmanFilter;
 import org.apache.flink.api.common.functions.RichMapFunction;
 import org.apache.flink.api.java.tuple.Tuple2;
+import org.apache.flink.api.java.tuple.Tuple3;
+import org.apache.flink.core.fs.FileSystem;
 import org.apache.flink.streaming.api.TimeCharacteristic;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
@@ -48,6 +50,7 @@ public class StreamingJobDiscreteKalmanFilter {
 	public static void main(String[] args) throws Exception {
 		// set up the streaming execution environment
 		final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+		env.setParallelism(1);
 
 		env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
 		@SuppressWarnings({"rawtypes", "serial"})
@@ -57,17 +60,25 @@ public class StreamingJobDiscreteKalmanFilter {
 		influxDB.query(new Query("CREATE DATABASE " + dbName, dbName));
 		influxDB.setDatabase(dbName);
 
-		//KeyedDataPoint<latitude>
+
 		DataStream<KeyedDataPoint> sensorData = env.readTextFile("src/main/resources/time_steering_speed_aa3_dr.csv")
-				.map(new StreamingJobDiscreteKalmanFilter.ParseData());
+				.map(new StreamingJobDiscreteKalmanFilter.ParseData())
+				.keyBy("key")
+				.map(new DiskreteKalmanFilter());
 
 		sensorData.print();
 
-		DataStream<KeyedDataPoint> sensorDataFiltered = sensorData
+		/*DataStream<KeyedDataPoint> sensorDataFiltered = sensorData
 				.keyBy("key")
 				.flatMap(new DiskreteKalmanFilter());
 
-		sensorDataFiltered.addSink(new InfluxDBSinkSensor<>("DBProTest", "sensorTest"));
+		 */
+
+		//sensorDataFiltered.map(new StreamingJobDiscreteKalmanFilter.getTuple3())
+		//sensorDataFiltered.print();
+			//	.writeAsCsv("src/main/resources/testcsv.csv", FileSystem.WriteMode.OVERWRITE);
+
+		//sensorDataFiltered.addSink(new InfluxDBSinkSensor<>("DBProTest", "sensorTest"));
 		/*
 		 * Here, you can start creating your execution plan for Flink.
 		 *
@@ -107,9 +118,19 @@ public class StreamingJobDiscreteKalmanFilter {
 			//get timestamp, lat and lon from data
 			//store lat, lan in Tuple2<Double, Double>
 			long timestamp = Long.valueOf(data[0]);
-			Tuple2 latLong = new Tuple2<Double, Double>(Double.valueOf(data[1]), Double.valueOf(data[2]));
-			Object d = latLong.getField(0);			//create and return Datapoint with latitude
-			return new KeyedDataPoint<Tuple2>("sensordata",timestamp, latLong);
+			Tuple2 tuple = new Tuple2<Double, Double>(Double.valueOf(data[1]), Double.valueOf(data[2]));
+			//Object d = tuple.getField(0);			//create and return Datapoint with latitude
+			return new KeyedDataPoint<Tuple2>("sensordata",timestamp, tuple);
+		}
+	}
+
+	private static class getTuple3 extends RichMapFunction<KeyedDataPoint, Tuple3<Long, Double, Double>>{
+
+		@Override
+		public Tuple3<Long, Double, Double> map(KeyedDataPoint value) throws Exception {
+			Tuple3<Double,Double, Double> val = (Tuple3<Double,Double, Double>) value.getValue();
+			long time = value.getTimeStampMs();
+			return new Tuple3<Long, Double, Double>(time, val.f0, val.f1);
 		}
 	}
 }

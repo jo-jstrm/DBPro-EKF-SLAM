@@ -9,7 +9,7 @@ import org.apache.flink.api.java.tuple.Tuple3;
 import org.apache.flink.api.java.tuple.Tuple4;
 import org.apache.flink.util.Collector;
 
-public class EKFSLAM extends RichFlatMapFunction<KeyedDataPoint, KeyedDataPoint> {
+public class EkfSlam extends RichFlatMapFunction<KeyedDataPoint, KeyedDataPoint> {
 
     private transient ValueState<DoubleMatrix2D> filterParams;
 
