@@ -36,5 +36,7 @@ public class ColtTest {
         Date d = new Date();
         String date = new java.text.SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new java.util.Date (Long.parseLong("1172629399281")));
         System.out.println(date);
+
+        System.out.print("cos: "+Math.cos(6.283));
     }
 }

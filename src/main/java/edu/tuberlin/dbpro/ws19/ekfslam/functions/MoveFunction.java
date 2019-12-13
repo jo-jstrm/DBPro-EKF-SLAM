@@ -13,6 +13,8 @@ import org.apache.flink.api.java.tuple.Tuple6;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.util.Collector;
 
+import java.util.ArrayList;
+
 /*
 Performs diskrete kalman filter algorithm for the sensor data of the car.
 
@@ -42,20 +44,35 @@ public class MoveFunction extends RichFlatMapFunction<KeyedDataPoint, KeyedDataP
         double phi_ = previousPointParams.f2;
 
         //time update
-        Tuple3 value = (Tuple3) inputPoint.getValue();
+        Tuple4 value = (Tuple4) inputPoint.getValue();
 
         double xinc = (Double) value.f0;
         double yinc = (Double) value.f1;
         double phiinc = (Double) value.f2;
+        Double[] laserArr = (Double[]) value.f3;
 
-        double x = x_ + Math.cos(phiinc/2)*xinc - Math.sin(phiinc/2)*yinc;
-        double y = y_ + Math.sin(phiinc/2)*xinc + Math.cos(phiinc/2)*yinc;
-
+        //prediction function
         double x2 = x_ + Math.cos(phi_ + phiinc/2)*xinc - Math.sin(phi_ + phiinc/2)*yinc;
         double y2 = y_ + Math.sin(phi_ + phiinc/2)*xinc + Math.cos(phi_ + phiinc/2)*yinc;
         double phi = phi_ + phiinc;
 
-        Tuple2 res = new Tuple2<Double, Double>(x2,y2);
+        //work with LaserArray
+        ArrayList<Tuple2> landmarks = new ArrayList<>();
+        for(int i = 0; i<laserArr.length;i++){
+            if(laserArr[i] == 0.0 || laserArr[i] > 80.0){continue;}
+            else{
+                double degrees = i*0.5;
+                double lx = getCoordinate(degrees, laserArr[i], phi, true);
+                double ly = getCoordinate(degrees, laserArr[i], phi, false);
+
+                Tuple2 tuple = new Tuple2(lx,ly);
+                landmarks.add(tuple);
+            }
+        }
+
+
+        //returns
+        Tuple3 res = new Tuple3<Double, Double, ArrayList<Tuple2>>(x2,y2,landmarks);
         Tuple3 update = new Tuple3<Double, Double, Double>(x2,y2,phi);
         filterParams.update(update);
 
@@ -67,9 +84,19 @@ public class MoveFunction extends RichFlatMapFunction<KeyedDataPoint, KeyedDataP
     public void open(Configuration config) {
         ValueStateDescriptor<Tuple3<Double, Double, Double>> descriptor = new ValueStateDescriptor<Tuple3<Double, Double, Double>>(
 
-                "odo", // the state name
+                "full", // the state name
                 TypeInformation.of(new TypeHint<Tuple3<Double, Double, Double>>() {}), // type information
                 Tuple3.of(0.0, 0.0, 0.0)); // default value of the state, if nothing was set  //TODO: check this initialisation!
         filterParams = getRuntimeContext().getState(descriptor);
+    }
+
+    public Double getCoordinate(Double degrees, Double gamma, Double phi, Boolean isX) {
+        if (isX) {
+            double x = gamma * Math.cos(Math.toRadians(degrees) - Math.toRadians(90) + phi) + 3.78;
+            return x;
+        } else {
+            double y = gamma * Math.sin(Math.toRadians(degrees) - Math.toRadians(90) + phi) + 0.5;
+            return y;
+        }
     }
 }

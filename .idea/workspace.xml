@@ -4,8 +4,8 @@
     <list default="true" id="a0e545e7-aebc-4cdf-baf2-769a8b8a86f3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/StreamingJobMilestone.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/StreamingJobMilestone.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/colt/ColtTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/colt/ColtTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/functions/MoveFunction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/functions/MoveFunction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/testcsvODO.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/testcsvODO.csv" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -166,10 +166,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.StreamingJobMilestone" />
+        <item itemvalue="Application.ColtTest" />
         <item itemvalue="Application.StreamingJobTest" />
         <item itemvalue="Application.StreamingJobDiscreteKalmanFilter" />
         <item itemvalue="Application.BeneColtTest" />
-        <item itemvalue="Application.ColtTest" />
       </list>
     </recent_temporary>
   </component>
@@ -193,7 +193,8 @@
       <workItem from="1575635112153" duration="17543000" />
       <workItem from="1575821066379" duration="74000" />
       <workItem from="1575881482020" duration="2557000" />
-      <workItem from="1576242346398" duration="7789000" />
+      <workItem from="1576242346398" duration="8062000" />
+      <workItem from="1576255100970" duration="4896000" />
     </task>
     <task id="LOCAL-00001" summary="added resources">
       <created>1574079898027</created>
@@ -258,7 +259,14 @@
       <option name="project" value="LOCAL" />
       <updated>1575821094063</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="New Branch for Laser data">
+      <created>1576254315545</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1576254315545</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -285,6 +293,7 @@
     <MESSAGE value="Added BeneTestColt, EKFSLAM-Function and Parse data for laser_full" />
     <MESSAGE value="worked in dieskretekalmanfunction" />
     <MESSAGE value="Output of x and y values for fiven odo and steering/speed data. Out in csv and plottet in R" />
-    <option name="LAST_COMMIT_MESSAGE" value="Output of x and y values for fiven odo and steering/speed data. Out in csv and plottet in R" />
+    <MESSAGE value="New Branch for Laser data" />
+    <option name="LAST_COMMIT_MESSAGE" value="New Branch for Laser data" />
   </component>
 </project>

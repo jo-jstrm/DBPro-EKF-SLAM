@@ -19,6 +19,7 @@
 package edu.tuberlin.dbpro.ws19.ekfslam;
 
 import edu.tuberlin.dbpro.ws19.ekfslam.data.KeyedDataPoint;
+import edu.tuberlin.dbpro.ws19.ekfslam.functions.MoveFunction;
 import edu.tuberlin.dbpro.ws19.ekfslam.sinks.InfluxDBSink;
 import edu.tuberlin.dbpro.ws19.ekfslam.sinks.InfluxDBSinkGPS;
 import edu.tuberlin.dbpro.ws19.ekfslam.util.KeyFunction;
@@ -47,7 +48,9 @@ import org.influxdb.dto.Query;
 import edu.tuberlin.dbpro.ws19.ekfslam.data.*;
 
 import java.io.DataOutputStream;
+import java.lang.reflect.Array;
 import java.security.Key;
+import java.util.ArrayList;
 
 /**
  * Skeleton for a Flink Streaming Job.
@@ -66,6 +69,7 @@ public class StreamingJobMilestone {
 	public static void main(String[] args) throws Exception {
 		// set up the streaming execution environment
 		final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+		env.setParallelism(1);
 
 		env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
 		@SuppressWarnings({"rawtypes", "serial"})
@@ -77,9 +81,12 @@ public class StreamingJobMilestone {
 
 		//KeyedDataPoint<latitude>
 		DataStream<KeyedDataPoint> fullData = env.readTextFile("src/main/resources/time_xIncr_yIncr_laserArr_full.csv")
-				.map(new ParseData());
+				.map(new ParseData())
+				.keyBy("key")
+				.flatMap(new MoveFunction());
 
-		fullData.print();
+		fullData.map(new getTuple4())
+				.writeAsCsv("src/main/resources/positionWithLmrks.csv", FileSystem.WriteMode.OVERWRITE);
 		//fullData.addSink(new InfluxDBSinkGPS("DBProTest", "gpstest"));
 		/*
 		 * Here, you can start creating your execution plan for Flink.
@@ -124,25 +131,28 @@ public class StreamingJobMilestone {
 			Double yInc = Double.valueOf(data[2]);
 			Double phiInc = Double.valueOf(data[3]);
 
-			String[] dataArr = data[4].split(",");
-			Double[] laserArr = new Double[dataArr.length];
+			Double[] laserArr = new Double[data.length-4];
 
-			System.out.println(data[4]);
-
-			for(int i=0; i<dataArr.length;i++){
-				String s = dataArr[i];
+			for(int i=4; i<data.length;i++){
+				String s = data[i];
 				if(s.contains("[")){ s=s.substring(2);}
 				if(s.contains("]")){ s=s.substring(0,s.length()-2);}
 
-				laserArr[i] = Double.valueOf(s);
+				laserArr[i-4] = Double.valueOf(s);
 			}
-			for(Double d : laserArr){
-				System.out.print(d);
-			}
-			System.out.println("---");
 
 			Tuple4 tuple = new Tuple4<Double, Double, Double, Double[]>(xInc, yInc, phiInc, laserArr);
 			return new KeyedDataPoint<Tuple4>("full",timestamp, tuple);
+		}
+	}
+
+	private static class getTuple4 extends RichMapFunction<KeyedDataPoint, Tuple4<Long, Double, Double, ArrayList<Double>>>{
+
+		@Override
+		public Tuple4<Long, Double, Double, ArrayList<Double>> map(KeyedDataPoint value){
+			Tuple3<Double, Double, ArrayList<Double>> val = (Tuple3<Double, Double, ArrayList<Double>>) value.getValue();
+			long time = value.getTimeStampMs();
+			return new Tuple4<>(time, val.f0, val.f1, val.f2);
 		}
 	}
 }
