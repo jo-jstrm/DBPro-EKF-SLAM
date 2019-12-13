@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a0e545e7-aebc-4cdf-baf2-769a8b8a86f3" name="Default Changelist" comment="" />
+    <list default="true" id="a0e545e7-aebc-4cdf-baf2-769a8b8a86f3" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/StreamingJobMilestone.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/StreamingJobMilestone.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/functions/MoveFunction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/functions/MoveFunction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/testcsvODO.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/testcsvODO.csv" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,7 +26,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="Colt" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -57,12 +62,12 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../DBPRO/IMPRO-DBPRO-WS19-20-Tutorial" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="settings.github" />
+    <property name="settings.editor.selected.configurable" value="preferences.editor" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -84,7 +89,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.StreamingJobTest">
+  <component name="RunManager" selected="Application.StreamingJobMilestone">
     <configuration name="BeneColtTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.colt.BeneColtTest" />
       <module name="dbpro-ekf-slam" />
@@ -111,11 +116,9 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="StreamingJob" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="ALTERNATIVE_JRE_PATH" value="1.8" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+    <configuration name="StreamingJobDiscreteKalmanFilter" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="INCLUDE_PROVIDED_SCOPE" value="true" />
-      <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.StreamingJob" />
+      <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.StreamingJobDiscreteKalmanFilter" />
       <module name="dbpro-ekf-slam" />
       <extension name="coverage">
         <pattern>
@@ -127,9 +130,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="StreamingJobDiscreteKalmanFilter" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="INCLUDE_PROVIDED_SCOPE" value="true" />
-      <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.StreamingJobDiscreteKalmanFilter" />
+    <configuration name="StreamingJobMilestone" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.StreamingJobMilestone" />
       <module name="dbpro-ekf-slam" />
       <extension name="coverage">
         <pattern>
@@ -155,19 +157,19 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.StreamingJob" />
       <item itemvalue="Application.StreamingJobDiscreteKalmanFilter" />
       <item itemvalue="Application.ColtTest" />
       <item itemvalue="Application.BeneColtTest" />
       <item itemvalue="Application.StreamingJobTest" />
+      <item itemvalue="Application.StreamingJobMilestone" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.StreamingJobMilestone" />
         <item itemvalue="Application.StreamingJobTest" />
         <item itemvalue="Application.StreamingJobDiscreteKalmanFilter" />
         <item itemvalue="Application.BeneColtTest" />
         <item itemvalue="Application.ColtTest" />
-        <item itemvalue="Application.StreamingJob" />
       </list>
     </recent_temporary>
   </component>
@@ -189,6 +191,9 @@
       <workItem from="1575040522218" duration="891000" />
       <workItem from="1575278495473" duration="5690000" />
       <workItem from="1575635112153" duration="17543000" />
+      <workItem from="1575821066379" duration="74000" />
+      <workItem from="1575881482020" duration="2557000" />
+      <workItem from="1576242346398" duration="7789000" />
     </task>
     <task id="LOCAL-00001" summary="added resources">
       <created>1574079898027</created>
@@ -246,7 +251,14 @@
       <option name="project" value="LOCAL" />
       <updated>1575653452688</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Output of x and y values for fiven odo and steering/speed data. Out in csv and plottet in R">
+      <created>1575821094063</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1575821094063</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

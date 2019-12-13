@@ -39,17 +39,24 @@ public class MoveFunction extends RichFlatMapFunction<KeyedDataPoint, KeyedDataP
 
         double x_ = previousPointParams.f0;
         double y_ = previousPointParams.f1;
-        double theta_ = previousPointParams.f2;
+        double phi_ = previousPointParams.f2;
 
         //time update
         Tuple3 value = (Tuple3) inputPoint.getValue();
 
-        double x = x_ + (Double) value.f0;
-        double y = y_ + (Double) value.f1;
-        double theta = theta_ + (Double) value.f2;
+        double xinc = (Double) value.f0;
+        double yinc = (Double) value.f1;
+        double phiinc = (Double) value.f2;
 
-        Tuple2 res = new Tuple2<Double, Double>(x,y);
-        Tuple3 update = new Tuple3<Double, Double, Double>(x,y,theta);
+        double x = x_ + Math.cos(phiinc/2)*xinc - Math.sin(phiinc/2)*yinc;
+        double y = y_ + Math.sin(phiinc/2)*xinc + Math.cos(phiinc/2)*yinc;
+
+        double x2 = x_ + Math.cos(phi_ + phiinc/2)*xinc - Math.sin(phi_ + phiinc/2)*yinc;
+        double y2 = y_ + Math.sin(phi_ + phiinc/2)*xinc + Math.cos(phi_ + phiinc/2)*yinc;
+        double phi = phi_ + phiinc;
+
+        Tuple2 res = new Tuple2<Double, Double>(x2,y2);
+        Tuple3 update = new Tuple3<Double, Double, Double>(x2,y2,phi);
         filterParams.update(update);
 
         // return filtered point

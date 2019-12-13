@@ -76,11 +76,11 @@ public class StreamingJobMilestone {
 		influxDB.setDatabase(dbName);
 
 		//KeyedDataPoint<latitude>
-		DataStream<KeyedDataPoint> gpsData = env.readTextFile("src/main/resources/time_lat_lon_aa3_gpsx.csv")
+		DataStream<KeyedDataPoint> fullData = env.readTextFile("src/main/resources/time_xIncr_yIncr_laserArr_full.csv")
 				.map(new ParseData());
 
-		gpsData.print();
-		gpsData.addSink(new InfluxDBSinkGPS("DBProTest", "gpstest"));
+		fullData.print();
+		//fullData.addSink(new InfluxDBSinkGPS("DBProTest", "gpstest"));
 		/*
 		 * Here, you can start creating your execution plan for Flink.
 		 *
@@ -110,7 +110,7 @@ public class StreamingJobMilestone {
 
 
 		@Override
-		public KeyedDataPoint<Tuple2> map(String record) {
+		public KeyedDataPoint<Tuple4> map(String record) {
 			//String rawData = record.substring(1, record.length() - 1);
 			String[] data = record.split(",");
 
@@ -119,10 +119,30 @@ public class StreamingJobMilestone {
 
 			//get timestamp, lat and lon from data
 			//store lat, lan in Tuple2<Double, Double>
-			long timestamp = Long.valueOf(data[0]);
-			Tuple2 latLong = new Tuple2<Double, Double>(Double.valueOf(data[1]), Double.valueOf(data[2]));
-			Object d = latLong.getField(0);			//create and return Datapoint with latitude
-			return new KeyedDataPoint<Tuple2>("gps",timestamp, latLong);
+			long timestamp = Math.round(Double.valueOf(data[0]));
+			Double xInc = Double.valueOf(data[1]);
+			Double yInc = Double.valueOf(data[2]);
+			Double phiInc = Double.valueOf(data[3]);
+
+			String[] dataArr = data[4].split(",");
+			Double[] laserArr = new Double[dataArr.length];
+
+			System.out.println(data[4]);
+
+			for(int i=0; i<dataArr.length;i++){
+				String s = dataArr[i];
+				if(s.contains("[")){ s=s.substring(2);}
+				if(s.contains("]")){ s=s.substring(0,s.length()-2);}
+
+				laserArr[i] = Double.valueOf(s);
+			}
+			for(Double d : laserArr){
+				System.out.print(d);
+			}
+			System.out.println("---");
+
+			Tuple4 tuple = new Tuple4<Double, Double, Double, Double[]>(xInc, yInc, phiInc, laserArr);
+			return new KeyedDataPoint<Tuple4>("full",timestamp, tuple);
 		}
 	}
 }
