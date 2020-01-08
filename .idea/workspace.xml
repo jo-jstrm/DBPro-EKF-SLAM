@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a0e545e7-aebc-4cdf-baf2-769a8b8a86f3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/StreamingJobMilestone.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/StreamingJobMilestone.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/functions/MoveFunction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/functions/MoveFunction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/positionWithLmrks.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/positionWithLmrks.csv" afterDir="false" />
-    </list>
+    <list default="true" id="a0e545e7-aebc-4cdf-baf2-769a8b8a86f3" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -196,7 +191,7 @@
       <workItem from="1576242346398" duration="8062000" />
       <workItem from="1576255100970" duration="4938000" />
       <workItem from="1576488766696" duration="4044000" />
-      <workItem from="1578499212257" duration="3981000" />
+      <workItem from="1578499212257" duration="4251000" />
     </task>
     <task id="LOCAL-00001" summary="added resources">
       <created>1574079898027</created>
@@ -282,7 +277,14 @@
       <option name="project" value="LOCAL" />
       <updated>1576490642665</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="added ; as delimiter&#10;&#10;fixed calculation of landmark coordinates">
+      <created>1578510032377</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1578510032378</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -312,6 +314,7 @@
     <MESSAGE value="New Branch for Laser data" />
     <MESSAGE value="calculate landmark positions" />
     <MESSAGE value="Added R scripts" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added R scripts" />
+    <MESSAGE value="added ; as delimiter&#10;&#10;fixed calculation of landmark coordinates" />
+    <option name="LAST_COMMIT_MESSAGE" value="added ; as delimiter&#10;&#10;fixed calculation of landmark coordinates" />
   </component>
 </project>
