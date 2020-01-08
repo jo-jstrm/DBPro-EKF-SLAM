@@ -86,7 +86,7 @@ public class StreamingJobMilestone {
 				.flatMap(new MoveFunction());
 
 		fullData.map(new getTuple4())
-				.writeAsCsv("src/main/resources/positionWithLmrks.csv", FileSystem.WriteMode.OVERWRITE);
+				.writeAsCsv("src/main/resources/positionWithLmrks.csv", FileSystem.WriteMode.OVERWRITE, "\n",";");
 		//fullData.addSink(new InfluxDBSinkGPS("DBProTest", "gpstest"));
 		/*
 		 * Here, you can start creating your execution plan for Flink.

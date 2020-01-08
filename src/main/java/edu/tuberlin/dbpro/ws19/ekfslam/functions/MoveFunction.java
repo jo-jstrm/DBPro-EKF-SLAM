@@ -62,8 +62,8 @@ public class MoveFunction extends RichFlatMapFunction<KeyedDataPoint, KeyedDataP
             if(laserArr[i] == 0.0 || laserArr[i] > 80.0){continue;}
             else{
                 double degrees = i*0.5;
-                double lx = getCoordinate(degrees, laserArr[i], phi, true);
-                double ly = getCoordinate(degrees, laserArr[i], phi, false);
+                double lx = x2 + getCoordinate(degrees, laserArr[i], phi, true);
+                double ly = y2 + getCoordinate(degrees, laserArr[i], phi, false);
 
                 Tuple2 tuple = new Tuple2(lx,ly);
                 landmarks.add(tuple);
