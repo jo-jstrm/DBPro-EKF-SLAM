@@ -2,17 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a0e545e7-aebc-4cdf-baf2-769a8b8a86f3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/Mark.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/R_User_Library.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dbpro-ekf-slam.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/StreamingJobSingleTrees.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/functions/ClassifyTrees.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/Test.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/positionWithTrees.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/positionWithLmrks.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/positionWithLmrks.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/testcsvODO.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/testcsvODO.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/functions/ClassifyTrees.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/functions/ClassifyTrees.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/Test.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -94,7 +86,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Test">
+  <component name="RunManager" selected="Application.StreamingJobSingleTrees">
     <configuration name="ColtTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.colt.ColtTest" />
       <module name="dbpro-ekf-slam" />
@@ -151,6 +143,7 @@
       </method>
     </configuration>
     <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="INCLUDE_PROVIDED_SCOPE" value="true" />
       <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.mark.Test" />
       <module name="dbpro-ekf-slam" />
       <extension name="coverage">
@@ -172,8 +165,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Test" />
         <item itemvalue="Application.StreamingJobSingleTrees" />
+        <item itemvalue="Application.Test" />
         <item itemvalue="Application.StreamingJobMilestone" />
         <item itemvalue="Application.StreamingJobTest" />
         <item itemvalue="Application.ColtTest" />
@@ -203,7 +196,7 @@
       <workItem from="1576242346398" duration="8062000" />
       <workItem from="1576255100970" duration="4938000" />
       <workItem from="1576488766696" duration="1606000" />
-      <workItem from="1578501208336" duration="15627000" />
+      <workItem from="1578501208336" duration="19270000" />
     </task>
     <task id="LOCAL-00001" summary="added resources">
       <created>1574079898027</created>
@@ -282,7 +275,14 @@
       <option name="project" value="LOCAL" />
       <updated>1576260907594</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="work in progress landmark determination">
+      <created>1578578475621</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1578578475622</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -312,6 +312,7 @@
     <MESSAGE value="Output of x and y values for fiven odo and steering/speed data. Out in csv and plottet in R" />
     <MESSAGE value="New Branch for Laser data" />
     <MESSAGE value="calculate landmark positions" />
-    <option name="LAST_COMMIT_MESSAGE" value="calculate landmark positions" />
+    <MESSAGE value="work in progress landmark determination" />
+    <option name="LAST_COMMIT_MESSAGE" value="work in progress landmark determination" />
   </component>
 </project>

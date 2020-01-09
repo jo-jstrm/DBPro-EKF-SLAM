@@ -1,6 +1,5 @@
 package edu.tuberlin.dbpro.ws19.ekfslam.mark;
 
-import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.api.java.tuple.Tuple3;
 
 import java.util.ArrayList;
@@ -47,7 +46,7 @@ public class Test {
         }
         return filtered;
     }
-    public Double getCoordinate(Double degrees, Double gamma, Double phi, Boolean isX) {
+    public static Double getCoordinate(Double degrees, Double gamma, Double phi, Boolean isX) {
         if (isX) {
             double x = gamma * Math.cos(Math.toRadians(degrees) - Math.toRadians(90) + phi) + 3.78;
             return x;
@@ -105,10 +104,28 @@ public class Test {
     public static ArrayList<Tuple3> getSingleCoordinateTrees(Double[] input){
         ArrayList<ArrayList<Integer>> trees = getTrees(input);
         ArrayList<Double> deltas = deltaBeta(input);
-        ArrayList<Double> averages = averageDistance(input);
-
-
-
+        ArrayList<Double> diameters = getDiameters(input);
+        ArrayList<Tuple3> singleCoordinateTrees = new ArrayList<>();
+        for (int i = 0; i < trees.size(); i++) {
+            System.out.println("Degrees by index: " + trees.get(i).get(0)*0.5 + "; Half deltaBeta to Degree: " + Math.toDegrees(deltas.get(i)/2));
+            Double degrees = trees.get(i).get(0)*0.5 + Math.toDegrees(deltas.get(i)/2);
+            Double minDistance = 1000000.0;
+            for (int j = 0; j < trees.get(i).size(); j++) {
+                if(input[trees.get(i).get(j)] < minDistance){
+                    minDistance = input[trees.get(i).get(j)];
+                }
+            }
+            Double diameter = diameters.get(i);
+            Double radius = diameter/2;
+            Double distanceToCentre = minDistance + radius;
+            System.out.println("minDistance: " + minDistance + "; Radius: " + radius);
+            Double xCoordinate = getCoordinate(degrees, distanceToCentre, 0.0, true);
+            Double yCoordinate = getCoordinate(degrees, distanceToCentre, 0.0, false);
+            Tuple3 tuple = new Tuple3(xCoordinate,yCoordinate,diameter);
+            singleCoordinateTrees.add(tuple);
+            System.out.println(tuple.toString());
+        }
+        return singleCoordinateTrees;
     }
     public static void main(String[] args) {
 
@@ -127,5 +144,6 @@ public class Test {
         //deltaBeta(input);
         //averageDistance(input);
         getDiameters(input);
+        getSingleCoordinateTrees(input);
     }
 }

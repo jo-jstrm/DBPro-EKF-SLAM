@@ -53,22 +53,22 @@ public class ClassifyTrees extends RichFlatMapFunction<KeyedDataPoint, KeyedData
         double phi = phi_ + phiinc;
 
         //work with LaserArray
-        ArrayList<Tuple2> landmarks = new ArrayList<>();
-        for(int i = 0; i<laserArr.length;i++){
-            if(laserArr[i] == 0.0 || laserArr[i] > 80.0){continue;}
-            else{
-                double degrees = i*0.5;
-                double lx = getCoordinate(degrees, laserArr[i], phi, true);
-                double ly = getCoordinate(degrees, laserArr[i], phi, false);
+//        ArrayList<Tuple2> landmarks = new ArrayList<>();
+//        for(int i = 0; i<laserArr.length;i++){
+//            if(laserArr[i] == 0.0 || laserArr[i] > 80.0){continue;}
+//            else{
+//                double degrees = i*0.5;
+//                double lx = getCoordinate(degrees, laserArr[i], phi, true);
+//                double ly = getCoordinate(degrees, laserArr[i], phi, false);
+//
+//                Tuple2 tuple = new Tuple2(lx,ly);
+//                landmarks.add(tuple);
+//            }
+//        }
 
-                Tuple2 tuple = new Tuple2(lx,ly);
-                landmarks.add(tuple);
-            }
-        }
-
-
+        ArrayList<Tuple3> trees = getSingleCoordinateTrees(laserArr, phi);
         //returns
-        Tuple3 res = new Tuple3<Double, Double, ArrayList<Tuple2>>(x2,y2,landmarks);
+        Tuple3 res = new Tuple3<Double, Double, ArrayList<Tuple3>>(x2,y2,trees);
         Tuple3 update = new Tuple3<Double, Double, Double>(x2,y2,phi);
         filterParams.update(update);
 
@@ -95,23 +95,8 @@ public class ClassifyTrees extends RichFlatMapFunction<KeyedDataPoint, KeyedData
             return y;
         }
     }
-    public ArrayList<ArrayList<Integer>> removeZeroClusters(Double[] input){
-        ArrayList<ArrayList<Integer>> clustered = getIndices(input);
-        ArrayList<ArrayList<Integer>> filtered = new ArrayList<>();
-        for (ArrayList<Integer> ints : clustered){
-            Double sum = 0.0;
-            for (Integer i : ints) {
-                sum += input[i];
-            }
-            if(sum > 0.0){
-                //System.out.println("Add");
-                filtered.add(ints);
-            }
-        }
-        return filtered;
-    }
-    public ArrayList<ArrayList<Integer>> getIndices(Double[] input){
-        Double rangeTolerance = 0.9;
+    private ArrayList<ArrayList<Integer>> getIndices(Double[] input){
+        Double rangeTolerance = 1.1;
         ArrayList<ArrayList<Integer>> indicesArr = new ArrayList<>();
         ArrayList<Integer> cluster = new ArrayList<>();
         cluster.add(0);
@@ -135,5 +120,92 @@ public class ClassifyTrees extends RichFlatMapFunction<KeyedDataPoint, KeyedData
 //        }
 //        System.out.println(indicesArr.get(0).get(0));
         return indicesArr;
+    }
+    private ArrayList<ArrayList<Integer>> removeZeroClusters(Double[] input){
+        ArrayList<ArrayList<Integer>> clustered = getIndices(input);
+        ArrayList<ArrayList<Integer>> filtered = new ArrayList<>();
+        for (ArrayList<Integer> ints : clustered){
+            Double sum = 0.0;
+            for (Integer i : ints) {
+                sum += input[i];
+            }
+            if(sum > 0.0){
+                //System.out.println("Add");
+                filtered.add(ints);
+            }
+        }
+        return filtered;
+    }
+    public ArrayList<Double> deltaBeta(Double[] input){
+        ArrayList<ArrayList<Integer>> trees = removeZeroClusters(input);
+        ArrayList<Double> deltas = new ArrayList<>();
+        for (ArrayList<Integer> trunk : trees){
+            Double delta = ( trunk.get(trunk.size()-1) - trunk.get(0) + 1 ) * Math.PI / 360;
+            deltas.add(delta);
+            System.out.println(trunk.get(0) + " First index; " + trunk.get(trunk.size()-1) + " Second index; " + delta);
+        }
+        return deltas;
+    }
+    public ArrayList<Double> averageDistance(Double[] input){
+        ArrayList<ArrayList<Integer>> trees = removeZeroClusters(input);
+        ArrayList<Double> averages = new ArrayList<>();
+        for (ArrayList<Integer> trunk : trees) {
+            Double sum = 0.0;
+            for (Integer i : trunk) {
+                sum += input[i];
+            }
+            System.out.println(trunk.get(trunk.size()-1) + " Last; " + trunk.get(0) + " First");
+            Integer divider = ( trunk.get(trunk.size()-1) - trunk.get(0) + 1 );
+            Double average = sum / divider;
+            averages.add(average);
+            System.out.println(sum + " Sum; " + average + "; Divider " + divider);
+        }
+        return averages;
+    }
+    public ArrayList<Double> getDiameters(Double[] input){
+        ArrayList<Double> deltas = deltaBeta(input);
+        ArrayList<Double> averages = averageDistance(input);
+        if(deltas.size() != averages.size()){
+            throw new IllegalStateException("Diameters cannot be calculated!");
+        }
+        ArrayList<Double> diameters = new ArrayList<>();
+        for (int i = 0; i < deltas.size(); i++) {
+            Double diameter = deltas.get(i) * averages.get(i);
+            System.out.println(diameter);
+            diameters.add(diameter);
+        }
+        return diameters;
+    }
+    public ArrayList<ArrayList<Integer>> getTrees(Double[] input){
+        return removeZeroClusters(input);
+    }
+    /*
+    Return trees as an X and Y coordinate with the diameter of the tree as a triple
+     */
+    public ArrayList<Tuple3> getSingleCoordinateTrees(Double[] input, Double phi){
+        ArrayList<ArrayList<Integer>> trees = getTrees(input);
+        ArrayList<Double> deltas = deltaBeta(input);
+        ArrayList<Double> diameters = getDiameters(input);
+        ArrayList<Tuple3> singleCoordinateTrees = new ArrayList<>();
+        for (int i = 0; i < trees.size(); i++) {
+            System.out.println("Degrees by index: " + trees.get(i).get(0)*0.5 + "; Half deltaBeta to Degree: " + Math.toDegrees(deltas.get(i)/2));
+            Double degrees = trees.get(i).get(0)*0.5 + Math.toDegrees(deltas.get(i)/2);
+            Double minDistance = 1000000.0;
+            for (int j = 0; j < trees.get(i).size(); j++) {
+                if(input[trees.get(i).get(j)] < minDistance){
+                    minDistance = input[trees.get(i).get(j)];
+                }
+            }
+            Double diameter = diameters.get(i);
+            Double radius = diameter/2;
+            Double distanceToCentre = minDistance + radius;
+            System.out.println("minDistance: " + minDistance + "; Radius: " + radius);
+            Double xCoordinate = getCoordinate(degrees, distanceToCentre, phi, true);
+            Double yCoordinate = getCoordinate(degrees, distanceToCentre, phi, false);
+            Tuple3 tuple = new Tuple3(xCoordinate,yCoordinate,diameter);
+            singleCoordinateTrees.add(tuple);
+            System.out.println(tuple.toString());
+        }
+        return singleCoordinateTrees;
     }
 }
