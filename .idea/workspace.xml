@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a0e545e7-aebc-4cdf-baf2-769a8b8a86f3" name="Default Changelist" comment="added resources">
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/sinks/InfluxDBSinkSensor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/functions/DiskreteKalmanFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="a0e545e7-aebc-4cdf-baf2-769a8b8a86f3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/StreamingJob.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/StreamingJob.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/StreamingJobTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/StreamingJobTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/sinks/InfluxDBSinkGPS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/sinks/InfluxDBSinkGPS.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/functions/ClassifyTrees.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/functions/ClassifyTrees.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/Test.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -27,15 +23,19 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="ROOT_SYNC" value="DONT_SYNC" />
     <option name="UPDATE_TYPE" value="MERGE" />
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="Colt" />
+      </map>
+    </option>
   </component>
   <component name="MavenImportPreferences">
     <option name="importingSettings">
       <MavenImportingSettings>
         <option name="importAutomatically" value="true" />
-        <option name="jdkForImporter" value="1.8" />
       </MavenImportingSettings>
     </option>
   </component>
@@ -47,14 +47,24 @@
     <option name="version" value="1" />
   </component>
   <component name="ProjectId" id="1TeuvH2HPovuoHPt1kwjB5PXZvu" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../DBPRO/IMPRO-DBPRO-WS19-20-Tutorial" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="settings.github" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.editor" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -76,12 +86,37 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.StreamingJob">
-    <configuration name="StreamingJob" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="ALTERNATIVE_JRE_PATH" value="1.8" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+  <component name="RunManager" selected="Application.StreamingJobSingleTrees">
+    <configuration name="ColtTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.colt.ColtTest" />
+      <module name="dbpro-ekf-slam" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.tuberlin.dbpro.ws19.ekfslam.colt.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="StreamingJobMilestone" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="INCLUDE_PROVIDED_SCOPE" value="true" />
-      <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.StreamingJob" />
+      <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.StreamingJobMilestone" />
+      <module name="dbpro-ekf-slam" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.tuberlin.dbpro.ws19.ekfslam.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="StreamingJobSingleTrees" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="INCLUDE_PROVIDED_SCOPE" value="true" />
+      <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.StreamingJobSingleTrees" />
       <module name="dbpro-ekf-slam" />
       <extension name="coverage">
         <pattern>
@@ -107,14 +142,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="ALTERNATIVE_JRE_PATH" value="11.0.4" />
+    <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="INCLUDE_PROVIDED_SCOPE" value="true" />
-      <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.test" />
+      <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.mark.Test" />
       <module name="dbpro-ekf-slam" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="edu.tuberlin.dbpro.ws19.ekfslam.*" />
+          <option name="PATTERN" value="edu.tuberlin.dbpro.ws19.ekfslam.mark.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -123,15 +157,19 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.StreamingJob" />
       <item itemvalue="Application.StreamingJobTest" />
-      <item itemvalue="Application.test" />
+      <item itemvalue="Application.ColtTest" />
+      <item itemvalue="Application.StreamingJobMilestone" />
+      <item itemvalue="Application.StreamingJobSingleTrees" />
+      <item itemvalue="Application.Test" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.StreamingJob" />
+        <item itemvalue="Application.StreamingJobSingleTrees" />
+        <item itemvalue="Application.Test" />
+        <item itemvalue="Application.StreamingJobMilestone" />
         <item itemvalue="Application.StreamingJobTest" />
-        <item itemvalue="Application.test" />
+        <item itemvalue="Application.ColtTest" />
       </list>
     </recent_temporary>
   </component>
@@ -140,7 +178,7 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="da75aaa0-46c4-442c-9a22-8d9caa5f2700" name="Default Changelist" comment="" />
+      <changelist id="a0e545e7-aebc-4cdf-baf2-769a8b8a86f3" name="Default Changelist" comment="added resources" />
       <created>1573833110993</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -150,6 +188,15 @@
       <workItem from="1574110536759" duration="4411000" />
       <workItem from="1574157536575" duration="8005000" />
       <workItem from="1574427335525" duration="2413000" />
+      <workItem from="1575040522218" duration="891000" />
+      <workItem from="1575278495473" duration="5690000" />
+      <workItem from="1575635112153" duration="17543000" />
+      <workItem from="1575821066379" duration="74000" />
+      <workItem from="1575881482020" duration="2557000" />
+      <workItem from="1576242346398" duration="8062000" />
+      <workItem from="1576255100970" duration="4938000" />
+      <workItem from="1576488766696" duration="1606000" />
+      <workItem from="1578501208336" duration="19270000" />
     </task>
     <task id="LOCAL-00001" summary="added resources">
       <created>1574079898027</created>
@@ -172,7 +219,70 @@
       <option name="project" value="LOCAL" />
       <updated>1574176680873</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="removed previous resources">
+      <created>1575042764713</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1575042764713</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Removed Colt completely">
+      <created>1575043039726</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1575043039726</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Added BeneTestColt, EKFSLAM-Function and Parse data for laser_full">
+      <created>1575047983755</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1575047983755</updated>
+    </task>
+    <task id="LOCAL-00007" summary="worked in dieskretekalmanfunction">
+      <created>1575646436585</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1575646436585</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Output of x and y values for fiven odo and steering/speed data. Out in csv and plottet in R">
+      <created>1575653452688</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1575653452688</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Output of x and y values for fiven odo and steering/speed data. Out in csv and plottet in R">
+      <created>1575821094063</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1575821094063</updated>
+    </task>
+    <task id="LOCAL-00010" summary="New Branch for Laser data">
+      <created>1576254315545</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1576254315545</updated>
+    </task>
+    <task id="LOCAL-00011" summary="calculate landmark positions">
+      <created>1576260907594</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1576260907594</updated>
+    </task>
+    <task id="LOCAL-00012" summary="work in progress landmark determination">
+      <created>1578578475621</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1578578475622</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -192,7 +302,17 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="added resources" />
-    <option name="LAST_COMMIT_MESSAGE" value="added resources" />
+    <MESSAGE value="removed previous resources" />
+    <MESSAGE value="Removed Colt completely" />
+    <MESSAGE value="Latest try to add colt 1.2.0 with maven" />
+    <MESSAGE value="Added BeneTestColt, EKFSLAM-Function and Parse data for laser_full" />
+    <MESSAGE value="worked in dieskretekalmanfunction" />
+    <MESSAGE value="Output of x and y values for fiven odo and steering/speed data. Out in csv and plottet in R" />
+    <MESSAGE value="New Branch for Laser data" />
+    <MESSAGE value="calculate landmark positions" />
+    <MESSAGE value="work in progress landmark determination" />
+    <option name="LAST_COMMIT_MESSAGE" value="work in progress landmark determination" />
   </component>
 </project>

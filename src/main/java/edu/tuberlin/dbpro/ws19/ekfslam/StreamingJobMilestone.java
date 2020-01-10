@@ -19,6 +19,7 @@
 package edu.tuberlin.dbpro.ws19.ekfslam;
 
 import edu.tuberlin.dbpro.ws19.ekfslam.data.KeyedDataPoint;
+import edu.tuberlin.dbpro.ws19.ekfslam.functions.MoveFunction;
 import edu.tuberlin.dbpro.ws19.ekfslam.sinks.InfluxDBSink;
 import edu.tuberlin.dbpro.ws19.ekfslam.sinks.InfluxDBSinkGPS;
 import edu.tuberlin.dbpro.ws19.ekfslam.util.KeyFunction;
@@ -47,7 +48,9 @@ import org.influxdb.dto.Query;
 import edu.tuberlin.dbpro.ws19.ekfslam.data.*;
 
 import java.io.DataOutputStream;
+import java.lang.reflect.Array;
 import java.security.Key;
+import java.util.ArrayList;
 
 /**
  * Skeleton for a Flink Streaming Job.
@@ -66,6 +69,7 @@ public class StreamingJobMilestone {
 	public static void main(String[] args) throws Exception {
 		// set up the streaming execution environment
 		final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+		env.setParallelism(1);
 
 		env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
 		@SuppressWarnings({"rawtypes", "serial"})
@@ -76,11 +80,14 @@ public class StreamingJobMilestone {
 		influxDB.setDatabase(dbName);
 
 		//KeyedDataPoint<latitude>
-		DataStream<KeyedDataPoint> gpsData = env.readTextFile("src/main/resources/time_lat_lon_aa3_gpsx.csv")
-				.map(new ParseData());
+		DataStream<KeyedDataPoint> fullData = env.readTextFile("src/main/resources/time_xIncr_yIncr_laserArr_full.csv")
+				.map(new ParseData())
+				.keyBy("key")
+				.flatMap(new MoveFunction());
 
-		gpsData.print();
-		gpsData.addSink(new InfluxDBSinkGPS("DBProTest", "gpstest"));
+		fullData.map(new getTuple4())
+				.writeAsCsv("src/main/resources/positionWithLmrks.csv", FileSystem.WriteMode.OVERWRITE, "\n",";");
+		//fullData.addSink(new InfluxDBSinkGPS("DBProTest", "gpstest"));
 		/*
 		 * Here, you can start creating your execution plan for Flink.
 		 *
@@ -110,7 +117,7 @@ public class StreamingJobMilestone {
 
 
 		@Override
-		public KeyedDataPoint<Tuple2> map(String record) {
+		public KeyedDataPoint<Tuple4> map(String record) {
 			//String rawData = record.substring(1, record.length() - 1);
 			String[] data = record.split(",");
 
@@ -119,10 +126,33 @@ public class StreamingJobMilestone {
 
 			//get timestamp, lat and lon from data
 			//store lat, lan in Tuple2<Double, Double>
-			long timestamp = Long.valueOf(data[0]);
-			Tuple2 latLong = new Tuple2<Double, Double>(Double.valueOf(data[1]), Double.valueOf(data[2]));
-			Object d = latLong.getField(0);			//create and return Datapoint with latitude
-			return new KeyedDataPoint<Tuple2>("gps",timestamp, latLong);
+			long timestamp = Math.round(Double.valueOf(data[0]));
+			Double xInc = Double.valueOf(data[1]);
+			Double yInc = Double.valueOf(data[2]);
+			Double phiInc = Double.valueOf(data[3]);
+
+			Double[] laserArr = new Double[data.length-4];
+
+			for(int i=4; i<data.length;i++){
+				String s = data[i];
+				if(s.contains("[")){ s=s.substring(2);}
+				if(s.contains("]")){ s=s.substring(0,s.length()-2);}
+
+				laserArr[i-4] = Double.valueOf(s);
+			}
+
+			Tuple4 tuple = new Tuple4<Double, Double, Double, Double[]>(xInc, yInc, phiInc, laserArr);
+			return new KeyedDataPoint<Tuple4>("full",timestamp, tuple);
+		}
+	}
+
+	private static class getTuple4 extends RichMapFunction<KeyedDataPoint, Tuple4<Long, Double, Double, ArrayList<Double>>>{
+
+		@Override
+		public Tuple4<Long, Double, Double, ArrayList<Double>> map(KeyedDataPoint value){
+			Tuple3<Double, Double, ArrayList<Double>> val = (Tuple3<Double, Double, ArrayList<Double>>) value.getValue();
+			long time = value.getTimeStampMs();
+			return new Tuple4<>(time, val.f0, val.f1, val.f2);
 		}
 	}
 }
