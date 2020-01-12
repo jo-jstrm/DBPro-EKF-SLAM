@@ -2,9 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a0e545e7-aebc-4cdf-baf2-769a8b8a86f3" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/util/CSVMerger.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/gps_and_odo" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/gps_and_odo.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/gps_and_odo_sorted.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/functions/ClassifyTrees.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/functions/ClassifyTrees.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dbpro-ekf-slam.iml" beforeDir="false" afterPath="$PROJECT_DIR$/dbpro-ekf-slam.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/StreamingJobTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/StreamingJobTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/colt/BeneColtTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/colt/BeneColtTest.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -67,6 +73,9 @@
     <property name="settings.editor.selected.configurable" value="preferences.editor" />
   </component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="edu.tuberlin.dbpro.ws19.ekfslam" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="edu.tuberlin.dbpro.ws19.ekfslam" />
     </key>
@@ -86,9 +95,9 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.StreamingJobSingleTrees">
-    <configuration name="ColtTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.colt.ColtTest" />
+  <component name="RunManager" selected="Application.StreamingJobTest">
+    <configuration name="BeneColtTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.colt.BeneColtTest" />
       <module name="dbpro-ekf-slam" />
       <extension name="coverage">
         <pattern>
@@ -100,13 +109,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="StreamingJobMilestone" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="INCLUDE_PROVIDED_SCOPE" value="true" />
-      <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.StreamingJobMilestone" />
+    <configuration name="CSVMerger" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.util.CSVMerger" />
       <module name="dbpro-ekf-slam" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="edu.tuberlin.dbpro.ws19.ekfslam.*" />
+          <option name="PATTERN" value="edu.tuberlin.dbpro.ws19.ekfslam.util.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -157,19 +165,19 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.StreamingJobTest" />
-      <item itemvalue="Application.ColtTest" />
-      <item itemvalue="Application.StreamingJobMilestone" />
       <item itemvalue="Application.StreamingJobSingleTrees" />
       <item itemvalue="Application.Test" />
+      <item itemvalue="Application.BeneColtTest" />
+      <item itemvalue="Application.CSVMerger" />
+      <item itemvalue="Application.StreamingJobTest" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.StreamingJobTest" />
+        <item itemvalue="Application.CSVMerger" />
+        <item itemvalue="Application.BeneColtTest" />
         <item itemvalue="Application.StreamingJobSingleTrees" />
         <item itemvalue="Application.Test" />
-        <item itemvalue="Application.StreamingJobMilestone" />
-        <item itemvalue="Application.StreamingJobTest" />
-        <item itemvalue="Application.ColtTest" />
       </list>
     </recent_temporary>
   </component>
@@ -197,6 +205,8 @@
       <workItem from="1576255100970" duration="4938000" />
       <workItem from="1576488766696" duration="1606000" />
       <workItem from="1578501208336" duration="19270000" />
+      <workItem from="1578664585764" duration="6826000" />
+      <workItem from="1578847805827" duration="828000" />
     </task>
     <task id="LOCAL-00001" summary="added resources">
       <created>1574079898027</created>
