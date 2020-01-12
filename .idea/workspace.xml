@@ -2,15 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a0e545e7-aebc-4cdf-baf2-769a8b8a86f3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/util/CSVMerger.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/gps_and_odo" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/gps_and_odo.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/gps_and_odo_sorted.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dbpro-ekf-slam.iml" beforeDir="false" afterPath="$PROJECT_DIR$/dbpro-ekf-slam.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/StreamingJobTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/StreamingJobTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/colt/BeneColtTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/colt/BeneColtTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/functions/EkfSlam.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/functions/EkfSlam.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -63,6 +56,7 @@
     <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="Repository.Attach.Sources" value="false" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="TODO_SCOPE" value="All Places" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../DBPRO/IMPRO-DBPRO-WS19-20-Tutorial" />
@@ -206,7 +200,7 @@
       <workItem from="1576488766696" duration="1606000" />
       <workItem from="1578501208336" duration="19270000" />
       <workItem from="1578664585764" duration="6826000" />
-      <workItem from="1578847805827" duration="828000" />
+      <workItem from="1578847805827" duration="2112000" />
     </task>
     <task id="LOCAL-00001" summary="added resources">
       <created>1574079898027</created>
@@ -292,7 +286,14 @@
       <option name="project" value="LOCAL" />
       <updated>1578578475622</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="push for mark">
+      <created>1578849428557</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1578849428557</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -323,6 +324,7 @@
     <MESSAGE value="New Branch for Laser data" />
     <MESSAGE value="calculate landmark positions" />
     <MESSAGE value="work in progress landmark determination" />
-    <option name="LAST_COMMIT_MESSAGE" value="work in progress landmark determination" />
+    <MESSAGE value="push for mark" />
+    <option name="LAST_COMMIT_MESSAGE" value="push for mark" />
   </component>
 </project>
