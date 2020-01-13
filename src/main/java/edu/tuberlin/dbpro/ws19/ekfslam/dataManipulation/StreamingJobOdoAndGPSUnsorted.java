@@ -1,10 +1,8 @@
-package edu.tuberlin.dbpro.ws19.ekfslam;
+package edu.tuberlin.dbpro.ws19.ekfslam.dataManipulation;
 
 import edu.tuberlin.dbpro.ws19.ekfslam.data.KeyedDataPoint;
-import edu.tuberlin.dbpro.ws19.ekfslam.functions.MoveFunction;
 import org.apache.flink.api.common.functions.RichMapFunction;
 import org.apache.flink.api.java.tuple.Tuple2;
-import org.apache.flink.api.java.tuple.Tuple3;
 import org.apache.flink.api.java.tuple.Tuple4;
 import org.apache.flink.core.fs.FileSystem;
 import org.apache.flink.streaming.api.TimeCharacteristic;
@@ -15,7 +13,7 @@ import org.influxdb.InfluxDB;
 import org.influxdb.InfluxDBFactory;
 import org.influxdb.dto.Query;
 
-public class StreamingJobTest {
+public class StreamingJobOdoAndGPSUnsorted {
     public static void main(String[] args) throws Exception {
         // set up the streaming execution environment
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
@@ -34,7 +32,7 @@ public class StreamingJobTest {
                 .connect(env.readTextFile("src/main/resources/time_lat_lon_aa3_gpsx.csv"))
                 .map(new Parse2Data());
 
-        fullData.map(new StreamingJobTest.getTuple4())
+        fullData.map(new StreamingJobOdoAndGPSUnsorted.getTuple4())
                 .writeAsCsv("src/main/resources/gps_and_odo.csv", FileSystem.WriteMode.OVERWRITE);
 
 

@@ -2,10 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a0e545e7-aebc-4cdf-baf2-769a8b8a86f3" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/dataManipulation/StreamingJobMatchNumberOfOdoToGPS.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/dataManipulation/StreamingJobOdoAndGPSUnsorted.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/dataManipulation/StreamingJobPositionAndLmrks.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/gps_and_odo_matched.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/functions/EkfSlam.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/functions/EkfSlam.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/StreamingJobTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/StreamingJobTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/gps_and_odo_sorted.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/gps_and_odo_sorted.csv" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -49,6 +56,11 @@
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="Downloaded.Files.Path.Enabled" value="false" />
@@ -60,6 +72,12 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../DBPRO/IMPRO-DBPRO-WS19-20-Tutorial" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
@@ -67,29 +85,18 @@
     <property name="settings.editor.selected.configurable" value="preferences.editor" />
   </component>
   <component name="RecentsManager">
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="edu.tuberlin.dbpro.ws19.ekfslam" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="edu.tuberlin.dbpro.ws19.ekfslam" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\jjest\InformatikSoftware\gitstuff\DBPro-EKF-SLAM\src\main\resources" />
     </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="edu.tuberlin.dbpro.ws19.ekfslam.dataManipulation" />
+      <recent name="edu.tuberlin.dbpro.ws19.ekfslam" />
+    </key>
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="edu.tuberlin.dbpro.ws19.ekfslam" />
+    </key>
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
-  <component name="RunManager" selected="Application.StreamingJobTest">
+  <component name="RunManager" selected="Application.StreamingJobMatchNumberOfOdoToGPS">
     <configuration name="BeneColtTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.colt.BeneColtTest" />
       <module name="dbpro-ekf-slam" />
@@ -109,6 +116,19 @@
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="edu.tuberlin.dbpro.ws19.ekfslam.util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="StreamingJobMatchNumberOfOdoToGPS" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.dataManipulation.StreamingJobMatchNumberOfOdoToGPS" />
+      <module name="dbpro-ekf-slam" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.tuberlin.dbpro.ws19.ekfslam.dataManipulation.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -144,36 +164,34 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="INCLUDE_PROVIDED_SCOPE" value="true" />
-      <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.mark.Test" />
-      <module name="dbpro-ekf-slam" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="edu.tuberlin.dbpro.ws19.ekfslam.mark.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <list>
       <item itemvalue="Application.StreamingJobSingleTrees" />
-      <item itemvalue="Application.Test" />
       <item itemvalue="Application.BeneColtTest" />
       <item itemvalue="Application.CSVMerger" />
       <item itemvalue="Application.StreamingJobTest" />
+      <item itemvalue="Application.StreamingJobMatchNumberOfOdoToGPS" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.StreamingJobMatchNumberOfOdoToGPS" />
         <item itemvalue="Application.StreamingJobTest" />
         <item itemvalue="Application.CSVMerger" />
         <item itemvalue="Application.BeneColtTest" />
         <item itemvalue="Application.StreamingJobSingleTrees" />
-        <item itemvalue="Application.Test" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -201,6 +219,7 @@
       <workItem from="1578501208336" duration="19270000" />
       <workItem from="1578664585764" duration="6826000" />
       <workItem from="1578847805827" duration="2112000" />
+      <workItem from="1578930387615" duration="14515000" />
     </task>
     <task id="LOCAL-00001" summary="added resources">
       <created>1574079898027</created>
@@ -326,5 +345,43 @@
     <MESSAGE value="work in progress landmark determination" />
     <MESSAGE value="push for mark" />
     <option name="LAST_COMMIT_MESSAGE" value="push for mark" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="461" y="272" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1578931093642">
+      <screen x="0" y="0" width="1440" height="920" />
+    </state>
+    <state x="461" y="272" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1440.920@0.0.1440.920" timestamp="1578931093642" />
+    <state x="572" y="354" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1578930586228">
+      <screen x="0" y="0" width="1440" height="920" />
+    </state>
+    <state x="572" y="354" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1440.920@0.0.1440.920" timestamp="1578930586228" />
+    <state x="304" y="60" key="CommitChangelistDialog2" timestamp="1578947137493">
+      <screen x="0" y="0" width="1440" height="920" />
+    </state>
+    <state x="304" y="60" key="CommitChangelistDialog2/0.0.1440.920@0.0.1440.920" timestamp="1578947137493" />
+    <state width="1397" height="242" key="GridCell.Tab.0.bottom" timestamp="1578947137753">
+      <screen x="0" y="0" width="1440" height="920" />
+    </state>
+    <state width="1397" height="242" key="GridCell.Tab.0.bottom/0.0.1440.920@0.0.1440.920" timestamp="1578947137753" />
+    <state width="1397" height="242" key="GridCell.Tab.0.center" timestamp="1578947137753">
+      <screen x="0" y="0" width="1440" height="920" />
+    </state>
+    <state width="1397" height="242" key="GridCell.Tab.0.center/0.0.1440.920@0.0.1440.920" timestamp="1578947137753" />
+    <state width="1397" height="242" key="GridCell.Tab.0.left" timestamp="1578947137753">
+      <screen x="0" y="0" width="1440" height="920" />
+    </state>
+    <state width="1397" height="242" key="GridCell.Tab.0.left/0.0.1440.920@0.0.1440.920" timestamp="1578947137753" />
+    <state width="1397" height="242" key="GridCell.Tab.0.right" timestamp="1578947137753">
+      <screen x="0" y="0" width="1440" height="920" />
+    </state>
+    <state width="1397" height="242" key="GridCell.Tab.0.right/0.0.1440.920@0.0.1440.920" timestamp="1578947137753" />
+    <state x="251" y="120" key="Maven.ArtifactSearchDialog" timestamp="1578933149212">
+      <screen x="0" y="0" width="1440" height="920" />
+    </state>
+    <state x="251" y="120" key="Maven.ArtifactSearchDialog/0.0.1440.920@0.0.1440.920" timestamp="1578933149212" />
+    <state x="429" y="290" key="com.intellij.ide.util.TipDialog" timestamp="1578930498781">
+      <screen x="0" y="0" width="1440" height="920" />
+    </state>
+    <state x="429" y="290" key="com.intellij.ide.util.TipDialog/0.0.1440.920@0.0.1440.920" timestamp="1578930498781" />
   </component>
 </project>
