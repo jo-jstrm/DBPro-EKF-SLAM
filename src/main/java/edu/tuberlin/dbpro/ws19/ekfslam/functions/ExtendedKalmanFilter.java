@@ -16,7 +16,7 @@ import org.apache.flink.api.java.tuple.Tuple4;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.util.Collector;
 
-public class EkfSlam extends RichFlatMapFunction<KeyedDataPoint, KeyedDataPoint> {
+public class ExtendedKalmanFilter extends RichFlatMapFunction<KeyedDataPoint, KeyedDataPoint> {
 
     private transient ValueState<Tuple2<DoubleMatrix1D, DoubleMatrix2D>> filterParams;
 
@@ -28,15 +28,13 @@ public class EkfSlam extends RichFlatMapFunction<KeyedDataPoint, KeyedDataPoint>
         theta = v/L*tan(alpha)
          */
 
-        /*
-        previous x, y, and phi readings from the Value state,
-        Construction of a Vector
-         */
+        //get input for prediction step
         Double x_prev = (Double) filterParams.value().f0.get(0);
         Double y_prev = (Double) filterParams.value().f0.get(1);
         Double phi_prev = (Double) filterParams.value().f0.get(2);
-
-
+        double[] previous = {x_prev, y_prev, phi_prev};
+        DoubleMatrix1D previousState = new DenseDoubleMatrix1D(3);
+        previousState.assign(previous);
 
         //predict a priori state
         Tuple3 input = (Tuple3) inputPoint.getValue();
@@ -57,3 +55,4 @@ public class EkfSlam extends RichFlatMapFunction<KeyedDataPoint, KeyedDataPoint>
         filterParams = getRuntimeContext().getState(descriptor);
     }
 }
+
