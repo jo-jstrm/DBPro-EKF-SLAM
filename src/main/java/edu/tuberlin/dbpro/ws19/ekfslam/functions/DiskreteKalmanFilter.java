@@ -1,5 +1,6 @@
 package edu.tuberlin.dbpro.ws19.ekfslam.functions;
 
+import cern.colt.matrix.DoubleMatrix2D;
 import edu.tuberlin.dbpro.ws19.ekfslam.data.KeyedDataPoint;
 import org.apache.flink.api.common.functions.RichFlatMapFunction;
 import org.apache.flink.api.common.state.ValueState;
@@ -11,6 +12,7 @@ import org.apache.flink.api.java.tuple.Tuple3;
 import org.apache.flink.api.java.tuple.Tuple4;
 import org.apache.flink.api.java.tuple.Tuple6;
 import org.apache.flink.configuration.Configuration;
+import org.apache.flink.types.DoubleValue;
 import org.apache.flink.util.Collector;
 
 /*
@@ -55,10 +57,17 @@ public class DiskreteKalmanFilter extends RichFlatMapFunction<KeyedDataPoint, Ke
         Double alpha = (Double) value.f0;
         Double nspeed = (Double) value.f1;
 
-        Double x = x_ + (speed*Math.cos(phi_)*timedif)/1000;
-        Double y = y_ + (speed*Math.sin(phi_)*(timedif))/1000;
-        Double phi = (speed*timedif*Math.tan(alpha))/(L*1000);
+        Double xinc = (speed*Math.cos(phi_)*timedif)/1000;
+        Double yinc = (speed*Math.sin(phi_)*(timedif))/1000;
+        Double phiinc = (speed*timedif*Math.tan(alpha))/(L*1000);
 
+        /*Double x = x_ + (-speed/alpha*Math.sin(phi_)+speed/alpha*Math.sin(phi_+alpha*timedif));
+        Double y = y_ + (speed/alpha*Math.cos(phi_) - speed/alpha*Math.cos(phi_ + alpha*timedif));
+        Double phi = phi_ + alpha*timedif;*/
+
+        double x = x_ + Math.cos(phi_ + phiinc/2)*xinc - Math.sin(phi_ + phiinc/2)*yinc;
+        double y = y_ + Math.sin(phi_ + phiinc/2)*xinc + Math.cos(phi_ + phiinc/2)*yinc;
+        double phi = phi_ + phiinc;
 
         //measurement update
         Double[] K = new Double[P_.length];
