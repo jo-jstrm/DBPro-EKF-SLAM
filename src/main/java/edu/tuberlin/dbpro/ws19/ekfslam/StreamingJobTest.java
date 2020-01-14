@@ -1,6 +1,5 @@
 package edu.tuberlin.dbpro.ws19.ekfslam;
 
-import com.sun.corba.se.spi.orb.ParserData;
 import edu.tuberlin.dbpro.ws19.ekfslam.data.KeyedDataPoint;
 import edu.tuberlin.dbpro.ws19.ekfslam.functions.MoveFunction;
 import org.apache.flink.api.common.functions.RichMapFunction;
