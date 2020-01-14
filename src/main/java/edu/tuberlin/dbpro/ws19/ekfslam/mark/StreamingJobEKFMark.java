@@ -9,6 +9,7 @@ import org.apache.flink.streaming.api.TimeCharacteristic;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 
 import java.security.Key;
+import java.util.Arrays;
 
 public class StreamingJobEKFMark {
     public static void main(String[] args) throws Exception {
@@ -18,7 +19,7 @@ public class StreamingJobEKFMark {
 
         env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
 
-        DataStream<KeyedDataPoint> fullData = env.readTextFile("src/main/resources/GPS_DRS_LASER")
+        DataStream<KeyedDataPoint> fullInputData = env.readTextFile("src/main/resources/GPS_DRS_LASER")
                 .map(new ParseData());
 
         env.execute("EKF-Mark");
@@ -41,7 +42,7 @@ public class StreamingJobEKFMark {
                 case "gps" : return parseGPS(data);
                 case "laser" : return parseLaser(data);
             }
-
+            /*
             // the data look like this...
             // timestamp, latitude, longitude
 
@@ -61,15 +62,31 @@ public class StreamingJobEKFMark {
 
                 laserArr[i-4] = Double.valueOf(s);
             }
-            return
+            */
+
+            return KeyedDataPoint();
         }
+
         private Tuple2 parseOdo(String[] data){
             Double speed = Double.valueOf(data[2]);
             Double steering = Double.valueOf(data[3]);
 
             return new Tuple2<Double,Double>(speed, steering);
         }
+
         private Tuple2 parseGPS(String[] data){
+            Double x = Double.valueOf(data[2]);
+            Double y = Double.valueOf(data[3]);
+
+            return new Tuple2<Double,Double>(x,y);
+        }
+
+        private Tuple parseLaser(String[] data){
+            double[] laserArr = Arrays.stream(data[2].split(","))
+                    .mapToDouble(Double::parseDouble)
+                    .toArray();
+
+            return new Tuple2(laserArr,0);
         }
     }
 }
