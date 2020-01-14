@@ -4,7 +4,7 @@ import org.apache.flink.api.java.tuple.Tuple3;
 
 import java.util.ArrayList;
 
-public class TreeProccessing {
+public class TreeProcessing {
     public static Double getCoordinate(Double degrees, Double gamma, Double phi, Boolean isX) {
         if (isX) {
             double x = gamma * Math.cos(Math.toRadians(degrees) - Math.toRadians(90) + phi) + 3.78;
@@ -101,7 +101,7 @@ public class TreeProccessing {
     /*
     Return trees as an X and Y coordinate with the diameter of the tree as a triple
      */
-    public static ArrayList<Tuple3> getSingleCoordinateTrees(Double[] input, Double phi){
+    private static ArrayList<Tuple3> getSingleCoordinateTrees(Double[] input, Double phi){
         ArrayList<ArrayList<Integer>> trees = getTrees(input);
         ArrayList<Double> deltas = deltaBeta(input);
         ArrayList<Double> diameters = getDiameters(input);
@@ -126,5 +126,36 @@ public class TreeProccessing {
             //System.out.println(tuple.toString());
         }
         return singleCoordinateTrees;
+    }private static Double[] fitTreeData(Double[] input) {
+        Double[] adjust15 = input;
+        for (int i = 0; i < 15; i++) {
+            adjust15[i] = 81.00;
+        }
+        return adjust15;
+    }
+    private static Double[] validTreesOnly(Double[] input){
+        Double[] valid = input;
+        for (int i = 0; i < valid.length; i++) {
+            if (valid[i] <= 80.00){
+                continue;
+            }else{
+                valid[i] = 0.0;
+            }
+        }
+        return valid;
+    }
+    private static Double[] parseRawTrees(Double[] input){
+        return validTreesOnly(fitTreeData(input));
+    }
+
+    /**
+     * Computes trees based on KeyedDataPoint "laser" entries, with their respective x and y coordinates
+     * and their diameters based on the rotation of the car, returning a tuple3 of these attributes.
+     * @param input
+     * @param phi
+     * @return List of single point (x,y) trees with respective diameter as Tuple3
+     */
+    public static ArrayList<Tuple3> singleTrees(Double[] input, Double phi){
+        return getSingleCoordinateTrees(parseRawTrees(input), phi);
     }
 }
