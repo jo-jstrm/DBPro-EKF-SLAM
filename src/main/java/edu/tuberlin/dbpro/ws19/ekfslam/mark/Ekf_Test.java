@@ -83,6 +83,14 @@ public class Ekf_Test {
         DoubleMatrix2D estimatedSigma = sigmaStep2.assign(movementErrorMatrixRt, (v, v1) -> v + v1);
         System.out.println("estimatedSigma " + estimatedSigma);
 
+        /*Implement the update step for the motion model and jacobians of the victoria park
+        dataset based on the observation of trees
+         */
+
+
+
+
+
 
 
 
