@@ -4,7 +4,9 @@ import cern.colt.matrix.DoubleMatrix1D;
 import cern.colt.matrix.DoubleMatrix2D;
 import cern.colt.matrix.impl.DenseDoubleMatrix1D;
 import cern.colt.matrix.impl.DenseDoubleMatrix2D;
+import cern.colt.matrix.linalg.Algebra;
 import com.sun.xml.internal.bind.v2.TODO;
+import javafx.beans.binding.DoubleExpression;
 import org.apache.flink.api.java.tuple.Tuple3;
 
 public class Ekf_Test {
@@ -53,7 +55,7 @@ public class Ekf_Test {
 
 
         //calculate estimatedSigma
-        DoubleMatrix2D sigma_prev = new DenseDoubleMatrix2D(3,3).assign(1.0);
+        DoubleMatrix2D sigma_prev = new DenseDoubleMatrix2D(3,3).assign(0.0);
         System.out.println("sigma_prev " + sigma_prev);
         /*generate Jacobian maxtrix (Gt in slides) for estimatedSigma, jacobian varies depending on motion model,
         with upperValue being the double value in index (0,2),
@@ -84,11 +86,56 @@ public class Ekf_Test {
         System.out.println("estimatedSigma " + estimatedSigma);
 
         /*Implement the update step for the motion model and jacobians of the victoria park
-        dataset based on the observation of trees
+        dataset based on the gps data
          */
-
-
-
+        System.out.println("-----<<<Update Step:>>>-----");
+        //gpsData only gets x and y coordinates since the first entry is the key and the second the timestamp, which are bot handled vie KeyedDataPoints
+        double[] gpsData = {1.0,1.0};
+        DoubleMatrix1D gpsPosition = new DenseDoubleMatrix1D(2).assign(gpsData);
+        System.out.println("estimatedPoseVector "+ estimatedPoseVector);
+        //calculate deltaX, deltaY and deltaDelta for the observation jacobian as stated in the victoria park paper
+        Double deltaX = (gpsPosition.get(0) - estimatedPoseVector.get(0));
+        Double deltaY = (gpsPosition.get(0) - estimatedPoseVector.get(0));
+        Double deltaDelta = (Math.sqrt((Math.pow(deltaX, 2)+Math.pow(deltaY, 2))));
+        if (deltaDelta == 0.0){
+            deltaDelta = 1.0;
+        }
+        System.out.println("deltaX: " + deltaX + "; deltaY: " + deltaY + "; deltaDelta: " + deltaDelta);
+        //Calculate Jacobian matrix (H) based on observations
+        Double obsJacobianRow1Column1 = (1/deltaDelta)*(-deltaX);
+        Double obsJacobianRow1Column2 = (1/deltaDelta)*(-deltaY);
+        Double obsJacobianRow1Column3 = 0.0;
+        Double obsJacobianRow2Column1 = (deltaY/Math.pow(deltaDelta, 2));
+        Double obsJacobianRow2Column2 = (-deltaX/Math.pow(deltaDelta, 2));
+        Double obsJacobianRow2Column3 = -1.0;
+        double[][] obsJacobian = {{obsJacobianRow1Column1,obsJacobianRow1Column2,obsJacobianRow1Column3}, {obsJacobianRow2Column1,obsJacobianRow2Column2,obsJacobianRow2Column3}};
+        DoubleMatrix2D observationJacobianMatrix = new DenseDoubleMatrix2D(2,3).assign(obsJacobian);
+        System.out.println("ObservationJacobianMatrix " + observationJacobianMatrix);
+        //Calculate the KalmanGain with the ErrorMatrix for the measurement
+        //TODO: Get accurate error Matrix for the GPS readings
+        double[][] gpsErrorArray = {{0.01,0.0}, {0.0,0.01}};
+        DoubleMatrix2D gpsErrorMatrix = new DenseDoubleMatrix2D(2,2).assign(gpsErrorArray);
+        //Step 1: Calculate the Inverse as part of the KalmanGain
+        //Step 1.1: Matrix multiplication between the Jacobian and the estimated Sigma
+        DoubleMatrix2D kalmanInverseStep1_1 = observationJacobianMatrix.zMult(estimatedSigma, null, 1.0, 1.0, false, false);
+        System.out.println("kalmanInverseStep1_1 " + kalmanInverseStep1_1);
+        //Step 1.2: Matrix multiplication between the result of Step 1.1 and the transposed Jacobian
+        DoubleMatrix2D kalmanInverseStep1_2 = kalmanInverseStep1_1.zMult(observationJacobianMatrix, null, 1.0, 1.0, false, true);
+        System.out.println("kalmanInverseStep1_2 " + kalmanInverseStep1_2);
+        //Step 1.3: Add the observation Error to Step 1.2
+        DoubleMatrix2D kalmanInvervseStep1_3 = kalmanInverseStep1_2.assign(gpsErrorMatrix, ((v, v1) -> v + v1));
+        System.out.println("kalmanInvervseStep1_3 " + kalmanInvervseStep1_3);
+        //Step 1.4: Calculate the inverse of the result of kalmanInverseStep1_3
+        DoubleMatrix2D kalmanInverse = new Algebra().inverse(kalmanInvervseStep1_3);
+        System.out.println("kalmanInverse " + kalmanInverse);
+        //Step 2: Calculate the Kalman Gain
+        //Step 2.1 Multiply the estimated Sigma with the transposed observation Jacobian Matrix
+        DoubleMatrix2D kalmanGainStep2_1 = estimatedSigma.zMult(observationJacobianMatrix, null, 1.0, 1.0 , false, true);
+        System.out.println("kalmanGainStep2_1 " + kalmanGainStep2_1);
+        //Step 2.2 Multiply the results from 2.1 and 1.4 to get the Kalman gain based on the gps data and vehicle position
+        DoubleMatrix2D kalmanGain = kalmanGainStep2_1.zMult(kalmanInverse, null, 1.0, 1.0, false, false);
+        System.out.println("kalmanGain " + kalmanGain);
+        
 
 
 
