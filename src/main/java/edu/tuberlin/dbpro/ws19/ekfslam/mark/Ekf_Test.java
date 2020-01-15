@@ -19,8 +19,8 @@ public class Ekf_Test {
         double timedif = 21.940;
 
         //Create Vector from previous state
-        Double x_prev = 0.0;
-        Double y_prev = 0.0;
+        Double x_prev = -2.0;
+        Double y_prev = 2.0;
         Double phi_prev = 0.0;
         double[] previous = {x_prev, y_prev, phi_prev};
         DoubleMatrix1D previousState = new DenseDoubleMatrix1D(3);
@@ -90,12 +90,12 @@ public class Ekf_Test {
          */
         System.out.println("-----<<<Update Step:>>>-----");
         //gpsData only gets x and y coordinates since the first entry is the key and the second the timestamp, which are bot handled vie KeyedDataPoints
-        double[] gpsData = {1.0,1.0};
+        double[] gpsData = {5.0,5.0};
         DoubleMatrix1D gpsPosition = new DenseDoubleMatrix1D(2).assign(gpsData);
         System.out.println("estimatedPoseVector "+ estimatedPoseVector);
         //calculate deltaX, deltaY and deltaDelta for the observation jacobian as stated in the victoria park paper
-        Double deltaX = (gpsPosition.get(0) - estimatedPoseVector.get(0));
-        Double deltaY = (gpsPosition.get(0) - estimatedPoseVector.get(0));
+        Double deltaX = (0.0 - estimatedPoseVector.get(0));
+        Double deltaY = (0.0 - estimatedPoseVector.get(0));
         Double deltaDelta = (Math.sqrt((Math.pow(deltaX, 2)+Math.pow(deltaY, 2))));
         if (deltaDelta == 0.0){
             deltaDelta = 1.0;
@@ -135,7 +135,40 @@ public class Ekf_Test {
         //Step 2.2 Multiply the results from 2.1 and 1.4 to get the Kalman gain based on the gps data and vehicle position
         DoubleMatrix2D kalmanGain = kalmanGainStep2_1.zMult(kalmanInverse, null, 1.0, 1.0, false, false);
         System.out.println("kalmanGain " + kalmanGain);
-        
+
+        //Calculate the correction step pose vector
+        //Get deltaBetween observed and estimated position
+        /* trying our a different Observed Pose to Observed Position Model
+        Double positionMinusPoseX = gpsPosition.get(0) - estimatedPoseVector.get(0);
+        Double positionMinusPoseY = gpsPosition.get(0) - estimatedPoseVector.get(0);
+        double [][] positionPose = {{positionMinusPoseX}, {positionMinusPoseY}};
+        DoubleMatrix2D positionPoseMatrix = new DenseDoubleMatrix2D(2,1).assign(positionPose);
+        System.out.println("positionPoseMatrix " + positionPoseMatrix);*/
+        Double gpsZr = Math.sqrt(Math.pow(gpsPosition.get(0), 2)+(Math.pow(gpsPosition.get(1), 2)));
+        Double gpsZB = Math.atan2(gpsPosition.get(1),gpsPosition.get(0));
+        double[] gpsZArr = {gpsZr,gpsZB};
+        DoubleMatrix1D gpsZVector = new DenseDoubleMatrix1D(2).assign(gpsZArr);
+        System.out.println("gpsZVector " + gpsZVector);
+        Double poseZr = Math.sqrt(Math.pow(estimatedPoseVector.get(0), 2)+(Math.pow(estimatedPoseVector.get(1), 2)));
+        Double poseZB = Math.atan2(estimatedPoseVector.get(1),estimatedPoseVector.get(0));
+        double[] poseZArr = {poseZr,poseZB};
+        DoubleMatrix1D poseZVector = new DenseDoubleMatrix1D(2).assign(poseZArr);
+        System.out.println("poseZVector " + poseZVector);
+        DoubleMatrix1D positionPoseVector = gpsZVector.assign(poseZVector, (v, v1) -> v - v1);
+        System.out.println("positionPoseVector " + positionPoseVector);
+        double [][] positionPose = {{positionPoseVector.get(0)},{positionPoseVector.get(1)}};
+        DoubleMatrix2D positionPoseMatrix = new DenseDoubleMatrix2D(2,1).assign(positionPose);
+        //Multiply delta between observed and estimated position with the Kalman Gain
+        DoubleMatrix2D kalmanGainPosition = kalmanGain.zMult(positionPoseMatrix, null, 1.0, 1.0, false, false);
+        DoubleMatrix1D kalmanGainPositionVector = new DenseDoubleMatrix1D(3).assign(kalmanGainPosition.viewColumn(0));
+        System.out.println("kalmanGainPositionVector " + kalmanGainPositionVector);
+
+        //Update PoseVector/PoseMatrix
+        DoubleMatrix1D updatedPose = estimatedPoseVector.assign(kalmanGainPositionVector, (v, v1) -> v + v1);
+        System.out.println("updatedPose " + updatedPose);
+
+
+
 
 
 
