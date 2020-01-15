@@ -329,7 +329,14 @@
       <option name="project" value="LOCAL" />
       <updated>1579118943233</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="EKF algorithm ready, but mathematically incorrect">
+      <created>1579127645082</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1579127645082</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -366,6 +373,7 @@
     <MESSAGE value="Refactored proccessing of the laser readouts (trees) to be independant. Added methods for parsing tree data to be fit for processing, still needs full integration." />
     <MESSAGE value="Updated TreeProcessing to include all necessary methods for parsing" />
     <MESSAGE value="Kalman Gain calculated" />
-    <option name="LAST_COMMIT_MESSAGE" value="Kalman Gain calculated" />
+    <MESSAGE value="EKF algorithm ready, but mathematically incorrect" />
+    <option name="LAST_COMMIT_MESSAGE" value="EKF algorithm ready, but mathematically incorrect" />
   </component>
 </project>

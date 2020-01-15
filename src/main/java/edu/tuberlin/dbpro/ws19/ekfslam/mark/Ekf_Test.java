@@ -19,8 +19,8 @@ public class Ekf_Test {
         double timedif = 21.940;
 
         //Create Vector from previous state
-        Double x_prev = -2.0;
-        Double y_prev = 2.0;
+        Double x_prev = -5.0;
+        Double y_prev = -5.0;
         Double phi_prev = 0.0;
         double[] previous = {x_prev, y_prev, phi_prev};
         DoubleMatrix1D previousState = new DenseDoubleMatrix1D(3);
@@ -94,8 +94,8 @@ public class Ekf_Test {
         DoubleMatrix1D gpsPosition = new DenseDoubleMatrix1D(2).assign(gpsData);
         System.out.println("estimatedPoseVector "+ estimatedPoseVector);
         //calculate deltaX, deltaY and deltaDelta for the observation jacobian as stated in the victoria park paper
-        Double deltaX = (0.0 - estimatedPoseVector.get(0));
-        Double deltaY = (0.0 - estimatedPoseVector.get(0));
+        Double deltaX = (gpsPosition.get(0) - estimatedPoseVector.get(0));
+        Double deltaY = (gpsPosition.get(1) - estimatedPoseVector.get(0));
         Double deltaDelta = (Math.sqrt((Math.pow(deltaX, 2)+Math.pow(deltaY, 2))));
         if (deltaDelta == 0.0){
             deltaDelta = 1.0;
@@ -138,9 +138,9 @@ public class Ekf_Test {
 
         //Calculate the correction step pose vector
         //Get deltaBetween observed and estimated position
-        /* trying our a different Observed Pose to Observed Position Model
-        Double positionMinusPoseX = gpsPosition.get(0) - estimatedPoseVector.get(0);
-        Double positionMinusPoseY = gpsPosition.get(0) - estimatedPoseVector.get(0);
+        //trying our a different Observed Pose to Observed Position Model
+        /*Double positionMinusPoseX = -gpsPosition.get(0);
+        Double positionMinusPoseY = -gpsPosition.get(0);
         double [][] positionPose = {{positionMinusPoseX}, {positionMinusPoseY}};
         DoubleMatrix2D positionPoseMatrix = new DenseDoubleMatrix2D(2,1).assign(positionPose);
         System.out.println("positionPoseMatrix " + positionPoseMatrix);*/
@@ -167,9 +167,11 @@ public class Ekf_Test {
         DoubleMatrix1D updatedPose = estimatedPoseVector.assign(kalmanGainPositionVector, (v, v1) -> v + v1);
         System.out.println("updatedPose " + updatedPose);
 
-
-
-
+        //Update Sigma
+        DoubleMatrix2D upSigma1 = kalmanGain.zMult(kalmanInvervseStep1_3, null, 1.0, 1.0, false, false);
+        DoubleMatrix2D upSigma2 = upSigma1.zMult(kalmanGain, null, 1.0, 1.0, false, true);
+        DoubleMatrix2D updatedSigma = estimatedSigma.assign(upSigma2, (v, v1) -> v - v1);
+        System.out.println("updatedSigma " + updatedSigma);
 
 
 
