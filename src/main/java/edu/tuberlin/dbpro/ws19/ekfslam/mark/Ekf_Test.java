@@ -19,8 +19,8 @@ public class Ekf_Test {
         double timedif = 21.940;
 
         //Create Vector from previous state
-        Double x_prev = -5.0;
-        Double y_prev = -5.0;
+        Double x_prev = 0.0;
+        Double y_prev = 0.0;
         Double phi_prev = 0.0;
         double[] previous = {x_prev, y_prev, phi_prev};
         DoubleMatrix1D previousState = new DenseDoubleMatrix1D(3);
@@ -90,7 +90,7 @@ public class Ekf_Test {
          */
         System.out.println("-----<<<Update Step:>>>-----");
         //gpsData only gets x and y coordinates since the first entry is the key and the second the timestamp, which are bot handled vie KeyedDataPoints
-        double[] gpsData = {5.0,5.0};
+        double[] gpsData = {0.0,0.0};
         DoubleMatrix1D gpsPosition = new DenseDoubleMatrix1D(2).assign(gpsData);
         System.out.println("estimatedPoseVector "+ estimatedPoseVector);
         //calculate deltaX, deltaY and deltaDelta for the observation jacobian as stated in the victoria park paper
@@ -144,6 +144,7 @@ public class Ekf_Test {
         double [][] positionPose = {{positionMinusPoseX}, {positionMinusPoseY}};
         DoubleMatrix2D positionPoseMatrix = new DenseDoubleMatrix2D(2,1).assign(positionPose);
         System.out.println("positionPoseMatrix " + positionPoseMatrix);*/
+        //TODO: Test if to subtract gsp and pose from (0,0) or from each other for mathematical correctness
         Double gpsZr = Math.sqrt(Math.pow(gpsPosition.get(0), 2)+(Math.pow(gpsPosition.get(1), 2)));
         Double gpsZB = Math.atan2(gpsPosition.get(1),gpsPosition.get(0));
         double[] gpsZArr = {gpsZr,gpsZB};
