@@ -30,40 +30,38 @@ public class ExtendedKalmanFilter extends RichFlatMapFunction<KeyedDataPoint, Ke
     private transient ValueState<Tuple3<DoubleMatrix1D, DoubleMatrix2D, Long>> filterParams;
 
     @Override
-    public void flatMap(KeyedDataPoint inputPoint, Collector<KeyedDataPoint> outFilteredPointCollector) throws Exception {
-
+    public void flatMap(KeyedDataPoint inputPoint1, Collector<KeyedDataPoint> outFilteredPointCollector) throws Exception {
+        Tuple3 inputPoint = (Tuple3) inputPoint1.getValue();
         //predict a priori state
-        if(inputPoint.getKey().equals("odo")) {
+        if(inputPoint.f2.equals("odo")) {
             System.out.println("filterParamsVectorPREDICT: " + filterParams.value().f0);
-            Tuple2 estimate = predict(filterParams, inputPoint);
+            Tuple2 estimate = predict(filterParams, inputPoint1);
 
-            Tuple3<DoubleMatrix1D, DoubleMatrix2D, Long> updateValue = new Tuple3<>((DoubleMatrix1D) estimate.f0, (DoubleMatrix2D) estimate.f1, inputPoint.getTimeStampMs());
+            Tuple3 updateValue = new Tuple3(estimate.f0, estimate.f1, inputPoint1.getTimeStampMs());
             filterParams.update(updateValue);
 
             // return filtered point
             //returned field is the state vector with [x,y,phi]
-            outFilteredPointCollector.collect(new KeyedDataPoint<>("prediction", inputPoint.getTimeStampMs(), estimate.f0));
+            outFilteredPointCollector.collect(new KeyedDataPoint("prediction", inputPoint1.getTimeStampMs(), estimate.f0));
 
         }
-        if(inputPoint.getKey().equals("gps")){
+        if(inputPoint.f2.equals("gps")){
             System.out.println("filterParamsVectorUPDATE:  " + filterParams.value().f0);
-            Tuple2 updatedEstimate = update(filterParams, inputPoint);
+            Tuple2 updatedEstimate = update(filterParams, inputPoint1);
 
-            DoubleMatrix1D dm = (DoubleMatrix1D) updatedEstimate.f0;
-            dm.assign((v -> v+1));
-            Tuple3<DoubleMatrix1D, DoubleMatrix2D, Long> updateValue = new Tuple3<>(dm, (DoubleMatrix2D) updatedEstimate.f1, inputPoint.getTimeStampMs());
+            Tuple3 updateValue = new Tuple3(updatedEstimate.f0, updatedEstimate.f1, inputPoint1.getTimeStampMs());
             filterParams.update(updateValue);
 
             // return filtered point
             //returned field is the state vector with [x,y,phi]
-            outFilteredPointCollector.collect(new KeyedDataPoint<>("update", inputPoint.getTimeStampMs(), updatedEstimate.f0));
+            outFilteredPointCollector.collect(new KeyedDataPoint("update", inputPoint1.getTimeStampMs(), updatedEstimate.f0));
 
 
         }
 
     }
 
-    public static Tuple2<DoubleMatrix1D, DoubleMatrix2D> predict(ValueState<Tuple3<DoubleMatrix1D, DoubleMatrix2D, Long>> valueState, KeyedDataPoint<Tuple2> inputPoint) throws IOException {
+    public static Tuple2<DoubleMatrix1D, DoubleMatrix2D> predict(ValueState<Tuple3<DoubleMatrix1D, DoubleMatrix2D, Long>> valueState, KeyedDataPoint<Tuple3> inputPoint) throws IOException {
 
 
         //Get Vector of the previous state (input of prediction step)
@@ -80,7 +78,7 @@ public class ExtendedKalmanFilter extends RichFlatMapFunction<KeyedDataPoint, Ke
          */
 
         //get current steering, speed and timedif between current and last point
-        Tuple2 input = (Tuple2) inputPoint.getValue();
+        Tuple3 input = (Tuple3) inputPoint.getValue();
         Double input_speed = (Double) input.f0;
         Double steering = (Double) input.f1;
         Long currentTime = inputPoint.getTimeStampMs();
@@ -149,7 +147,7 @@ public class ExtendedKalmanFilter extends RichFlatMapFunction<KeyedDataPoint, Ke
     }
 
 
-    public static Tuple2<DoubleMatrix1D, DoubleMatrix2D> update(ValueState<Tuple3<DoubleMatrix1D, DoubleMatrix2D, Long>> valueState, KeyedDataPoint<Tuple2> inputPoint) throws IOException {
+    public static Tuple2<DoubleMatrix1D, DoubleMatrix2D> update(ValueState<Tuple3<DoubleMatrix1D, DoubleMatrix2D, Long>> valueState, KeyedDataPoint<Tuple3> inputPoint) throws IOException {
     /*Implement the update step for the motion model and jacobians of the victoria park
         dataset based on the gps data
          */

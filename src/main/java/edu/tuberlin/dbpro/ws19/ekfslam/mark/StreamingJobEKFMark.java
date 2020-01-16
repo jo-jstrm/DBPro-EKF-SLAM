@@ -42,13 +42,13 @@ public class StreamingJobEKFMark {
 
 
         @Override
-        public KeyedDataPoint<Tuple2> map(String record) {
+        public KeyedDataPoint<Tuple3> map(String record) {
             //String rawData = record.substring(1, record.length() - 1);
             String[] data = record.split(",");
 
             String key = data[0];
             long timestamp = Math.round(Double.valueOf(data[1])*1000);
-            Tuple2 parsedData = new Tuple2(0.0, 0.0);
+            Tuple3 parsedData = null;
 
             switch (key) {
                 case "odo":
@@ -62,24 +62,24 @@ public class StreamingJobEKFMark {
                     break;
             }
 
-            return new KeyedDataPoint<Tuple2>(key, timestamp, parsedData);
+            return new KeyedDataPoint<Tuple3>("data", timestamp, parsedData);
         }
 
-        private Tuple2 parseOdo(String[] data) {
+        private Tuple3 parseOdo(String[] data) {
             Double speed = Double.valueOf(data[2]);
             Double steering = Double.valueOf(data[3]);
 
-            return new Tuple2<Double, Double>(speed, steering);
+            return new Tuple3(speed, steering, "odo");
         }
 
-        private Tuple2 parseGPS(String[] data) {
+        private Tuple3 parseGPS(String[] data) {
             Double x_coord = Double.valueOf(data[2]);
             Double y_coord = Double.valueOf(data[3]);
 
-            return new Tuple2(x_coord, y_coord);
+            return new Tuple3(x_coord, y_coord, "gps");
         }
 
-        private Tuple2 parseLaser(String[] data) {
+        private Tuple3 parseLaser(String[] data) {
             //first two values are not part of laser data
             Double[] laserArr = new Double[data.length - 2];
 
@@ -97,7 +97,7 @@ public class StreamingJobEKFMark {
             }
 
             //second return value is dummy-value
-            return new Tuple2(laserArr, 0.0);
+            return new Tuple3(laserArr, 0.0, "laser");
         }
     }
 

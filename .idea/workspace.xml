@@ -39,7 +39,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="EKF-Flink-Function" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -93,15 +93,15 @@
     <property name="settings.editor.selected.configurable" value="preferences.editor" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Mark Paranskij\Documents\GitHub\DBPro-EKF-SLAM\src\main\resources" />
-      <recent name="C:\Users\jjest\InformatikSoftware\gitstuff\DBPro-EKF-SLAM\src\main\resources" />
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="edu.tuberlin.dbpro.ws19.ekfslam" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="edu.tuberlin.dbpro.ws19.ekfslam" />
     </key>
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="edu.tuberlin.dbpro.ws19.ekfslam" />
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Mark Paranskij\Documents\GitHub\DBPro-EKF-SLAM\src\main\resources" />
+      <recent name="C:\Users\jjest\InformatikSoftware\gitstuff\DBPro-EKF-SLAM\src\main\resources" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -186,20 +186,28 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="MovingCar_Script" type="RRunConfigurationType" factoryName="R" temporary="true">
+      <option name="SCRIPT_PATH" value="$PROJECT_DIR$/src/main/resources/MovingCar_Script.R" />
+      <option name="SCRIPT_ARGS" value="" />
+      <option name="WORKING_DIRECTORY_PATH" value="C:\Users\Mark Paranskij\Documents\GitHub\DBPro-EKF-SLAM\src\main\resources" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Application.StreamingJobEKFMark" />
       <item itemvalue="Application.StreamingJobTest" />
       <item itemvalue="Application.ColtTest" />
       <item itemvalue="Application.StreamingJobRessources" />
       <item itemvalue="Application.TestEkfTreesUpdateStep" />
+      <item itemvalue="R.MovingCar_Script" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="R.MovingCar_Script" />
         <item itemvalue="Application.StreamingJobRessources" />
         <item itemvalue="Application.ColtTest" />
         <item itemvalue="Application.TestEkfTreesUpdateStep" />
         <item itemvalue="Application.StreamingJobRessources" />
-        <item itemvalue="Application.StreamingJobTest" />
       </list>
     </recent_temporary>
   </component>
