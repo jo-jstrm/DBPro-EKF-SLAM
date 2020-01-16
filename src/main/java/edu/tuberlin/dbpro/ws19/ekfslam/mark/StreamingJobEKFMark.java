@@ -3,12 +3,17 @@ package edu.tuberlin.dbpro.ws19.ekfslam.mark;
 import edu.tuberlin.dbpro.ws19.ekfslam.data.KeyedDataPoint;
 import org.apache.flink.api.common.functions.RichMapFunction;
 import org.apache.flink.api.java.tuple.Tuple;
+import org.apache.flink.api.java.tuple.Tuple3;
 import org.apache.flink.api.java.tuple.Tuple4;
 import org.apache.flink.api.java.tuple.Tuple2;
+import org.apache.flink.core.fs.FileSystem;
 import org.apache.flink.streaming.api.TimeCharacteristic;
+import org.apache.flink.streaming.api.datastream.DataStream;
+import org.apache.flink.streaming.api.datastream.DataStreamSink;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 
 import java.security.Key;
+import java.util.ArrayList;
 
 public class StreamingJobEKFMark {
     public static void main(String[] args) throws Exception {
@@ -18,8 +23,9 @@ public class StreamingJobEKFMark {
 
         env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
 
-        DataStream<KeyedDataPoint> fullData = env.readTextFile("src/main/resources/GPS_DRS_LASER")
-                .map(new ParseData());
+        DataStream<KeyedDataPoint> fullData = env.readTextFile("src/main/resources/GPS_DRS_LASER.csv")
+                .map(new ParseData())
+                .keyBy("key");
 
         env.execute("EKF-Mark");
     }
@@ -29,47 +35,55 @@ public class StreamingJobEKFMark {
 
 
         @Override
-        public KeyedDataPoint<Tuple4> map(String record) {
+        public KeyedDataPoint<Tuple2> map(String record) {
             //String rawData = record.substring(1, record.length() - 1);
             String[] data = record.split(",");
 
             String key = data[0];
             long timestamp = Math.round(Double.valueOf(data[1]));
+            Tuple2 parsedData = new Tuple2(0.0, 0.0);
 
-            switch(data[0]){
-                case "odo" : return parseOdo(data);
-                case "gps" : return parseGPS(data);
-                case "laser" : return parseLaser(data);
+            switch (key) {
+                case "odo":
+                    parsedData = parseOdo(data);
+                case "gps":
+                    parsedData =  parseGPS(data);
+                case "laser":
+                    parsedData =  parseLaser(data);
             }
 
-            // the data look like this...
-            // timestamp, latitude, longitude
+            return new KeyedDataPoint<Tuple2>(key, timestamp, parsedData);
+        }
 
-            //get timestamp, lat and lon from data
-            //store lat, lan in Tuple2<Double, Double>
-            long timestamp = Math.round(Double.valueOf(data[0]));
-            Double xInc = Double.valueOf(data[1]);
-            Double yInc = Double.valueOf(data[2]);
-            Double phiInc = Double.valueOf(data[3]);
+        private Tuple2 parseOdo(String[] data) {
+            Double speed = Double.valueOf(data[2]);
+            Double steering = Double.valueOf(data[3]);
 
-            Double[] laserArr = new Double[data.length-4];
+            return new Tuple2<Double, Double>(speed, steering);
+        }
 
-            for(int i=4; i<data.length;i++){
+        private Tuple2 parseGPS(String[] data) {
+            Double x_coord = Double.valueOf(data[2]);
+            Double y_coord = Double.valueOf(data[3]);
+
+            return new Tuple2(x_coord,y_coord);
+        }
+
+        private Tuple2 parseLaser(String[] data){
+            //first two values are not part of laser data
+            Double[] laserArr = new Double[data.length-2];
+
+            //parse laser array as Double and erase '"[' and ']"'
+            for(int i=2; i < data.length; i++){
                 String s = data[i];
                 if(s.contains("[")){ s=s.substring(2);}
                 if(s.contains("]")){ s=s.substring(0,s.length()-2);}
 
-                laserArr[i-4] = Double.valueOf(s);
+                laserArr[i-2] = Double.valueOf(s);
             }
-            return
-        }
-        private Tuple2 parseOdo(String[] data){
-            Double speed = Double.valueOf(data[2]);
-            Double steering = Double.valueOf(data[3]);
 
-            return new Tuple2<Double,Double>(speed, steering);
-        }
-        private Tuple2 parseGPS(String[] data){
+            //second return value is dummy-value
+            return new Tuple2(laserArr, 0.0);
         }
     }
 }
