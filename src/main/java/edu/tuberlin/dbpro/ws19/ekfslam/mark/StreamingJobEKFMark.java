@@ -1,6 +1,9 @@
 package edu.tuberlin.dbpro.ws19.ekfslam.mark;
 
+import cern.colt.matrix.DoubleMatrix1D;
+import edu.tuberlin.dbpro.ws19.ekfslam.StreamingJobMilestone;
 import edu.tuberlin.dbpro.ws19.ekfslam.data.KeyedDataPoint;
+import edu.tuberlin.dbpro.ws19.ekfslam.functions.ExtendedKalmanFilter;
 import org.apache.flink.api.common.functions.RichMapFunction;
 import org.apache.flink.api.java.tuple.Tuple;
 import org.apache.flink.api.java.tuple.Tuple3;
@@ -25,7 +28,11 @@ public class StreamingJobEKFMark {
 
         DataStream<KeyedDataPoint> fullData = env.readTextFile("src/main/resources/GPS_DRS_LASER.csv")
                 .map(new ParseData())
-                .keyBy("key");
+                .keyBy("key")
+                .flatMap(new ExtendedKalmanFilter());
+
+        fullData.map(new getTuple3())
+                .writeAsCsv("src/main/resources/hopefullyItDidntFuckUp.csv", FileSystem.WriteMode.OVERWRITE, "\n", ";");
 
         env.execute("EKF-Mark");
     }
@@ -46,10 +53,13 @@ public class StreamingJobEKFMark {
             switch (key) {
                 case "odo":
                     parsedData = parseOdo(data);
+                    break;
                 case "gps":
-                    parsedData =  parseGPS(data);
+                    parsedData = parseGPS(data);
+                    break;
                 case "laser":
-                    parsedData =  parseLaser(data);
+                    parsedData = parseLaser(data);
+                    break;
             }
 
             return new KeyedDataPoint<Tuple2>(key, timestamp, parsedData);
@@ -66,24 +76,42 @@ public class StreamingJobEKFMark {
             Double x_coord = Double.valueOf(data[2]);
             Double y_coord = Double.valueOf(data[3]);
 
-            return new Tuple2(x_coord,y_coord);
+            return new Tuple2(x_coord, y_coord);
         }
 
-        private Tuple2 parseLaser(String[] data){
+        private Tuple2 parseLaser(String[] data) {
             //first two values are not part of laser data
-            Double[] laserArr = new Double[data.length-2];
+            Double[] laserArr = new Double[data.length - 2];
 
             //parse laser array as Double and erase '"[' and ']"'
-            for(int i=2; i < data.length; i++){
+            for (int i = 2; i < data.length; i++) {
                 String s = data[i];
-                if(s.contains("[")){ s=s.substring(2);}
-                if(s.contains("]")){ s=s.substring(0,s.length()-2);}
+                if (s.contains("[")) {
+                    s = s.substring(2);
+                }
+                if (s.contains("]")) {
+                    s = s.substring(0, s.length() - 2);
+                }
 
-                laserArr[i-2] = Double.valueOf(s);
+                laserArr[i - 2] = Double.valueOf(s);
             }
 
             //second return value is dummy-value
             return new Tuple2(laserArr, 0.0);
+        }
+    }
+
+    private static class getTuple3 extends RichMapFunction<KeyedDataPoint, Tuple3<String, Double, Double>> {
+
+        @Override
+        public Tuple3<String, Double, Double> map(KeyedDataPoint value) throws Exception {
+
+            KeyedDataPoint<DoubleMatrix1D> val = (KeyedDataPoint<DoubleMatrix1D>) value;
+            String key = val.getKey();
+            Double x = val.getValue().get(0);
+            Double y = val.getValue().get(1);
+
+            return Tuple3.of(key, x, y);
         }
     }
 }
