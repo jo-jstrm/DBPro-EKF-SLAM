@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a0e545e7-aebc-4cdf-baf2-769a8b8a86f3" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/Playground.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/functions/ExtendedKalmanFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/functions/ExtendedKalmanFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/StreamingJobEKFMark.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/StreamingJobEKFMark.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/Test.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/hopefullyItDidntFuckUp.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hopefullyItDidntFuckUp.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -130,6 +131,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Playground" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.mark.Playground" />
+      <module name="dbpro-ekf-slam" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.tuberlin.dbpro.ws19.ekfslam.mark.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="StreamingJobEKFMark" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="INCLUDE_PROVIDED_SCOPE" value="true" />
       <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.mark.StreamingJobEKFMark" />
@@ -158,23 +172,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="StreamingJobTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="INCLUDE_PROVIDED_SCOPE" value="true" />
-      <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.StreamingJobTest" />
-      <module name="dbpro-ekf-slam" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="edu.tuberlin.dbpro.ws19.ekfslam.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TestEkfTreesUpdateStep" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="INCLUDE_PROVIDED_SCOPE" value="true" />
-      <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.mark.TestEkfTreesUpdateStep" />
+    <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.mark.Test" />
       <module name="dbpro-ekf-slam" />
       <extension name="coverage">
         <pattern>
@@ -195,19 +194,19 @@
     </configuration>
     <list>
       <item itemvalue="Application.StreamingJobEKFMark" />
-      <item itemvalue="Application.StreamingJobTest" />
       <item itemvalue="Application.ColtTest" />
       <item itemvalue="Application.StreamingJobRessources" />
-      <item itemvalue="Application.TestEkfTreesUpdateStep" />
       <item itemvalue="R.MovingCar_Script" />
+      <item itemvalue="Application.Test" />
+      <item itemvalue="Application.Playground" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Playground" />
+        <item itemvalue="Application.Test" />
         <item itemvalue="R.MovingCar_Script" />
         <item itemvalue="Application.StreamingJobRessources" />
         <item itemvalue="Application.ColtTest" />
-        <item itemvalue="Application.TestEkfTreesUpdateStep" />
-        <item itemvalue="Application.StreamingJobRessources" />
       </list>
     </recent_temporary>
   </component>
@@ -387,7 +386,14 @@
       <option name="project" value="LOCAL" />
       <updated>1579187047050</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Fixed EKF streaming issue via Tuples">
+      <created>1579197001279</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1579197001279</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -427,7 +433,8 @@
     <MESSAGE value="EKF algorithm ready, but mathematically incorrect" />
     <MESSAGE value="Finished EKF, with uncertain results" />
     <MESSAGE value="Pushed for debugging" />
-    <option name="LAST_COMMIT_MESSAGE" value="Pushed for debugging" />
+    <MESSAGE value="Fixed EKF streaming issue via Tuples" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed EKF streaming issue via Tuples" />
   </component>
   <component name="WindowStateProjectService">
     <state x="176" y="120" key="#com.intellij.execution.impl.EditConfigurationsDialog" />
