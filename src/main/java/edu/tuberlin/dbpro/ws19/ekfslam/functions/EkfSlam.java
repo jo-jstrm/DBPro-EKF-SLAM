@@ -28,10 +28,15 @@ public class EkfSlam extends RichFlatMapFunction<KeyedDataPoint, KeyedDataPoint>
         theta = v/L*tan(alpha)
          */
 
-        //get input for prediction step
+        /*
+        previous x, y, and phi readings from the Value state,
+        Construction of a Vector
+         */
         Double x_prev = (Double) filterParams.value().f0.get(0);
         Double y_prev = (Double) filterParams.value().f0.get(1);
         Double phi_prev = (Double) filterParams.value().f0.get(2);
+
+
 
         //predict a priori state
         Tuple3 input = (Tuple3) inputPoint.getValue();
