@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a0e545e7-aebc-4cdf-baf2-769a8b8a86f3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/StreamingJobEKFMark.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/StreamingJobEKFMark.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/Ekf_Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/Ekf_Test.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,23 +87,21 @@
       <recent name="C:\Users\jjest\InformatikSoftware\gitstuff\DBPro-EKF-SLAM\src\main\resources" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.StreamingJobEKFMark">
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Application.Ekf_Test">
     <configuration name="ColtTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.colt.ColtTest" />
-      <module name="dbpro-ekf-slam" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="edu.tuberlin.dbpro.ws19.ekfslam.colt.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Ekf_Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="INCLUDE_PROVIDED_SCOPE" value="true" />
-      <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.mark.Ekf_Test" />
       <module name="dbpro-ekf-slam" />
       <extension name="coverage">
         <pattern>
@@ -159,19 +155,34 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="TestEkfTreesUpdateStep" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="INCLUDE_PROVIDED_SCOPE" value="true" />
+      <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.mark.TestEkfTreesUpdateStep" />
+      <module name="dbpro-ekf-slam" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.tuberlin.dbpro.ws19.ekfslam.mark.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
       <item itemvalue="Application.StreamingJobTest" />
       <item itemvalue="Application.Ekf_Test" />
       <item itemvalue="Application.ColtTest" />
       <item itemvalue="Application.StreamingJobRessources" />
-      <item itemvalue="Application.StreamingJobEKFMark" />
+      <item itemvalue="Application.TestEkfTreesUpdateStep" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.StreamingJobEKFMark" />
         <item itemvalue="Application.Ekf_Test" />
         <item itemvalue="Application.StreamingJobRessources" />
         <item itemvalue="Application.ColtTest" />
+        <item itemvalue="Application.TestEkfTreesUpdateStep" />
+        <item itemvalue="Application.StreamingJobRessources" />
         <item itemvalue="Application.StreamingJobTest" />
       </list>
     </recent_temporary>
@@ -315,14 +326,49 @@
       <option name="project" value="LOCAL" />
       <updated>1578946236001</updated>
     </task>
-    <task id="LOCAL-00015" summary="Extended Kalman Filter on trees is being worked on, not yet integrated.">
-      <created>1579034542539</created>
+    <task id="LOCAL-00015" summary="Added a csv with odometry, gps, and laser data in a single file, sorted by timestamp, called GPS_DRS_LASER.csv">
+      <created>1579009589805</created>
       <option name="number" value="00015" />
       <option name="presentableId" value="LOCAL-00015" />
       <option name="project" value="LOCAL" />
-      <updated>1579034542539</updated>
+      <updated>1579009589805</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Refactored proccessing of the laser readouts (trees) to be independant. Added methods for parsing tree data to be fit for processing, still needs full integration.">
+      <created>1579019368038</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1579019368038</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Updated TreeProcessing to include all necessary methods for parsing">
+      <created>1579024589763</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1579024589763</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Kalman Gain calculated">
+      <created>1579118943233</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1579118943233</updated>
+    </task>
+    <task id="LOCAL-00019" summary="EKF algorithm ready, but mathematically incorrect">
+      <created>1579127645082</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1579127645082</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Finished EKF, with uncertain results">
+      <created>1579130215843</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1579130215843</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -355,7 +401,13 @@
     <MESSAGE value="work in progress landmark determination" />
     <MESSAGE value="push for mark" />
     <MESSAGE value="Extended Kalman Filter on trees is being worked on, not yet integrated." />
-    <option name="LAST_COMMIT_MESSAGE" value="Extended Kalman Filter on trees is being worked on, not yet integrated." />
+    <MESSAGE value="Added a csv with odometry, gps, and laser data in a single file, sorted by timestamp, called GPS_DRS_LASER.csv" />
+    <MESSAGE value="Refactored proccessing of the laser readouts (trees) to be independant. Added methods for parsing tree data to be fit for processing, still needs full integration." />
+    <MESSAGE value="Updated TreeProcessing to include all necessary methods for parsing" />
+    <MESSAGE value="Kalman Gain calculated" />
+    <MESSAGE value="EKF algorithm ready, but mathematically incorrect" />
+    <MESSAGE value="Finished EKF, with uncertain results" />
+    <option name="LAST_COMMIT_MESSAGE" value="Finished EKF, with uncertain results" />
   </component>
   <component name="WindowStateProjectService">
     <state x="176" y="120" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1579180801688">

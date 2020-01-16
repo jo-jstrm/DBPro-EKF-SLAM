@@ -3,6 +3,7 @@ package edu.tuberlin.dbpro.ws19.ekfslam.colt;
 //documentation source: https://dst.lbl.gov/ACSSoftware/colt/api/index.html
 import cern.colt.matrix.DoubleMatrix2D;
 import cern.colt.matrix.impl.DenseDoubleMatrix2D;
+import cern.colt.matrix.linalg.Algebra;
 
 import java.util.Date;
 
@@ -38,5 +39,11 @@ public class ColtTest {
         System.out.println(date);
 
         System.out.print("cos: "+Math.cos(6.283));
+
+        double[][] source = {{2.5, 8.9, 1.0},{4.5,2.4, 1.0},{1.0,1.0,1.0}};
+        DoubleMatrix2D sourced = new DenseDoubleMatrix2D(3,3).assign(source);
+        System.out.println("Sourced " + sourced);
+        DoubleMatrix2D inverse = new Algebra().inverse(sourced);
+        System.out.println("inverse " + inverse);
     }
 }
