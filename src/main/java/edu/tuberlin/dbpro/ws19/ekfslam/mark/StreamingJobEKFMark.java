@@ -5,10 +5,7 @@ import edu.tuberlin.dbpro.ws19.ekfslam.StreamingJobMilestone;
 import edu.tuberlin.dbpro.ws19.ekfslam.data.KeyedDataPoint;
 import edu.tuberlin.dbpro.ws19.ekfslam.functions.ExtendedKalmanFilter;
 import org.apache.flink.api.common.functions.RichMapFunction;
-import org.apache.flink.api.java.tuple.Tuple;
-import org.apache.flink.api.java.tuple.Tuple3;
-import org.apache.flink.api.java.tuple.Tuple4;
-import org.apache.flink.api.java.tuple.Tuple2;
+import org.apache.flink.api.java.tuple.*;
 import org.apache.flink.core.fs.FileSystem;
 import org.apache.flink.streaming.api.TimeCharacteristic;
 import org.apache.flink.streaming.api.datastream.DataStream;
@@ -31,7 +28,7 @@ public class StreamingJobEKFMark {
                 .keyBy("key")
                 .flatMap(new ExtendedKalmanFilter());
 
-        fullData.map(new getTuple3())
+        fullData.map(new getTuple5())
                 .writeAsCsv("src/main/resources/hopefullyItDidntFuckUp.csv", FileSystem.WriteMode.OVERWRITE, "\n", ";");
 
         env.execute("EKF-Mark");
@@ -101,17 +98,17 @@ public class StreamingJobEKFMark {
         }
     }
 
-    private static class getTuple3 extends RichMapFunction<KeyedDataPoint, Tuple3<String, Double, Double>> {
+    private static class getTuple5 extends RichMapFunction<KeyedDataPoint, Tuple5<String, Double, Double, Double, Double>> {
 
         @Override
-        public Tuple3<String, Double, Double> map(KeyedDataPoint value) throws Exception {
+        public Tuple5<String, Double, Double, Double, Double> map(KeyedDataPoint value) throws Exception {
 
             KeyedDataPoint<DoubleMatrix1D> val = (KeyedDataPoint<DoubleMatrix1D>) value;
             String key = val.getKey();
             Double x = val.getValue().get(0);
             Double y = val.getValue().get(1);
 
-            return Tuple3.of(key, x, y);
+            return Tuple5.of(key, x, y, val.getValue().get(2), Math.tan(val.getValue().get(2)));
         }
     }
 }

@@ -27,36 +27,58 @@ public class ExtendedKalmanFilter extends RichFlatMapFunction<KeyedDataPoint, Ke
     public static double vehicleB = 0.5;
     public static double vehicleA = 3.78;
 
+    public static boolean fullEKF = true;
+    public static boolean printPrediction = false;
+    public static boolean printUpdate = true;
+
     private transient ValueState<Tuple3<DoubleMatrix1D, DoubleMatrix2D, Long>> filterParams;
 
     @Override
     public void flatMap(KeyedDataPoint inputPoint1, Collector<KeyedDataPoint> outFilteredPointCollector) throws Exception {
         Tuple3 inputPoint = (Tuple3) inputPoint1.getValue();
         //predict a priori state
-        if(inputPoint.f2.equals("odo")) {
-            System.out.println("filterParamsVectorPREDICT: " + filterParams.value().f0);
-            Tuple2 estimate = predict(filterParams, inputPoint1);
+        if (fullEKF){
+            if(inputPoint.f2.equals("odo")) {
+                System.out.println("filterParamsVectorPREDICT: " + filterParams.value().f0);
+                Tuple2 estimate = predict(filterParams, inputPoint1);
 
-            Tuple3 updateValue = new Tuple3(estimate.f0, estimate.f1, inputPoint1.getTimeStampMs());
-            filterParams.update(updateValue);
+                Tuple3 updateValue = new Tuple3(estimate.f0, estimate.f1, inputPoint1.getTimeStampMs());
+                filterParams.update(updateValue);
 
-            // return filtered point
-            //returned field is the state vector with [x,y,phi]
-            outFilteredPointCollector.collect(new KeyedDataPoint("prediction", inputPoint1.getTimeStampMs(), estimate.f0));
+                // return filtered point
+                //returned field is the state vector with [x,y,phi]
+                if(printPrediction){
+                    outFilteredPointCollector.collect(new KeyedDataPoint("prediction", inputPoint1.getTimeStampMs(), estimate.f0));
+                }
 
-        }
-        if(inputPoint.f2.equals("gps")){
-            System.out.println("filterParamsVectorUPDATE:  " + filterParams.value().f0);
-            Tuple2 updatedEstimate = update(filterParams, inputPoint1);
+            }
+            if(inputPoint.f2.equals("gps")){
+                System.out.println("filterParamsVectorUPDATE:  " + filterParams.value().f0);
+                Tuple2 updatedEstimate = update(filterParams, inputPoint1);
 
-            Tuple3 updateValue = new Tuple3(updatedEstimate.f0, updatedEstimate.f1, inputPoint1.getTimeStampMs());
-            filterParams.update(updateValue);
+                Tuple3 updateValue = new Tuple3(updatedEstimate.f0, updatedEstimate.f1, inputPoint1.getTimeStampMs());
+                filterParams.update(updateValue);
 
-            // return filtered point
-            //returned field is the state vector with [x,y,phi]
-            outFilteredPointCollector.collect(new KeyedDataPoint("update", inputPoint1.getTimeStampMs(), updatedEstimate.f0));
+                // return filtered point
+                //returned field is the state vector with [x,y,phi]
+                if(printUpdate){
+                    outFilteredPointCollector.collect(new KeyedDataPoint("update", inputPoint1.getTimeStampMs(), updatedEstimate.f0));
+                }
+            }else {
+                if(inputPoint.f2.equals("odo")) {
+                    System.out.println("filterParamsVectorPREDICT: " + filterParams.value().f0);
+                    Tuple2 estimate = predict(filterParams, inputPoint1);
 
+                    Tuple3 updateValue = new Tuple3(estimate.f0, estimate.f1, inputPoint1.getTimeStampMs());
+                    filterParams.update(updateValue);
 
+                    // return filtered point
+                    //returned field is the state vector with [x,y,phi]
+                    if(printPrediction){
+                        outFilteredPointCollector.collect(new KeyedDataPoint("prediction", inputPoint1.getTimeStampMs(), estimate.f0));
+                    }
+                }
+            }
         }
 
     }
@@ -68,6 +90,7 @@ public class ExtendedKalmanFilter extends RichFlatMapFunction<KeyedDataPoint, Ke
         Double x_prev = (Double) valueState.value().f0.get(0);
         Double y_prev = (Double) valueState.value().f0.get(1);
         Double phi_prev = (Double) valueState.value().f0.get(2);
+        phi_prev = phi_prev%(Math.PI*2);
         double[] previous = {x_prev, y_prev, phi_prev};
         DoubleMatrix1D previousState = new DenseDoubleMatrix1D(3);
         previousState.assign(previous);
@@ -90,8 +113,8 @@ public class ExtendedKalmanFilter extends RichFlatMapFunction<KeyedDataPoint, Ke
 
 
         /*motion model from the victoria park data set*/
-        Double x_inc = timedif*(speed*Math.cos(phi_prev)-(speed/vehicleL)*Math.tan(phi_prev)*(vehicleA*Math.sin(phi_prev)+vehicleB*Math.cos(phi_prev)));
-        Double y_inc = timedif*(speed*Math.sin(phi_prev)+(speed/vehicleL)*Math.tan(phi_prev)*(vehicleA*Math.cos(phi_prev)-vehicleB*Math.sin(phi_prev)));
+        Double x_inc = timedif*(speed*Math.cos(phi_prev)-(speed/vehicleL)*Math.tan(steering)*(vehicleA*Math.sin(phi_prev)+vehicleB*Math.cos(phi_prev)));
+        Double y_inc = timedif*(speed*Math.sin(phi_prev)+(speed/vehicleL)*Math.tan(steering)*(vehicleA*Math.cos(phi_prev)-vehicleB*Math.sin(phi_prev)));
         Double phi_inc = timedif*(speed/vehicleL)*Math.tan(steering);
         double[] increments = {x_inc, y_inc, phi_inc};
 
@@ -119,7 +142,7 @@ public class ExtendedKalmanFilter extends RichFlatMapFunction<KeyedDataPoint, Ke
         Double lowerValue = (-(speed/steering*Math.sin(phi_prev)+(speed/steering)*Math.sin(phi_prev+steering*timedif)));*/
         /*Jacobian from Victoria Park dataset*/
         Double upperValue = -timedif*(speed*Math.sin(phi_prev)+(speed/vehicleL)*Math.tan(steering)*(vehicleA*Math.cos(phi_prev)-vehicleB*Math.sin(phi_prev)));
-        Double lowerValue = -timedif*(speed*Math.cos(phi_prev)-(speed/vehicleL)*Math.tan(steering)*(vehicleA*Math.sin(phi_prev)+vehicleB*Math.cos(phi_prev)));
+        Double lowerValue = timedif*(speed*Math.cos(phi_prev)-(speed/vehicleL)*Math.tan(steering)*(vehicleA*Math.sin(phi_prev)+vehicleB*Math.cos(phi_prev)));
         double[][] jacobianArray = {{1.0, 0.0, upperValue}, {0.0, 1.0, lowerValue}, {0.0, 0.0, 1.0}};
         DoubleMatrix2D jacobianMatrixGt = new DenseDoubleMatrix2D(3,3).assign(jacobianArray);
         //System.out.println("jacobianMatrixGt " + jacobianMatrixGt);
@@ -215,8 +238,8 @@ public class ExtendedKalmanFilter extends RichFlatMapFunction<KeyedDataPoint, Ke
         //Calculate the correction step pose vector
         //Get deltaBetween observed and estimated position
         //trying out a different Observed Pose to Observed Position Model
-        /*Double positionMinusPoseX = -gpsPosition.get(0);
-        Double positionMinusPoseY = -gpsPosition.get(0);
+        /*Double positionMinusPoseX = gpsPosition.get(0);
+        Double positionMinusPoseY = gpsPosition.get(0);
         double [][] positionPose = {{positionMinusPoseX}, {positionMinusPoseY}};
         DoubleMatrix2D positionPoseMatrix = new DenseDoubleMatrix2D(2,1).assign(positionPose);
         System.out.println("positionPoseMatrix " + positionPoseMatrix);*/
@@ -225,7 +248,7 @@ public class ExtendedKalmanFilter extends RichFlatMapFunction<KeyedDataPoint, Ke
         //distance between origin and gps measurement
         Double gpsZr = Math.sqrt(Math.pow(gpsPosition.get(0), 2)+(Math.pow(gpsPosition.get(1), 2)));
         //angle from origin to gps measurement
-        Double gpsZB = Math.atan2(gpsPosition.get(1),gpsPosition.get(0))-Math.PI/2;
+        Double gpsZB = Math.atan2(gpsPosition.get(1),gpsPosition.get(0));
         double[] gpsZArr = {gpsZr,gpsZB};
         DoubleMatrix1D gpsZVector = new DenseDoubleMatrix1D(2).assign(gpsZArr);
         //System.out.println("gpsZVector " + gpsZVector);
@@ -233,7 +256,7 @@ public class ExtendedKalmanFilter extends RichFlatMapFunction<KeyedDataPoint, Ke
         //distance form origin to est. position
         Double poseZr = Math.sqrt(Math.pow(estimatedPoseVector.get(0), 2)+(Math.pow(estimatedPoseVector.get(1), 2)));
         //angle from origin to vector
-        Double poseZB = Math.atan2(estimatedPoseVector.get(1),estimatedPoseVector.get(0))-Math.PI/2;
+        Double poseZB = Math.atan2(estimatedPoseVector.get(1),estimatedPoseVector.get(0));
         double[] poseZArr = {poseZr,poseZB};
         DoubleMatrix1D poseZVector = new DenseDoubleMatrix1D(2).assign(poseZArr);
         //System.out.println("poseZVector " + poseZVector);
@@ -270,11 +293,12 @@ public class ExtendedKalmanFilter extends RichFlatMapFunction<KeyedDataPoint, Ke
 
         @Override
     public void open(Configuration config) {
+        //double[] initialArray = {0.0,0.0,1.5708};
+        double[] initialArray = {0.0,0.0,0.0};
         ValueStateDescriptor<Tuple3<DoubleMatrix1D, DoubleMatrix2D, Long>> descriptor = new ValueStateDescriptor<Tuple3<DoubleMatrix1D, DoubleMatrix2D, Long>>(
-
                 "ekf", // the state name
                 TypeInformation.of(new TypeHint<Tuple3<DoubleMatrix1D, DoubleMatrix2D, Long>>() {}), // type information
-                Tuple3.of(new DenseDoubleMatrix1D(3).assign(0.0), new DenseDoubleMatrix2D(3,3).assign(0.0), 0L)); // default value of the state, if nothing was set  //TODO: check this initialisation!
+                Tuple3.of(new DenseDoubleMatrix1D(3).assign(initialArray), new DenseDoubleMatrix2D(3,3).assign(0.0), 0L)); // default value of the state, if nothing was set  //TODO: check this initialisation!
         filterParams = getRuntimeContext().getState(descriptor);
     }
 }
