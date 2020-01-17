@@ -26,9 +26,9 @@ public class ExtendedKalmanFilter extends RichFlatMapFunction<KeyedDataPoint, Ke
     public static double vehicleH = 0.76;
     public static double vehicleB = 0.5;
     public static double vehicleA = 3.78;
-    
+
     public static boolean fullEKF = true;
-    public static boolean printPrediction = false;
+    public static boolean printPrediction = true;
     public static boolean printUpdate = true;
     //only one can be set true
     public static boolean observer = true;
@@ -151,7 +151,7 @@ public class ExtendedKalmanFilter extends RichFlatMapFunction<KeyedDataPoint, Ke
         DoubleMatrix2D jacobianMatrixGt = new DenseDoubleMatrix2D(3,3).assign(jacobianArray);
         //System.out.println("jacobianMatrixGt " + jacobianMatrixGt);
 
-        /*generate Rt //TODO: figure out exact Rt*/
+        /*generate Rt //TODO: figure out exact Rt, measurement error matrix*/
         double valueRt = 0.01;
         double[][] valuesRt = {{valueRt*10,0.0,0.0},{0.0, valueRt, 0.0}, {0.0,0.0,valueRt}};
         DoubleMatrix2D movementErrorMatrixRt = new DenseDoubleMatrix2D(3,3).assign(valuesRt);

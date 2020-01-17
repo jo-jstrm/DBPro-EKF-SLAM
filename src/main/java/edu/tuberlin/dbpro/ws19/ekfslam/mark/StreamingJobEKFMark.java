@@ -23,7 +23,7 @@ public class StreamingJobEKFMark {
 
         env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
 
-        DataStream<KeyedDataPoint> fullData = env.readTextFile("src/main/resources/GPS_DRS_LASER.csv")
+        DataStream<KeyedDataPoint> fullData = env.readTextFile("src/main/resources/gps_and_odo_sorted.csv")
                 .map(new ParseData())
                 .keyBy("key")
                 .flatMap(new ExtendedKalmanFilter());
@@ -41,10 +41,10 @@ public class StreamingJobEKFMark {
         @Override
         public KeyedDataPoint<Tuple3> map(String record) {
             //String rawData = record.substring(1, record.length() - 1);
-            String[] data = record.split(",");
+            String[] data = record.split(";");
 
             String key = data[0];
-            long timestamp = Math.round(Double.valueOf(data[1])*1000);
+            long timestamp = Long.parseLong(data[1]);
             Tuple3 parsedData = null;
 
             switch (key) {
@@ -63,8 +63,8 @@ public class StreamingJobEKFMark {
         }
 
         private Tuple3 parseOdo(String[] data) {
-            Double speed = Double.valueOf(data[2]);
-            Double steering = Double.valueOf(data[3]);
+            Double speed = Double.valueOf(data[3]);
+            Double steering = Double.valueOf(data[2]);
 
             return new Tuple3(speed, steering, "odo");
         }
@@ -72,7 +72,6 @@ public class StreamingJobEKFMark {
         private Tuple3 parseGPS(String[] data) {
             Double x_coord = Double.valueOf(data[2]);
             Double y_coord = Double.valueOf(data[3]);
-
             return new Tuple3(x_coord, y_coord, "gps");
         }
 
