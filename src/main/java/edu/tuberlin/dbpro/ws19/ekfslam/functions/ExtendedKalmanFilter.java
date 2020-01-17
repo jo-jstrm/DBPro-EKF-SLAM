@@ -26,10 +26,14 @@ public class ExtendedKalmanFilter extends RichFlatMapFunction<KeyedDataPoint, Ke
     public static double vehicleH = 0.76;
     public static double vehicleB = 0.5;
     public static double vehicleA = 3.78;
-
+    
     public static boolean fullEKF = true;
     public static boolean printPrediction = false;
     public static boolean printUpdate = true;
+    //only one can be set true
+    public static boolean observer = true;
+    public static boolean difference = false;
+    public static boolean xandy = false;
 
     private transient ValueState<Tuple3<DoubleMatrix1D, DoubleMatrix2D, Long>> filterParams;
 
@@ -235,41 +239,47 @@ public class ExtendedKalmanFilter extends RichFlatMapFunction<KeyedDataPoint, Ke
         DoubleMatrix2D kalmanGain = kalmanGainStep2_1.zMult(kalmanInverse, null, 1.0, 1.0, false, false);
         //System.out.println("kalmanGain " + kalmanGain);
 
-        //Calculate the correction step pose vector
-        //Get deltaBetween observed and estimated position
-        //trying out a different Observed Pose to Observed Position Model
-        /*Double positionMinusPoseX = gpsPosition.get(0);
-        Double positionMinusPoseY = gpsPosition.get(0);
-        double [][] positionPose = {{positionMinusPoseX}, {positionMinusPoseY}};
-        DoubleMatrix2D positionPoseMatrix = new DenseDoubleMatrix2D(2,1).assign(positionPose);
-        System.out.println("positionPoseMatrix " + positionPoseMatrix);*/
+        DoubleMatrix2D positionPoseMatrix = null;
 
-        //TODO: Test if to subtract gps and pose from (0,0) or from each other for mathematical correctness
-        //distance between origin and gps measurement
-        Double gpsZr = Math.sqrt(Math.pow(gpsPosition.get(0), 2)+(Math.pow(gpsPosition.get(1), 2)));
-        //angle from origin to gps measurement
-        Double gpsZB = Math.atan2(gpsPosition.get(1),gpsPosition.get(0));
-        double[] gpsZArr = {gpsZr,gpsZB};
-        DoubleMatrix1D gpsZVector = new DenseDoubleMatrix1D(2).assign(gpsZArr);
-        //System.out.println("gpsZVector " + gpsZVector);
+        if(observer){
+            //TODO: Test if to subtract gps and pose from (0,0) or from each other for mathematical correctness
+            //distance between origin and gps measurement
+            Double gpsZr = Math.sqrt(Math.pow(gpsPosition.get(0), 2)+(Math.pow(gpsPosition.get(1), 2)));
+            //angle from origin to gps measurement
+            Double gpsZB = Math.atan2(gpsPosition.get(1),gpsPosition.get(0));
+            double[] gpsZArr = {gpsZr,gpsZB};
+            DoubleMatrix1D gpsZVector = new DenseDoubleMatrix1D(2).assign(gpsZArr);
+            //System.out.println("gpsZVector " + gpsZVector);
 
-        //distance form origin to est. position
-        Double poseZr = Math.sqrt(Math.pow(estimatedPoseVector.get(0), 2)+(Math.pow(estimatedPoseVector.get(1), 2)));
-        //angle from origin to vector
-        Double poseZB = Math.atan2(estimatedPoseVector.get(1),estimatedPoseVector.get(0));
-        double[] poseZArr = {poseZr,poseZB};
-        DoubleMatrix1D poseZVector = new DenseDoubleMatrix1D(2).assign(poseZArr);
-        //System.out.println("poseZVector " + poseZVector);
-        DoubleMatrix1D positionPoseVector = gpsZVector.assign(poseZVector, (v, v1) -> v - v1);
-        //System.out.println("positionPoseVector " + positionPoseVector);
-        double [][] positionPose = {{positionPoseVector.get(0)},{positionPoseVector.get(1)}};
-        DoubleMatrix2D positionPoseMatrix = new DenseDoubleMatrix2D(2,1).assign(positionPose);
+            //distance form origin to est. position
+            Double poseZr = Math.sqrt(Math.pow(estimatedPoseVector.get(0), 2)+(Math.pow(estimatedPoseVector.get(1), 2)));
+            //angle from origin to vector
+            Double poseZB = Math.atan2(estimatedPoseVector.get(1),estimatedPoseVector.get(0));
+            double[] poseZArr = {poseZr,poseZB};
+            DoubleMatrix1D poseZVector = new DenseDoubleMatrix1D(2).assign(poseZArr);
+            //System.out.println("poseZVector " + poseZVector);
+            DoubleMatrix1D positionPoseVector = gpsZVector.assign(poseZVector, (v, v1) -> v - v1);
+            //System.out.println("positionPoseVector " + positionPoseVector);
+            double [][] positionPose = {{positionPoseVector.get(0)},{positionPoseVector.get(1)}};
+            positionPoseMatrix = new DenseDoubleMatrix2D(2,1).assign(positionPose);
+        }else if (difference){
+            Double gpsPosDifR = Math.sqrt(Math.pow(gpsPosition.get(0) - estimatedPoseVector.get(0), 2)+(Math.pow(gpsPosition.get(1) - estimatedPoseVector.get(1), 2)));
+            Double gpsPosDifB = Math.atan2(gpsPosition.get(1)-estimatedPoseVector.get(1),gpsPosition.get(0)-estimatedPoseVector.get(0));
+            double[][] positionPose = {{gpsPosDifR},{gpsPosDifB}};
+            positionPoseMatrix = new DenseDoubleMatrix2D(2,1).assign(positionPose);
+            //System.out.println("positionPoseMatrix " + positionPoseMatrix);
+        }else if (xandy){
+            //Calculate the correction step pose vector
+            //Get deltaBetween observed and estimated position
+            //trying out a different Observed Pose to Observed Position Model
+            Double positionMinusPoseX = gpsPosition.get(0) - estimatedPoseVector.get(0);
+            Double positionMinusPoseY = gpsPosition.get(1) - estimatedPoseVector.get(1);
+            double [][] positionPose = {{positionMinusPoseX}, {positionMinusPoseY}};
+            positionPoseMatrix = new DenseDoubleMatrix2D(2,1).assign(positionPose);
+            //System.out.println("positionPoseMatrix " + positionPoseMatrix);*/
+        }
 
-        /*Double gpsPosDifR = Math.sqrt(Math.pow(gpsPosition.get(0) - estimatedPoseVector.get(0), 2)+(Math.pow(gpsPosition.get(1) - estimatedPoseVector.get(1), 2)));
-        Double gpsPosDifB = Math.atan2(gpsPosition.get(1)-estimatedPoseVector.get(1),gpsPosition.get(0)-estimatedPoseVector.get(0));
-        double[][] positionPose = {{gpsPosDifR},{gpsPosDifB}};
-        DoubleMatrix2D positionPoseMatrix = new DenseDoubleMatrix2D(2,1).assign(positionPose);
-        System.out.println("positionPoseMatrix " + positionPoseMatrix);*/
+
 
         //Multiply delta between observed and estimated position with the Kalman Gain
         DoubleMatrix2D kalmanGainPosition = kalmanGain.zMult(positionPoseMatrix, null, 1.0, 1.0, false, false);
