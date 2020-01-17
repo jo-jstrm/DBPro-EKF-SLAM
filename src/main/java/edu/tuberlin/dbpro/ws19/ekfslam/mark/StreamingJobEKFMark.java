@@ -97,17 +97,17 @@ public class StreamingJobEKFMark {
         }
     }
 
-    private static class getTuple5 extends RichMapFunction<KeyedDataPoint, Tuple5<String, Double, Double, Double, Double>> {
+    private static class getTuple5 extends RichMapFunction<KeyedDataPoint, Tuple3<String, Double, Double>> {
 
         @Override
-        public Tuple5<String, Double, Double, Double, Double> map(KeyedDataPoint value) throws Exception {
+        public Tuple3<String, Double, Double> map(KeyedDataPoint value) throws Exception {
 
             KeyedDataPoint<DoubleMatrix1D> val = (KeyedDataPoint<DoubleMatrix1D>) value;
             String key = val.getKey();
             Double x = val.getValue().get(0);
             Double y = val.getValue().get(1);
 
-            return Tuple5.of(key, x, y, val.getValue().get(2), Math.tan(val.getValue().get(2)));
+            return Tuple3.of(key, x, y);
         }
     }
 }
