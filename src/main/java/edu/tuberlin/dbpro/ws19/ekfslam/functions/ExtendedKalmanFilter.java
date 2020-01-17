@@ -39,6 +39,7 @@ public class ExtendedKalmanFilter extends RichFlatMapFunction<KeyedDataPoint, Ke
 
     @Override
     public void flatMap(KeyedDataPoint inputPoint1, Collector<KeyedDataPoint> outFilteredPointCollector) throws Exception {
+        System.out.println("helloe");
         Tuple3 inputPoint = (Tuple3) inputPoint1.getValue();
         //predict a priori state
         if (fullEKF){
@@ -304,7 +305,7 @@ public class ExtendedKalmanFilter extends RichFlatMapFunction<KeyedDataPoint, Ke
         @Override
     public void open(Configuration config) {
         //double[] initialArray = {0.0,0.0,1.5708};
-        double[] initialArray = {0.0,0.0,0.0};
+        double[] initialArray = {-41.71421779374552,-67.64927093982358,0.0};
         ValueStateDescriptor<Tuple3<DoubleMatrix1D, DoubleMatrix2D, Long>> descriptor = new ValueStateDescriptor<Tuple3<DoubleMatrix1D, DoubleMatrix2D, Long>>(
                 "ekf", // the state name
                 TypeInformation.of(new TypeHint<Tuple3<DoubleMatrix1D, DoubleMatrix2D, Long>>() {}), // type information
