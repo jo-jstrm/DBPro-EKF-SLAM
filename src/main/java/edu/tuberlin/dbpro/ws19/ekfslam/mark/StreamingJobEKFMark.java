@@ -45,6 +45,7 @@ public class StreamingJobEKFMark {
 
             String key = data[0];
             long timestamp = Long.parseLong(data[1]);
+            //long timestamp = Math.round(Double.valueOf(data[1])*1000);
             Tuple3 parsedData = null;
 
             switch (key) {

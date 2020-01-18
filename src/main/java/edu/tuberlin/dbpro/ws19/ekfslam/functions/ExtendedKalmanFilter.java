@@ -27,13 +27,15 @@ public class ExtendedKalmanFilter extends RichFlatMapFunction<KeyedDataPoint, Ke
     public static double vehicleB = 0.5;
     public static double vehicleA = 3.78;
 
-    public static boolean fullEKF = false;
+    public static boolean fullEKF = true;
     public static boolean printPrediction = true;
-    public static boolean printUpdate = false;
+    public static boolean printUpdate = true;
     //only one can be set true
-    public static boolean observer = true;
+    public static boolean observer =false;
     public static boolean difference = false;
-    public static boolean xandy = false;
+    public static boolean xandy = true;
+    public static boolean gpsOnly = false;
+    public static boolean poseOnly = false;
 
     private transient ValueState<Tuple3<DoubleMatrix1D, DoubleMatrix2D, Long>> filterParams;
 
@@ -201,7 +203,8 @@ public class ExtendedKalmanFilter extends RichFlatMapFunction<KeyedDataPoint, Ke
         Double obsJacobianRow2Column1 = (deltaY/Math.pow(deltaDelta, 2));
         Double obsJacobianRow2Column2 = (-deltaX/Math.pow(deltaDelta, 2));
         Double obsJacobianRow2Column3 = -1.0;
-        double[][] obsJacobian = {{obsJacobianRow1Column1,obsJacobianRow1Column2,obsJacobianRow1Column3}, {obsJacobianRow2Column1,obsJacobianRow2Column2,obsJacobianRow2Column3}};
+        //double[][] obsJacobian = {{obsJacobianRow1Column1,obsJacobianRow1Column2,obsJacobianRow1Column3}, {obsJacobianRow2Column1,obsJacobianRow2Column2,obsJacobianRow2Column3}};
+        double[][] obsJacobian = {{1,0,0},{0,1,0}};
         DoubleMatrix2D observationJacobianMatrix = new DenseDoubleMatrix2D(2,3).assign(obsJacobian);
         //System.out.println("ObservationJacobianMatrix " + observationJacobianMatrix);
 
@@ -275,6 +278,26 @@ public class ExtendedKalmanFilter extends RichFlatMapFunction<KeyedDataPoint, Ke
             double [][] positionPose = {{positionMinusPoseX}, {positionMinusPoseY}};
             positionPoseMatrix = new DenseDoubleMatrix2D(2,1).assign(positionPose);
             //System.out.println("positionPoseMatrix " + positionPoseMatrix);*/
+        }else if (gpsOnly){
+            Double gpsZr = Math.sqrt(Math.pow(gpsPosition.get(0), 2)+(Math.pow(gpsPosition.get(1), 2)));
+            //angle from origin to gps measurement
+            Double gpsZB = Math.atan2(gpsPosition.get(1),gpsPosition.get(0));
+            double[] gpsZArr = {gpsZr,gpsZB};
+            DoubleMatrix1D gpsZVector = new DenseDoubleMatrix1D(2).assign(gpsZArr);
+            //System.out.println("gpsZVector " + gpsZVector);
+            //System.out.println("poseZVector " + poseZVector);
+            //System.out.println("positionPoseVector " + positionPoseVector);
+            double [][] positionPose = {{gpsZVector.get(0)},{gpsZVector.get(1)}};
+            positionPoseMatrix = new DenseDoubleMatrix2D(2,1).assign(positionPose);
+        }else if(poseOnly){
+            //distance form origin to est. position
+            Double poseZr = Math.sqrt(Math.pow(estimatedPoseVector.get(0), 2)+(Math.pow(estimatedPoseVector.get(1), 2)));
+            //angle from origin to vector
+            Double poseZB = Math.atan2(estimatedPoseVector.get(1),estimatedPoseVector.get(0));
+            double[] poseZArr = {poseZr,poseZB};
+            DoubleMatrix1D poseZVector = new DenseDoubleMatrix1D(2).assign(poseZArr);
+            double [][] positionPose = {{poseZVector.get(0)},{poseZVector.get(1)}};
+            positionPoseMatrix = new DenseDoubleMatrix2D(2,1).assign(positionPose);
         }
 
 
@@ -303,6 +326,7 @@ public class ExtendedKalmanFilter extends RichFlatMapFunction<KeyedDataPoint, Ke
     public void open(Configuration config) {
         //double[] initialArray = {0.0,0.0,1.5708};
         double[] initialArray = {-41.71421779374552,-67.64927093982358,0.0};
+            //double[] initialArray = {67.64927093982358,41.71421779374552,0.0};
         ValueStateDescriptor<Tuple3<DoubleMatrix1D, DoubleMatrix2D, Long>> descriptor = new ValueStateDescriptor<Tuple3<DoubleMatrix1D, DoubleMatrix2D, Long>>(
                 "ekf", // the state name
                 TypeInformation.of(new TypeHint<Tuple3<DoubleMatrix1D, DoubleMatrix2D, Long>>() {}), // type information
