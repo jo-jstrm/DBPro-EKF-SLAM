@@ -65,7 +65,6 @@ public class StreamingJobEKFMark {
         private Tuple3 parseOdo(String[] data) {
             Double speed = Double.valueOf(data[2]);
             Double steering = Double.valueOf(data[3]);
-            System.out.println("komm");
             return new Tuple3(speed, steering, "odo");
         }
 

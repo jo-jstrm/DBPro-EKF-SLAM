@@ -27,9 +27,9 @@ public class ExtendedKalmanFilter extends RichFlatMapFunction<KeyedDataPoint, Ke
     public static double vehicleB = 0.5;
     public static double vehicleA = 3.78;
 
-    public static boolean fullEKF = true;
+    public static boolean fullEKF = false;
     public static boolean printPrediction = true;
-    public static boolean printUpdate = true;
+    public static boolean printUpdate = false;
     //only one can be set true
     public static boolean observer = true;
     public static boolean difference = false;
@@ -39,7 +39,6 @@ public class ExtendedKalmanFilter extends RichFlatMapFunction<KeyedDataPoint, Ke
 
     @Override
     public void flatMap(KeyedDataPoint inputPoint1, Collector<KeyedDataPoint> outFilteredPointCollector) throws Exception {
-        System.out.println("helloe");
         Tuple3 inputPoint = (Tuple3) inputPoint1.getValue();
         //predict a priori state
         if (fullEKF){
@@ -57,7 +56,7 @@ public class ExtendedKalmanFilter extends RichFlatMapFunction<KeyedDataPoint, Ke
                 }
 
             }
-            if(inputPoint.f2.equals("gps")){
+            if(inputPoint.f2.equals("gps")) {
                 System.out.println("filterParamsVectorUPDATE:  " + filterParams.value().f0);
                 Tuple2 updatedEstimate = update(filterParams, inputPoint1);
 
@@ -66,26 +65,24 @@ public class ExtendedKalmanFilter extends RichFlatMapFunction<KeyedDataPoint, Ke
 
                 // return filtered point
                 //returned field is the state vector with [x,y,phi]
-                if(printUpdate){
+                if (printUpdate) {
                     outFilteredPointCollector.collect(new KeyedDataPoint("update", inputPoint1.getTimeStampMs(), updatedEstimate.f0));
                 }
-            }else {
-                if(inputPoint.f2.equals("odo")) {
-                    System.out.println("filterParamsVectorPREDICT: " + filterParams.value().f0);
-                    Tuple2 estimate = predict(filterParams, inputPoint1);
+            }
+        }else {
+            if(inputPoint.f2.equals("odo")) {
+                System.out.println("filterParamsVectorPREDICT: " + filterParams.value().f0);
+                Tuple2 estimate = predict(filterParams, inputPoint1);
 
-                    Tuple3 updateValue = new Tuple3(estimate.f0, estimate.f1, inputPoint1.getTimeStampMs());
-                    filterParams.update(updateValue);
+                Tuple3 updateValue = new Tuple3(estimate.f0, estimate.f1, inputPoint1.getTimeStampMs());
+                filterParams.update(updateValue);
 
-                    // return filtered point
-                    //returned field is the state vector with [x,y,phi]
-                    if(printPrediction){
-                        outFilteredPointCollector.collect(new KeyedDataPoint("prediction", inputPoint1.getTimeStampMs(), estimate.f0));
-                    }
-                }
+                // return filtered point
+                //returned field is the state vector with [x,y,phi]
+
+                outFilteredPointCollector.collect(new KeyedDataPoint("prediction", inputPoint1.getTimeStampMs(), estimate.f0));
             }
         }
-
     }
 
     public static Tuple2<DoubleMatrix1D, DoubleMatrix2D> predict(ValueState<Tuple3<DoubleMatrix1D, DoubleMatrix2D, Long>> valueState, KeyedDataPoint<Tuple3> inputPoint) throws IOException {
