@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a0e545e7-aebc-4cdf-baf2-769a8b8a86f3" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/01_Clean.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/odo_gps_cleaned.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/functions/ExtendedKalmanFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/functions/ExtendedKalmanFilter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/StreamingJobEKFMark.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/StreamingJobEKFMark.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/hopefullyItDidntFuckUp.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hopefullyItDidntFuckUp.csv" afterDir="false" />
     </list>
@@ -448,7 +449,14 @@
       <option name="project" value="LOCAL" />
       <updated>1579357658470</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="ekf works as intended on gps_and_odo_sorted">
+      <created>1579440872518</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1579440872518</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -469,7 +477,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Removed Colt completely" />
     <MESSAGE value="Latest try to add colt 1.2.0 with maven" />
     <MESSAGE value="Added BeneTestColt, EKFSLAM-Function and Parse data for laser_full" />
     <MESSAGE value="worked in dieskretekalmanfunction" />
@@ -494,7 +501,8 @@
     <MESSAGE value="hopefully final not working" />
     <MESSAGE value="latest data works" />
     <MESSAGE value="it worked somehow" />
-    <option name="LAST_COMMIT_MESSAGE" value="it worked somehow" />
+    <MESSAGE value="ekf works as intended on gps_and_odo_sorted" />
+    <option name="LAST_COMMIT_MESSAGE" value="ekf works as intended on gps_and_odo_sorted" />
   </component>
   <component name="WindowStateProjectService">
     <state x="176" y="120" key="#com.intellij.execution.impl.EditConfigurationsDialog" />

@@ -23,7 +23,7 @@ public class StreamingJobEKFMark {
 
         env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
 
-        DataStream<KeyedDataPoint> fullData = env.readTextFile("src/main/resources/gps_and_odo_sorted.csv")
+        DataStream<KeyedDataPoint> fullData = env.readTextFile("src/main/resources/01_Clean.csv")
                 .map(new ParseData())
                 .keyBy("key")
                 .flatMap(new ExtendedKalmanFilter());
@@ -41,7 +41,7 @@ public class StreamingJobEKFMark {
         @Override
         public KeyedDataPoint<Tuple3> map(String record) {
             //String rawData = record.substring(1, record.length() - 1);
-            String[] data = record.split(";");
+            String[] data = record.split(",");
 
             String key = data[0];
             long timestamp = Long.parseLong(data[1]);
