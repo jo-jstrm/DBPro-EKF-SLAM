@@ -441,7 +441,14 @@
       <option name="project" value="LOCAL" />
       <updated>1579349753870</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="it worked somehow">
+      <created>1579357658469</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1579357658470</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -462,7 +469,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="removed previous resources" />
     <MESSAGE value="Removed Colt completely" />
     <MESSAGE value="Latest try to add colt 1.2.0 with maven" />
     <MESSAGE value="Added BeneTestColt, EKFSLAM-Function and Parse data for laser_full" />
@@ -487,7 +493,8 @@
     <MESSAGE value="latest version" />
     <MESSAGE value="hopefully final not working" />
     <MESSAGE value="latest data works" />
-    <option name="LAST_COMMIT_MESSAGE" value="latest data works" />
+    <MESSAGE value="it worked somehow" />
+    <option name="LAST_COMMIT_MESSAGE" value="it worked somehow" />
   </component>
   <component name="WindowStateProjectService">
     <state x="176" y="120" key="#com.intellij.execution.impl.EditConfigurationsDialog" />

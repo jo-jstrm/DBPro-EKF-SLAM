@@ -152,8 +152,8 @@ public class ExtendedKalmanFilter extends RichFlatMapFunction<KeyedDataPoint, Ke
         //System.out.println("jacobianMatrixGt " + jacobianMatrixGt);
 
         /*generate Rt //TODO: figure out exact Rt, measurement error matrix*/
-        double valueRt = 0.01;
-        double[][] valuesRt = {{valueRt*10,0.0,0.0},{0.0, valueRt, 0.0}, {0.0,0.0,valueRt}};
+        double valueRt = 0.5;
+        double[][] valuesRt = {{valueRt,0.0,0.0},{0.0, valueRt, 0.0}, {0.0,0.0,valueRt}};
         DoubleMatrix2D movementErrorMatrixRt = new DenseDoubleMatrix2D(3,3).assign(valuesRt);
         //System.out.println("movementErrorMatrixRt " + movementErrorMatrixRt);
 
@@ -204,13 +204,13 @@ public class ExtendedKalmanFilter extends RichFlatMapFunction<KeyedDataPoint, Ke
         Double obsJacobianRow2Column2 = (-deltaX/Math.pow(deltaDelta, 2));
         Double obsJacobianRow2Column3 = -1.0;
         //double[][] obsJacobian = {{obsJacobianRow1Column1,obsJacobianRow1Column2,obsJacobianRow1Column3}, {obsJacobianRow2Column1,obsJacobianRow2Column2,obsJacobianRow2Column3}};
-        double[][] obsJacobian = {{1,0,0},{0,1,0}};
+        double[][] obsJacobian = {{1.0,0.0,0.0},{0.0,1.0,0.0}};
         DoubleMatrix2D observationJacobianMatrix = new DenseDoubleMatrix2D(2,3).assign(obsJacobian);
         //System.out.println("ObservationJacobianMatrix " + observationJacobianMatrix);
 
         //Calculate the KalmanGain with the ErrorMatrix for the measurement
         //TODO: Get accurate error Matrix for the GPS readings
-        double[][] gpsErrorArray = {{0.01,0.0}, {0.0,0.01}};
+        double[][] gpsErrorArray = {{0.5,0.0}, {0.0,5}};
         DoubleMatrix2D gpsErrorMatrix = new DenseDoubleMatrix2D(2,2).assign(gpsErrorArray);
 
         //Step 1: Calculate the Inverse as part of the KalmanGain
