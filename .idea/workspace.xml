@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a0e545e7-aebc-4cdf-baf2-769a8b8a86f3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/01_Clean.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/odo_gps_cleaned.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/EKF_SLAM_Test.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/util/SlamUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/StreamingJobEKFMark.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/StreamingJobEKFMark.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/hopefullyItDidntFuckUp.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hopefullyItDidntFuckUp.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,9 +115,10 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.StreamingJobEKFMark">
-    <configuration name="ColtTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.colt.ColtTest" />
+  <component name="RunManager" selected="Application.EKF_SLAM_Test">
+    <configuration name="EKF_SLAM_Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="INCLUDE_PROVIDED_SCOPE" value="true" />
+      <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.mark.EKF_SLAM_Test" />
       <module name="dbpro-ekf-slam" />
       <extension name="coverage">
         <pattern>
@@ -144,13 +143,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="StreamingJobEKFMark" type="Application" factoryName="Application" nameIsGenerated="true">
+    <configuration name="SlamUtils" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="INCLUDE_PROVIDED_SCOPE" value="true" />
-      <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.mark.StreamingJobEKFMark" />
+      <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.util.SlamUtils" />
       <module name="dbpro-ekf-slam" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="edu.tuberlin.dbpro.ws19.ekfslam.mark.*" />
+          <option name="PATTERN" value="edu.tuberlin.dbpro.ws19.ekfslam.util.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -158,9 +157,9 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="StreamingJobRessources" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration name="StreamingJobEKFMark" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="INCLUDE_PROVIDED_SCOPE" value="true" />
-      <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.mark.StreamingJobRessources" />
+      <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.mark.StreamingJobEKFMark" />
       <module name="dbpro-ekf-slam" />
       <extension name="coverage">
         <pattern>
@@ -194,19 +193,19 @@
     </configuration>
     <list>
       <item itemvalue="Application.StreamingJobEKFMark" />
-      <item itemvalue="Application.ColtTest" />
-      <item itemvalue="Application.StreamingJobRessources" />
-      <item itemvalue="R.MovingCar_Script" />
       <item itemvalue="Application.Test" />
       <item itemvalue="Application.Playground" />
+      <item itemvalue="Application.SlamUtils" />
+      <item itemvalue="Application.EKF_SLAM_Test" />
+      <item itemvalue="R.MovingCar_Script" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.EKF_SLAM_Test" />
+        <item itemvalue="Application.SlamUtils" />
         <item itemvalue="Application.Playground" />
         <item itemvalue="Application.Test" />
         <item itemvalue="R.MovingCar_Script" />
-        <item itemvalue="Application.StreamingJobRessources" />
-        <item itemvalue="Application.ColtTest" />
       </list>
     </recent_temporary>
   </component>
@@ -456,7 +455,14 @@
       <option name="project" value="LOCAL" />
       <updated>1579440872518</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="added gps outlier detection">
+      <created>1579453991703</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1579453991703</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -477,7 +483,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Latest try to add colt 1.2.0 with maven" />
     <MESSAGE value="Added BeneTestColt, EKFSLAM-Function and Parse data for laser_full" />
     <MESSAGE value="worked in dieskretekalmanfunction" />
     <MESSAGE value="Output of x and y values for fiven odo and steering/speed data. Out in csv and plottet in R" />
@@ -502,7 +507,8 @@
     <MESSAGE value="latest data works" />
     <MESSAGE value="it worked somehow" />
     <MESSAGE value="ekf works as intended on gps_and_odo_sorted" />
-    <option name="LAST_COMMIT_MESSAGE" value="ekf works as intended on gps_and_odo_sorted" />
+    <MESSAGE value="added gps outlier detection" />
+    <option name="LAST_COMMIT_MESSAGE" value="added gps outlier detection" />
   </component>
   <component name="WindowStateProjectService">
     <state x="176" y="120" key="#com.intellij.execution.impl.EditConfigurationsDialog" />
