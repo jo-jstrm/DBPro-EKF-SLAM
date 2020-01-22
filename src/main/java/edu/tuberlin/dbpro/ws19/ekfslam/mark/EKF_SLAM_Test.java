@@ -6,7 +6,11 @@ import cern.colt.matrix.DoubleMatrix2D;
 import cern.colt.matrix.impl.DenseDoubleMatrix1D;
 import cern.colt.matrix.impl.DenseDoubleMatrix2D;
 import edu.tuberlin.dbpro.ws19.ekfslam.util.SlamUtils;
+import edu.tuberlin.dbpro.ws19.ekfslam.util.TreeProcessing;
 import org.apache.flink.api.java.tuple.Tuple2;
+import org.apache.flink.api.java.tuple.Tuple3;
+
+import java.util.ArrayList;
 
 public class EKF_SLAM_Test {
     public static double vehicleL = 2.83;
@@ -91,6 +95,26 @@ public class EKF_SLAM_Test {
 
 
         //TODO: Figure out mu Expansion and Sigma Expansion
-        //
+        //Example observation
+        int[] observationRaw = {83, 84, 84, 85, 84, 84, 85, 85, 86, 86, 86, 89, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8187, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8187, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8187, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 2028, 2029, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 2947, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8187, 8191, 870, 853, 853, 855, 8191, 8191, 8183, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8183, 8187, 8191, 8187, 2856, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 1269, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 2372, 2380, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 2429, 2416, 2418, 2424, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 1257, 1246, 1247, 1251, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 311, 308, 309, 313, 8191, 8191, 8191, 8191, 8191, 8191, 8187, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191};
+        Double[] observation = new Double[observationRaw.length];
+        for (int i = 0; i < observationRaw.length; i++) {
+            observation[i] = (double) observationRaw[i];
+        }
+        ArrayList<Tuple3> singleTrees = TreeProcessing.singleTrees(observation, 0.0);
+        for (Tuple3 t:
+             singleTrees) {
+            System.out.println(t);
+        }
+        //SLAM Coorection Step as shown on page 43 of the uni freiburg slides
+        //Observation error matrix
+        double[][] qtArr = {{0.1,0.0},{0.0,0.1}};
+        DoubleMatrix2D Qt = new DenseDoubleMatrix2D(2,2).assign(qtArr);
+        System.out.println("Qt " + Qt);
+        //for loop over all observed features
+        for (Tuple3 tree: singleTrees) {
+            //TODO: figure out what j = cti stands for exactly
+            //TODO: figure out how to distuingish new tree from old
+        }
     }
 }
