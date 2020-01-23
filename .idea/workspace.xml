@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="a0e545e7-aebc-4cdf-baf2-769a8b8a86f3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/EKF_SLAM_Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/EKF_SLAM_Test.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/util/SlamUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/util/SlamUtils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -476,7 +475,14 @@
       <option name="project" value="LOCAL" />
       <updated>1579701974651</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="Ongoing Slam implementation for update step">
+      <created>1579787085036</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1579787085036</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -497,7 +503,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="worked in dieskretekalmanfunction" />
     <MESSAGE value="Output of x and y values for fiven odo and steering/speed data. Out in csv and plottet in R" />
     <MESSAGE value="New Branch for Laser data" />
     <MESSAGE value="calculate landmark positions" />
@@ -522,7 +527,8 @@
     <MESSAGE value="ekf works as intended on gps_and_odo_sorted" />
     <MESSAGE value="added gps outlier detection" />
     <MESSAGE value="Started EKF SLAM and implemented SLAM prediction step" />
-    <option name="LAST_COMMIT_MESSAGE" value="Started EKF SLAM and implemented SLAM prediction step" />
+    <MESSAGE value="Ongoing Slam implementation for update step" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ongoing Slam implementation for update step" />
   </component>
   <component name="WindowStateProjectService">
     <state x="176" y="120" key="#com.intellij.execution.impl.EditConfigurationsDialog" />

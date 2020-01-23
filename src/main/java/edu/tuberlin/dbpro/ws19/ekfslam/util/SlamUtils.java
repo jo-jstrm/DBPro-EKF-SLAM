@@ -33,7 +33,7 @@ public class SlamUtils {
         }
         return zeros;
     }
-    public static int getTreeIndex(DoubleMatrix2D mu, DoubleMatrix2D tree){
+    private static int getTreeIndex(DoubleMatrix2D mu, DoubleMatrix2D tree){
         int index = -1;
         for (int i = 0; i < mu.size(); i += 2) {
             if(mu.get(3+i,0) == tree.get(0,0) && mu.get(3+i+1, 0) == tree.get(1,0)){
@@ -43,19 +43,23 @@ public class SlamUtils {
         }
         return index/2;
     }
-    public static DoubleMatrix2D makeUpdateHelperMatrix(DoubleMatrix2D mu){
+    public static DoubleMatrix2D makeUpdateHelperMatrix(DoubleMatrix2D mu, DoubleMatrix2D tree){
+        int index = getTreeIndex(mu, tree);
         DoubleMatrix2D fx = makePredictionHelperMatrix(mu);
-        return fx;
+        DoubleMatrix2D fxLowerRows = new DenseDoubleMatrix2D(2, fx.columns());
+        fxLowerRows.set(0, index*2+3, 1);
+        fxLowerRows.set(1, index*2+1+3, 1);
+        return DoubleFactory2D.dense.appendRows(fx, fxLowerRows);
     }
 
 
 
     public static void main(String[] args) {
         System.out.println(makePredictionHelperMatrix(DoubleFactory2D.dense.make(9,1)));
-        DoubleMatrix2D mu = new DenseDoubleMatrix2D(9,1 ).assign(new double[][]{{0},{1},{2},{2},{4},{5},{4},{3},{4}});
+        DoubleMatrix2D mu = new DenseDoubleMatrix2D(9,1 ).assign(new double[][]{{0},{1},{2},{2},{4},{3},{4},{3.1},{4}});
         System.out.println(mu);
         System.out.println(getCarCoord(mu));
         System.out.println("Index " + getTreeIndex(mu, new DenseDoubleMatrix2D(2,1).assign(new double[][]{{3},{4}})));
-        System.out.println(makeUpdateHelperMatrix(mu));
+        System.out.println(makeUpdateHelperMatrix(mu, new DenseDoubleMatrix2D(2,1).assign(new double[][]{{3},{4}})));
     }
 }
