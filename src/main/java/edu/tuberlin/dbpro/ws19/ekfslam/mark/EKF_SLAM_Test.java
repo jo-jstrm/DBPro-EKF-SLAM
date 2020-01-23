@@ -19,17 +19,17 @@ public class EKF_SLAM_Test {
     public static double vehicleA = 3.78;
     public static void main(String[] args) {
         //Given inputs by the saved value State
-        Double x_prev = 1.0;
-        Double y_prev = 2.0;
-        Double phi_prev = 0.5;
+        Double x_prev = 0.0;
+        Double y_prev = 0.0;
+        Double phi_prev = 0.0;
         phi_prev = phi_prev%(Math.PI*2);
         double[][] previous = {{x_prev}, {y_prev}, {phi_prev}};
-        DoubleMatrix2D mu = SlamUtils.addTree(DoubleFactory2D.dense.make(previous), new Tuple2(6.0,7.9));
+        DoubleMatrix2D mu = DoubleFactory2D.dense.make(previous.length, 1).assign(previous);
         System.out.println("mu " + mu);
         //Motion model for the car based on EKF implementation
-        Double timedif = 21.9;
-        Double speed = 1.0;
-        Double steering = -1.0;
+        Double timedif = 1.9;
+        Double speed = 0.0;
+        Double steering = 0.0;
         Double x_inc = timedif*(speed*Math.cos(phi_prev)-(speed/vehicleL)*Math.tan(steering)*(vehicleA*Math.sin(phi_prev)+vehicleB*Math.cos(phi_prev)));
         Double y_inc = timedif*(speed*Math.sin(phi_prev)+(speed/vehicleL)*Math.tan(steering)*(vehicleA*Math.cos(phi_prev)-vehicleB*Math.sin(phi_prev)));
         Double phi_inc = timedif*(speed/vehicleL)*Math.tan(steering);
@@ -48,7 +48,7 @@ public class EKF_SLAM_Test {
 
         //Preparing the prediction step for the covariance matrix
         //Previous covariance matrix
-        DoubleMatrix2D cov_prev = DoubleFactory2D.dense.identity(5);
+        DoubleMatrix2D cov_prev = DoubleFactory2D.dense.identity(3);
         System.out.println("cov_prev " + cov_prev);
         //motion model error matrix Rt
         double[][] rtArr = {{0.5,0,0},{0,0.5,0},{0,0,0.5}};
@@ -95,6 +95,10 @@ public class EKF_SLAM_Test {
 
 
         //TODO: Figure out mu Expansion and Sigma Expansion
+        DoubleMatrix2D workingMu = new DenseDoubleMatrix2D(estimatedMu.rows(), estimatedMu.columns()).assign(estimatedMu);
+        System.out.println("workingMu " + workingMu);
+        DoubleMatrix2D workingCov = new DenseDoubleMatrix2D(estimatedCov.rows(), estimatedCov.columns()).assign(estimatedCov);
+        System.out.println("workingCov " + workingCov);
         //Example observation
         int[] observationRaw = {83, 84, 84, 85, 84, 84, 85, 85, 86, 86, 86, 89, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8187, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8187, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8187, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 2028, 2029, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 2947, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8187, 8191, 870, 853, 853, 855, 8191, 8191, 8183, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8183, 8187, 8191, 8187, 2856, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 1269, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 2372, 2380, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 2429, 2416, 2418, 2424, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 1257, 1246, 1247, 1251, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 311, 308, 309, 313, 8191, 8191, 8191, 8191, 8191, 8191, 8187, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191};
         Double[] observation = new Double[observationRaw.length];
@@ -114,7 +118,29 @@ public class EKF_SLAM_Test {
         //for loop over all observed features
         for (Tuple3 tree: singleTrees) {
             //TODO: figure out what j = cti stands for exactly
-            //TODO: figure out how to distuingish new tree from old
+            //TODO: figure out how to distingish new tree from old
+            DoubleMatrix2D workingLandmark = null;
+            if (true){
+                //adding new tree to Mu
+                workingMu = SlamUtils.addTree(workingMu, tree);
+                System.out.println("workingMu " + workingMu);
+                //set the tree being worked on
+                workingLandmark = SlamUtils.getLastTree(workingMu);
+                //System.out.println("workingLandmark " + workingLandmark);
+            }
+            //Car coordinates x and y from estimatedMu as a matrix
+            DoubleMatrix2D carCoord = SlamUtils.getCarCoord(workingMu);
+            System.out.println("carCoord " + carCoord);
+            //Calculate delta between the working tree coordinates and the car coordinates
+            DoubleMatrix2D delta = workingLandmark.assign(carCoord, (v, v1) -> v - v1);
+            System.out.println("delta " + delta);
+            //Calculate q by multiplying transposed delta with delta
+            DoubleMatrix2D q = delta.zMult(delta, null, 1.0, 1.0, true, false);
+            System.out.println("q " + q);
+            //Calculate step 14 from slide 43 of uni freiburg, estimatedObservation
+            DoubleMatrix2D estimatedObservation = new DenseDoubleMatrix2D(2, 1).assign(new double[][]{{Math.sqrt(q.get(0,0))},{Math.atan2(delta.get(1,0), delta.get(0,0))-workingMu.get(2,0)}});
+            System.out.println("estimatedObservation " + estimatedObservation);
+
         }
     }
 }
