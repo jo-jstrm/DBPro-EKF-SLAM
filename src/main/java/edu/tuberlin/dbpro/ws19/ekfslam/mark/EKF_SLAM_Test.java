@@ -122,14 +122,19 @@ public class EKF_SLAM_Test {
             //TODO: figure out what j = cti stands for exactly
             //TODO: figure out how to distingish new tree from old
             DoubleMatrix2D workingLandmark = null;
-            if (true){
+            DoubleMatrix2D referredLandmark = null;
+            if (SlamUtils.existingReferredLandmark(workingMu, tree) == null){
                 //adding new tree to Mu
                 workingMu = SlamUtils.addTree(workingMu, tree);
                 workingCov = SlamUtils.expandCovMatrix(workingCov);
                 System.out.println("workingMu " + workingMu);
                 //set the tree being worked on
                 workingLandmark = SlamUtils.getLastTree(workingMu);
+                referredLandmark = SlamUtils.getLastTree(workingMu);
                 //System.out.println("workingLandmark " + workingLandmark);
+            }else{
+                workingLandmark = SlamUtils.tupleToLandmark(tree);
+                referredLandmark = SlamUtils.existingReferredLandmark(workingMu, tree);
             }
             //Car coordinates x and y from estimatedMu as a matrix
             DoubleMatrix2D carCoord = SlamUtils.getCarCoord(workingMu);
@@ -144,7 +149,7 @@ public class EKF_SLAM_Test {
             DoubleMatrix2D estimatedObservation = new DenseDoubleMatrix2D(2, 1).assign(new double[][]{{Math.sqrt(q.get(0,0))},{Math.atan2(delta.get(1,0), delta.get(0,0))-workingMu.get(2,0)}});
             System.out.println("estimatedObservation " + estimatedObservation);
             //Generate Fxj as a helper matrix to map the jacobian matrix
-            DoubleMatrix2D Fxj = SlamUtils.makeUpdateHelperMatrix(workingMu, workingLandmark);
+            DoubleMatrix2D Fxj = SlamUtils.makeUpdateHelperMatrix(workingMu, referredLandmark);
             System.out.println("Fxj " + Fxj);
             //Generate jacobian matrix based on freiburg uni slides page 39
             DoubleMatrix2D lowHti = SlamUtils.makeUpdateJacobian(q, delta);

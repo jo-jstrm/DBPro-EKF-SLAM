@@ -35,6 +35,9 @@ public class SlamUtils {
     public static DoubleMatrix2D getObservationModelTree(Tuple5 input){
         return DoubleFactory2D.dense.make(2,1).assign(new double[][]{{(double) input.f3},{(double) input.f4}});
     }
+    public static DoubleMatrix2D tupleToLandmark(Tuple5 input){
+        return DoubleFactory2D.dense.make(2,1).assign(new double[][]{{(double) input.f0},{(double) input.f1}});
+    }
     public static DoubleMatrix2D getLastTree(DoubleMatrix2D mu){
         return mu.viewSelection(new int[]{mu.rows()-2, mu.rows()-1},null);
     }
@@ -49,9 +52,9 @@ public class SlamUtils {
         return zeros;
     }
     private static int getTreeIndex(DoubleMatrix2D mu, DoubleMatrix2D tree){
-        int index = -1;
-        for (int i = 0; i < mu.size(); i += 2) {
-            if(mu.get(3+i,0) == tree.get(0,0) && mu.get(3+i+1, 0) == tree.get(1,0)){
+        int index = -2;
+        for (int i = 3; i < mu.size(); i += 2) {
+            if(mu.get(i,0) == tree.get(0,0) && mu.get(i+1, 0) == tree.get(1,0)){
                 index = i;
                 break;
             }
@@ -85,11 +88,31 @@ public class SlamUtils {
         return new DenseDoubleMatrix2D(2, 5).assign(jacobianArr);
     }
 
+    /**
+     * This function, given an observation compares it to the already saved landmarks,
+     * and if one already exists returns the original, whereas when there is no similar landmark
+     * the function returns null.
+     * @param mu
+     * @param tree
+     * @return The original landmark or null if no similar landmark available
+     */
+    public static DoubleMatrix2D existingReferredLandmark(DoubleMatrix2D mu, Tuple5 tree){
+        DoubleMatrix2D landmark = tupleToLandmark(tree);
+        DoubleMatrix2D referredLandmark = null;
+        for (int i = 3; i < mu.size(); i += 2) {
+            //System.out.println("Euclidean distance: " + Math.sqrt(Math.pow(mu.get(i,0)-landmark.get(0,0),2)+Math.pow(mu.get(i+1,0)-landmark.get(1,0),2)));
+            if (1.0 > Math.sqrt(Math.pow(mu.get(i,0)-landmark.get(0,0),2)+Math.pow(mu.get(i+1,0)-landmark.get(1,0),2))){
+                referredLandmark = new DenseDoubleMatrix2D(2,1).assign(new double[][]{{mu.get(i,0)},{mu.get(i+1, 0)}});
+            }
+        }
+        return referredLandmark;
+    }
+
 
 
     public static void main(String[] args) {
         System.out.println(makePredictionHelperMatrix(DoubleFactory2D.dense.make(9,1)));
-        DoubleMatrix2D mu = new DenseDoubleMatrix2D(9,1 ).assign(new double[][]{{0},{1},{2},{2},{4},{3},{4},{3.1},{4}});
+        DoubleMatrix2D mu = new DenseDoubleMatrix2D(9,1 ).assign(new double[][]{{0},{1},{2},{20},{-12},{24},{10},{10},{4}});
         System.out.println(mu);
         System.out.println(getCarCoord(mu));
         System.out.println("Index " + getTreeIndex(mu, new DenseDoubleMatrix2D(2,1).assign(new double[][]{{3},{4}})));
@@ -99,5 +122,11 @@ public class SlamUtils {
         System.out.println("Cov " + cov);
         DoubleMatrix2D covExpanded = expandCovMatrix(cov);
         System.out.println("covExpanded " + covExpanded);
+
+        System.out.println("<<<<<<<<<<<<<<<<<<<<<<<------------------->>>>>>>>>>>>>>>>>>>>");
+        Tuple5 tree = Tuple5.of(9.8, 4.1, 0.1, 0, 0);
+        System.out.println(existingReferredLandmark(mu, tree));
+        System.out.println(getTreeIndex(mu, existingReferredLandmark(mu, tree)));
+
     }
 }

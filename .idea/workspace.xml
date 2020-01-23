@@ -4,9 +4,7 @@
     <list default="true" id="a0e545e7-aebc-4cdf-baf2-769a8b8a86f3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/EKF_SLAM_Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/EKF_SLAM_Test.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/TestEkfTreesUpdateStep.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/TestEkfTreesUpdateStep.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/util/SlamUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/util/SlamUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/util/TreeProcessing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/util/TreeProcessing.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,7 +115,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.EKF_SLAM_Test">
+  <component name="RunManager" selected="Application.SlamUtils">
     <configuration name="EKF_SLAM_Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="INCLUDE_PROVIDED_SCOPE" value="true" />
       <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.mark.EKF_SLAM_Test" />
@@ -203,8 +201,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.EKF_SLAM_Test" />
         <item itemvalue="Application.SlamUtils" />
+        <item itemvalue="Application.EKF_SLAM_Test" />
         <item itemvalue="Application.Playground" />
         <item itemvalue="Application.Test" />
         <item itemvalue="R.MovingCar_Script" />
@@ -492,7 +490,14 @@
       <option name="project" value="LOCAL" />
       <updated>1579787699392</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="Finished Basic Slam with update">
+      <created>1579809163947</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1579809163948</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -513,7 +518,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="New Branch for Laser data" />
     <MESSAGE value="calculate landmark positions" />
     <MESSAGE value="work in progress landmark determination" />
     <MESSAGE value="push for mark" />
@@ -538,7 +542,8 @@
     <MESSAGE value="Started EKF SLAM and implemented SLAM prediction step" />
     <MESSAGE value="Ongoing Slam implementation for update step" />
     <MESSAGE value="Ongoing Slam implementation for update step part 2" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ongoing Slam implementation for update step part 2" />
+    <MESSAGE value="Finished Basic Slam with update" />
+    <option name="LAST_COMMIT_MESSAGE" value="Finished Basic Slam with update" />
   </component>
   <component name="WindowStateProjectService">
     <state x="176" y="120" key="#com.intellij.execution.impl.EditConfigurationsDialog" />
