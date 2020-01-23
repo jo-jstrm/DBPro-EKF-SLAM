@@ -10,6 +10,7 @@ import edu.tuberlin.dbpro.ws19.ekfslam.util.SlamUtils;
 import edu.tuberlin.dbpro.ws19.ekfslam.util.TreeProcessing;
 import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.api.java.tuple.Tuple3;
+import org.apache.flink.api.java.tuple.Tuple5;
 
 import java.util.ArrayList;
 
@@ -106,8 +107,8 @@ public class EKF_SLAM_Test {
         for (int i = 0; i < observationRaw.length; i++) {
             observation[i] = (double) observationRaw[i];
         }
-        ArrayList<Tuple3> singleTrees = TreeProcessing.singleTrees(observation, 0.0);
-        for (Tuple3 t:
+        ArrayList<Tuple5> singleTrees = TreeProcessing.singleTrees(observation, 0.0);
+        for (Tuple5 t:
              singleTrees) {
             System.out.println(t);
         }
@@ -117,7 +118,7 @@ public class EKF_SLAM_Test {
         DoubleMatrix2D Qt = new DenseDoubleMatrix2D(2,2).assign(qtArr);
         System.out.println("Qt " + Qt);
         //for loop over all observed features
-        for (Tuple3 tree: singleTrees) {
+        for (Tuple5 tree: singleTrees) {
             //TODO: figure out what j = cti stands for exactly
             //TODO: figure out how to distingish new tree from old
             DoubleMatrix2D workingLandmark = null;
@@ -172,8 +173,32 @@ public class EKF_SLAM_Test {
             DoubleMatrix2D kalmanGain = kalmanGainStep1.zMult(inverseKalman, null, 1.0, 1.0, false, false);
             System.out.println("kalmanGain " + kalmanGain);
 
-            //calculate the new estimatedMu as workingMu
+            //calculate the new updatedMu as workingMu
             //TODO: get range and bearing for observed trees to compare with estimated observation
+            DoubleMatrix2D workingTreeObservation = SlamUtils.getObservationModelTree(tree);
+            System.out.println("workingTreeObservation " + workingTreeObservation);
+            DoubleMatrix2D observedVsEstimated = workingTreeObservation.assign(estimatedObservation, (v, v1) -> v - v1);
+            System.out.println("observedVsEstimated " + observedVsEstimated);
+            //update the estimated State aka workingMu
+            //Step 1 multiply the kalman gain with the difference in observations
+            DoubleMatrix2D kalmanObservation = kalmanGain.zMult(observedVsEstimated, null, 1.0, 1.0, false, false);
+            System.out.println("kalmanObservation " + kalmanObservation);
+            //add to the workingMu the kalmanObservation in order to finish step 18 of the slides
+            workingMu = workingMu.assign(kalmanObservation, (v, v1) -> v + v1);
+            System.out.println("workingMu " + workingMu);
+
+            //calculate the new updatedCov as workingCov
+            //Step1 to calculate new workingCov: Multiply kalman gain with jacobian
+            DoubleMatrix2D step1Cov = kalmanGain.zMult(Hti, null, 1.0, 1.0, false, false);
+            System.out.println("step1Cov " + step1Cov);
+            //Step2 to calculate new workingCov: subtract step1Cov from Identity matrix
+            DoubleMatrix2D step2Cov = DoubleFactory2D.dense.identity(step1Cov.rows()).assign(step1Cov, (v, v1) -> v - v1);
+            System.out.println("step2Cov " + step2Cov);
+            //update workingCov by multiplying step2Cov with working Cov
+            workingCov = step2Cov.zMult(workingCov, null, 1.0, 1.0, false, false);
+            System.out.println("workingCov " + workingCov);
         }
+        DoubleMatrix2D updatedMu = workingMu;
+        DoubleMatrix2D updatedCov = workingCov;
     }
 }

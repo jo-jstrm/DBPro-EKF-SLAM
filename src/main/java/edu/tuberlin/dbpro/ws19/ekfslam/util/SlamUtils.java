@@ -8,6 +8,7 @@ import cern.colt.matrix.impl.DenseDoubleMatrix1D;
 import cern.colt.matrix.impl.DenseDoubleMatrix2D;
 import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.api.java.tuple.Tuple3;
+import org.apache.flink.api.java.tuple.Tuple5;
 
 import java.util.ArrayList;
 
@@ -22,8 +23,17 @@ public class SlamUtils {
         DoubleMatrix2D rowExpansion = new DenseDoubleMatrix2D(2, cov.columns()+2);
         return DoubleFactory2D.dense.appendRows(DoubleFactory2D.dense.appendColumns(cov, columnExpansion), rowExpansion);
     }
-    public static DoubleMatrix2D addTree(DoubleMatrix2D mu, Tuple3 input){
+    public static DoubleMatrix2D addTree(DoubleMatrix2D mu, Tuple5 input){
         return addTree(mu, Tuple2.of(input.f0, input.f1));
+    }
+
+    /**
+     * Generates a 2x1 DoubleMatrix with range and bearing for an observed tree
+     * @param input
+     * @return 2x1 DoubleMatrix with range and bearing in radians
+     */
+    public static DoubleMatrix2D getObservationModelTree(Tuple5 input){
+        return DoubleFactory2D.dense.make(2,1).assign(new double[][]{{(double) input.f3},{(double) input.f4}});
     }
     public static DoubleMatrix2D getLastTree(DoubleMatrix2D mu){
         return mu.viewSelection(new int[]{mu.rows()-2, mu.rows()-1},null);
