@@ -145,5 +145,6 @@ public class Test {
         //averageDistance(input);
         getDiameters(input);
         getSingleCoordinateTrees(input);
+
     }
 }

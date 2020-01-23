@@ -128,8 +128,12 @@ public class TreeProcessing {
         return singleCoordinateTrees;
     }private static Double[] fitTreeData(Double[] input) {
         Double[] adjust15 = input;
-        for (int i = 0; i < 15; i++) {
-            adjust15[i] = 81.00;
+        for (int i = 0; i < input.length; i++) {
+            if (i<15) {
+                adjust15[i] = 81.00;
+            }else{
+                adjust15[i] = adjust15[i]/100;
+            }
         }
         return adjust15;
     }

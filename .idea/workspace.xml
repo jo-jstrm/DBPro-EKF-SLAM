@@ -3,7 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="a0e545e7-aebc-4cdf-baf2-769a8b8a86f3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/Ekf_Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/Ekf_Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/EKF_SLAM_Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/EKF_SLAM_Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/util/SlamUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/util/SlamUtils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -12,6 +13,20 @@
   </component>
   <component name="CodeStyleSettingsInfer">
     <option name="done" value="true" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -23,7 +38,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="ekf_mark_v1" />
+        <entry key="$PROJECT_DIR$" value="EKF-Flink-Function" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -56,6 +71,7 @@
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Git.Branch.Popup.ShowAllRemotes" value="true" />
     <property name="Repository.Attach.Annotations" value="false" />
     <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="Repository.Attach.Sources" value="false" />
@@ -99,9 +115,10 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Ekf_Test">
-    <configuration name="ColtTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.colt.ColtTest" />
+  <component name="RunManager" selected="Application.EKF_SLAM_Test">
+    <configuration name="EKF_SLAM_Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="INCLUDE_PROVIDED_SCOPE" value="true" />
+      <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.mark.EKF_SLAM_Test" />
       <module name="dbpro-ekf-slam" />
       <extension name="coverage">
         <pattern>
@@ -113,7 +130,34 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="StreamingJobEKFMark" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration name="Playground" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.mark.Playground" />
+      <module name="dbpro-ekf-slam" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.tuberlin.dbpro.ws19.ekfslam.mark.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SlamUtils" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="INCLUDE_PROVIDED_SCOPE" value="true" />
+      <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.util.SlamUtils" />
+      <module name="dbpro-ekf-slam" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.tuberlin.dbpro.ws19.ekfslam.util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="StreamingJobEKFMark" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="INCLUDE_PROVIDED_SCOPE" value="true" />
       <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.mark.StreamingJobEKFMark" />
       <module name="dbpro-ekf-slam" />
@@ -127,9 +171,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="StreamingJobRessources" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="INCLUDE_PROVIDED_SCOPE" value="true" />
-      <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.mark.StreamingJobRessources" />
+    <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.mark.Test" />
       <module name="dbpro-ekf-slam" />
       <extension name="coverage">
         <pattern>
@@ -141,63 +184,30 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="StreamingJobTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="INCLUDE_PROVIDED_SCOPE" value="true" />
-      <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.StreamingJobTest" />
-      <module name="dbpro-ekf-slam" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="edu.tuberlin.dbpro.ws19.ekfslam.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TestEkfTreesUpdateStep" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="INCLUDE_PROVIDED_SCOPE" value="true" />
-      <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.mark.TestEkfTreesUpdateStep" />
-      <module name="dbpro-ekf-slam" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="edu.tuberlin.dbpro.ws19.ekfslam.mark.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
+    <configuration name="MovingCar_Script" type="RRunConfigurationType" factoryName="R" temporary="true">
+      <option name="SCRIPT_PATH" value="$PROJECT_DIR$/src/main/resources/MovingCar_Script.R" />
+      <option name="SCRIPT_ARGS" value="" />
+      <option name="WORKING_DIRECTORY_PATH" value="C:\Users\Mark Paranskij\Documents\GitHub\DBPro-EKF-SLAM\src\main\resources" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Application.StreamingJobTest" />
-      <item itemvalue="Application.Ekf_Test" />
-      <item itemvalue="Application.ColtTest" />
-      <item itemvalue="Application.StreamingJobRessources" />
-      <item itemvalue="Application.TestEkfTreesUpdateStep" />
+      <item itemvalue="Application.StreamingJobEKFMark" />
+      <item itemvalue="Application.Test" />
+      <item itemvalue="Application.Playground" />
+      <item itemvalue="Application.SlamUtils" />
+      <item itemvalue="Application.EKF_SLAM_Test" />
+      <item itemvalue="R.MovingCar_Script" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Ekf_Test" />
-        <item itemvalue="Application.StreamingJobRessources" />
-        <item itemvalue="Application.ColtTest" />
-        <item itemvalue="Application.TestEkfTreesUpdateStep" />
-        <item itemvalue="Application.StreamingJobRessources" />
-        <item itemvalue="Application.StreamingJobTest" />
+        <item itemvalue="Application.EKF_SLAM_Test" />
+        <item itemvalue="Application.SlamUtils" />
+        <item itemvalue="Application.Playground" />
+        <item itemvalue="Application.Test" />
+        <item itemvalue="R.MovingCar_Script" />
       </list>
     </recent_temporary>
-  </component>
-  <component name="ServiceViewManager">
-    <option name="viewStates">
-      <list>
-        <serviceView>
-          <treeState>
-            <expand />
-            <select />
-          </treeState>
-        </serviceView>
-      </list>
-    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -368,7 +378,119 @@
       <option name="project" value="LOCAL" />
       <updated>1579130215843</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="Pushed for debugging">
+      <created>1579187047050</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1579187047050</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Fixed EKF streaming issue via Tuples">
+      <created>1579197001279</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1579197001279</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Fixed EKF streaming issue via Tuples">
+      <created>1579199013617</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1579199013617</updated>
+    </task>
+    <task id="LOCAL-00024" summary="changes to motion model for prediction step, and boolean flags">
+      <created>1579277850146</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1579277850146</updated>
+    </task>
+    <task id="LOCAL-00025" summary="parameterized position and observation matrix (2,1)">
+      <created>1579278406658</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1579278406658</updated>
+    </task>
+    <task id="LOCAL-00026" summary="using gps_odo_sorted dataset">
+      <created>1579280065675</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1579280065675</updated>
+    </task>
+    <task id="LOCAL-00027" summary="latest version">
+      <created>1579280888977</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1579280888977</updated>
+    </task>
+    <task id="LOCAL-00028" summary="hopefully final not working">
+      <created>1579282748396</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1579282748396</updated>
+    </task>
+    <task id="LOCAL-00029" summary="latest data works">
+      <created>1579349753870</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1579349753870</updated>
+    </task>
+    <task id="LOCAL-00030" summary="it worked somehow">
+      <created>1579357658469</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1579357658470</updated>
+    </task>
+    <task id="LOCAL-00031" summary="ekf works as intended on gps_and_odo_sorted">
+      <created>1579440872518</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1579440872518</updated>
+    </task>
+    <task id="LOCAL-00032" summary="added gps outlier detection">
+      <created>1579453991703</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1579453991703</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Started EKF SLAM and implemented SLAM prediction step">
+      <created>1579617577537</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1579617577537</updated>
+    </task>
+    <task id="LOCAL-00034" summary="Started EKF SLAM and implemented SLAM prediction step">
+      <created>1579701974650</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1579701974651</updated>
+    </task>
+    <task id="LOCAL-00035" summary="Ongoing Slam implementation for update step">
+      <created>1579787085036</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1579787085036</updated>
+    </task>
+    <task id="LOCAL-00036" summary="Ongoing Slam implementation for update step part 2">
+      <created>1579787699392</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1579787699392</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -389,13 +511,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="added resources" />
-    <MESSAGE value="removed previous resources" />
-    <MESSAGE value="Removed Colt completely" />
-    <MESSAGE value="Latest try to add colt 1.2.0 with maven" />
-    <MESSAGE value="Added BeneTestColt, EKFSLAM-Function and Parse data for laser_full" />
-    <MESSAGE value="worked in dieskretekalmanfunction" />
-    <MESSAGE value="Output of x and y values for fiven odo and steering/speed data. Out in csv and plottet in R" />
     <MESSAGE value="New Branch for Laser data" />
     <MESSAGE value="calculate landmark positions" />
     <MESSAGE value="work in progress landmark determination" />
@@ -407,52 +522,44 @@
     <MESSAGE value="Kalman Gain calculated" />
     <MESSAGE value="EKF algorithm ready, but mathematically incorrect" />
     <MESSAGE value="Finished EKF, with uncertain results" />
-    <option name="LAST_COMMIT_MESSAGE" value="Finished EKF, with uncertain results" />
+    <MESSAGE value="Pushed for debugging" />
+    <MESSAGE value="Fixed EKF streaming issue via Tuples" />
+    <MESSAGE value="changes to motion model for prediction step, and boolean flags" />
+    <MESSAGE value="parameterized position and observation matrix (2,1)" />
+    <MESSAGE value="using gps_odo_sorted dataset" />
+    <MESSAGE value="latest version" />
+    <MESSAGE value="hopefully final not working" />
+    <MESSAGE value="latest data works" />
+    <MESSAGE value="it worked somehow" />
+    <MESSAGE value="ekf works as intended on gps_and_odo_sorted" />
+    <MESSAGE value="added gps outlier detection" />
+    <MESSAGE value="Started EKF SLAM and implemented SLAM prediction step" />
+    <MESSAGE value="Ongoing Slam implementation for update step" />
+    <MESSAGE value="Ongoing Slam implementation for update step part 2" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ongoing Slam implementation for update step part 2" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="176" y="120" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1579180801688">
-      <screen x="0" y="0" width="1440" height="920" />
-    </state>
-    <state x="176" y="120" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1440.920@0.0.1440.920" timestamp="1579180801688" />
-    <state x="526" y="171" key="#com.intellij.ide.util.MemberChooser" timestamp="1579181484528">
-      <screen x="0" y="0" width="1440" height="920" />
-    </state>
-    <state x="526" y="171" key="#com.intellij.ide.util.MemberChooser/0.0.1440.920@0.0.1440.920" timestamp="1579181484528" />
-    <state x="572" y="354" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1579016785137">
-      <screen x="0" y="0" width="1440" height="920" />
-    </state>
-    <state x="572" y="354" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1440.920@0.0.1440.920" timestamp="1579016785137" />
-    <state x="299" y="60" key="CommitChangelistDialog2" timestamp="1579034536529">
-      <screen x="0" y="0" width="1440" height="920" />
-    </state>
-    <state x="299" y="60" key="CommitChangelistDialog2/0.0.1440.920@0.0.1440.920" timestamp="1579034536529" />
-    <state width="1397" height="242" key="GridCell.Tab.0.bottom" timestamp="1579016806376">
-      <screen x="0" y="0" width="1440" height="920" />
-    </state>
-    <state width="1397" height="242" key="GridCell.Tab.0.bottom/0.0.1440.920@0.0.1440.920" timestamp="1579016806376" />
-    <state width="1397" height="242" key="GridCell.Tab.0.center" timestamp="1579016806376">
-      <screen x="0" y="0" width="1440" height="920" />
-    </state>
-    <state width="1397" height="242" key="GridCell.Tab.0.center/0.0.1440.920@0.0.1440.920" timestamp="1579016806376" />
-    <state width="1397" height="242" key="GridCell.Tab.0.left" timestamp="1579016806376">
-      <screen x="0" y="0" width="1440" height="920" />
-    </state>
-    <state width="1397" height="242" key="GridCell.Tab.0.left/0.0.1440.920@0.0.1440.920" timestamp="1579016806376" />
-    <state width="1397" height="242" key="GridCell.Tab.0.right" timestamp="1579016806376">
-      <screen x="0" y="0" width="1440" height="920" />
-    </state>
-    <state width="1397" height="242" key="GridCell.Tab.0.right/0.0.1440.920@0.0.1440.920" timestamp="1579016806376" />
-    <state x="313" y="198" key="Vcs.Push.Dialog.v2" timestamp="1579034551189">
-      <screen x="0" y="0" width="1440" height="920" />
-    </state>
-    <state x="313" y="198" key="Vcs.Push.Dialog.v2/0.0.1440.920@0.0.1440.920" timestamp="1579034551189" />
-    <state x="429" y="290" key="com.intellij.ide.util.TipDialog" timestamp="1579178761626">
-      <screen x="0" y="0" width="1440" height="920" />
-    </state>
-    <state x="429" y="290" key="com.intellij.ide.util.TipDialog/0.0.1440.920@0.0.1440.920" timestamp="1579178761626" />
-    <state x="437" y="265" key="git4idea.merge.GitPullDialog" timestamp="1579178509365">
-      <screen x="0" y="0" width="1440" height="920" />
-    </state>
-    <state x="437" y="265" key="git4idea.merge.GitPullDialog/0.0.1440.920@0.0.1440.920" timestamp="1579178509365" />
+    <state x="176" y="120" key="#com.intellij.execution.impl.EditConfigurationsDialog" />
+    <state x="176" y="120" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1440.920@0.0.1440.920" />
+    <state x="526" y="171" key="#com.intellij.ide.util.MemberChooser" />
+    <state x="526" y="171" key="#com.intellij.ide.util.MemberChooser/0.0.1440.920@0.0.1440.920" />
+    <state x="572" y="354" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" />
+    <state x="572" y="354" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1440.920@0.0.1440.920" />
+    <state x="299" y="60" key="CommitChangelistDialog2" />
+    <state x="299" y="60" key="CommitChangelistDialog2/0.0.1440.920@0.0.1440.920" />
+    <state width="1397" height="242" key="GridCell.Tab.0.bottom" />
+    <state width="1397" height="242" key="GridCell.Tab.0.bottom/0.0.1440.920@0.0.1440.920" />
+    <state width="1397" height="242" key="GridCell.Tab.0.center" />
+    <state width="1397" height="242" key="GridCell.Tab.0.center/0.0.1440.920@0.0.1440.920" />
+    <state width="1397" height="242" key="GridCell.Tab.0.left" />
+    <state width="1397" height="242" key="GridCell.Tab.0.left/0.0.1440.920@0.0.1440.920" />
+    <state width="1397" height="242" key="GridCell.Tab.0.right" />
+    <state width="1397" height="242" key="GridCell.Tab.0.right/0.0.1440.920@0.0.1440.920" />
+    <state x="313" y="198" key="Vcs.Push.Dialog.v2" />
+    <state x="313" y="198" key="Vcs.Push.Dialog.v2/0.0.1440.920@0.0.1440.920" />
+    <state x="429" y="290" key="com.intellij.ide.util.TipDialog" />
+    <state x="429" y="290" key="com.intellij.ide.util.TipDialog/0.0.1440.920@0.0.1440.920" />
+    <state x="437" y="265" key="git4idea.merge.GitPullDialog" />
+    <state x="437" y="265" key="git4idea.merge.GitPullDialog/0.0.1440.920@0.0.1440.920" />
   </component>
 </project>
