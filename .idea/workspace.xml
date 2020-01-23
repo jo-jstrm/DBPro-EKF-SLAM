@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a0e545e7-aebc-4cdf-baf2-769a8b8a86f3" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/01_odo_laser_SLAM.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/EKF_SLAM_Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/EKF_SLAM_Test.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/util/SlamUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/util/SlamUtils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -497,7 +496,14 @@
       <option name="project" value="LOCAL" />
       <updated>1579809163948</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="Implemented rudimentary tree recognition based on euclidean distance">
+      <created>1579811974131</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1579811974131</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -518,7 +524,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="calculate landmark positions" />
     <MESSAGE value="work in progress landmark determination" />
     <MESSAGE value="push for mark" />
     <MESSAGE value="Extended Kalman Filter on trees is being worked on, not yet integrated." />
@@ -543,7 +548,8 @@
     <MESSAGE value="Ongoing Slam implementation for update step" />
     <MESSAGE value="Ongoing Slam implementation for update step part 2" />
     <MESSAGE value="Finished Basic Slam with update" />
-    <option name="LAST_COMMIT_MESSAGE" value="Finished Basic Slam with update" />
+    <MESSAGE value="Implemented rudimentary tree recognition based on euclidean distance" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implemented rudimentary tree recognition based on euclidean distance" />
   </component>
   <component name="WindowStateProjectService">
     <state x="176" y="120" key="#com.intellij.execution.impl.EditConfigurationsDialog" />
