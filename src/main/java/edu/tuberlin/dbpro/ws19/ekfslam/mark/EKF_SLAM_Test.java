@@ -5,6 +5,7 @@ import cern.colt.matrix.DoubleMatrix1D;
 import cern.colt.matrix.DoubleMatrix2D;
 import cern.colt.matrix.impl.DenseDoubleMatrix1D;
 import cern.colt.matrix.impl.DenseDoubleMatrix2D;
+import cern.colt.matrix.linalg.Algebra;
 import edu.tuberlin.dbpro.ws19.ekfslam.util.SlamUtils;
 import edu.tuberlin.dbpro.ws19.ekfslam.util.TreeProcessing;
 import org.apache.flink.api.java.tuple.Tuple2;
@@ -123,6 +124,7 @@ public class EKF_SLAM_Test {
             if (true){
                 //adding new tree to Mu
                 workingMu = SlamUtils.addTree(workingMu, tree);
+                workingCov = SlamUtils.expandCovMatrix(workingCov);
                 System.out.println("workingMu " + workingMu);
                 //set the tree being worked on
                 workingLandmark = SlamUtils.getLastTree(workingMu);
@@ -140,7 +142,38 @@ public class EKF_SLAM_Test {
             //Calculate step 14 from slide 43 of uni freiburg, estimatedObservation
             DoubleMatrix2D estimatedObservation = new DenseDoubleMatrix2D(2, 1).assign(new double[][]{{Math.sqrt(q.get(0,0))},{Math.atan2(delta.get(1,0), delta.get(0,0))-workingMu.get(2,0)}});
             System.out.println("estimatedObservation " + estimatedObservation);
+            //Generate Fxj as a helper matrix to map the jacobian matrix
+            DoubleMatrix2D Fxj = SlamUtils.makeUpdateHelperMatrix(workingMu, workingLandmark);
+            System.out.println("Fxj " + Fxj);
+            //Generate jacobian matrix based on freiburg uni slides page 39
+            DoubleMatrix2D lowHti = SlamUtils.makeUpdateJacobian(q, delta);
+            System.out.println("lowHti " + lowHti);
+            //Step 16 of the freiburg uni EKF_SLAM correction/update
+            DoubleMatrix2D Hti = lowHti.zMult(Fxj, null, 1.0, 1.0, false, false);
+            System.out.println("Hti " + Hti);
+            //Calculating Kalman Gain based on step 17 of uni freiburg slide 44
+            //System.out.println("working cov " + workingCov);
+            //Step1 to calculate the inverse for the kalman gain, multiply Hti and workingCov
+            DoubleMatrix2D inverseStep1 = Hti.zMult(workingCov, null, 1.0, 1.0, false, false);
+            System.out.println("inverseStep1 " + inverseStep1);
+            //Step2 to calculate the inverse for the kalman gain, multiply step1 with transposed Hti
+            DoubleMatrix2D inverseStep2 = inverseStep1.zMult(Hti, null, 1.0, 1.0, false, true);
+            System.out.println("inverseStep2 " + inverseStep2);
+            //Step3 to calculate the inverse for the kalman gain, to the result of inverseStep2 add Qt (error matrix)
+            DoubleMatrix2D inverseStep3 = inverseStep2.assign(Qt, (v, v1) -> v + v1);
+            System.out.println("inverseStep3 " + inverseStep3);
+            //Calculate the inverse for the Kalman Gain by inverting inverseStep3
+            DoubleMatrix2D inverseKalman = new Algebra().inverse(inverseStep3);
+            System.out.println("inverseKalman " + inverseKalman);
+            //Step1 to calculate Kalman Gain: multiply workingCov with transposed Hti
+            DoubleMatrix2D kalmanGainStep1 = workingCov.zMult(Hti, null, 1.0, 1.0, false, true);
+            System.out.println("kalmanGainStep1 " + kalmanGainStep1);
+            //Calculate Kalman Gain by multiplying the result from the previous step with the inverse
+            DoubleMatrix2D kalmanGain = kalmanGainStep1.zMult(inverseKalman, null, 1.0, 1.0, false, false);
+            System.out.println("kalmanGain " + kalmanGain);
 
+            //calculate the new estimatedMu as workingMu
+            //TODO: get range and bearing for observed trees to compare with estimated observation
         }
     }
 }
