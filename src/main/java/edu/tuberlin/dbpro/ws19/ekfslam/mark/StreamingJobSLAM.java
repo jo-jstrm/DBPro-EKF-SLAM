@@ -18,8 +18,8 @@ public class StreamingJobSLAM {
 
         env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
 
-        DataStream<KeyedDataPoint> fullData = env.readTextFile("src/main/resources/01_odo_laser_SLAM.csv")
-                .map(new StreamingJobSLAM.ParseData())
+        DataStream<KeyedDataPoint> fullData = env.readTextFile("src/main/resources/01_odo_laser_SLAM_small.csv")
+                .map(new ParseData())
                 .keyBy("key")
                 .flatMap(new EKF_SLAM());
 

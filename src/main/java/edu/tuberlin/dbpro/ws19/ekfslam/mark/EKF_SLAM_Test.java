@@ -131,7 +131,8 @@ public class EKF_SLAM_Test {
                 //set the tree being worked on
                 workingLandmark = SlamUtils.getLastTree(workingMu);
                 referredLandmark = SlamUtils.getLastTree(workingMu);
-                //System.out.println("workingLandmark " + workingLandmark);
+                System.out.println("workingLandmark " + workingLandmark);
+                System.out.println("referredLandmark " + referredLandmark);
             }else{
                 workingLandmark = SlamUtils.tupleToLandmark(tree);
                 referredLandmark = SlamUtils.existingReferredLandmark(workingMu, tree);

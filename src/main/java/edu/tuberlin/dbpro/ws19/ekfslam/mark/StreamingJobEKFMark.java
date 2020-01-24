@@ -1,7 +1,6 @@
 package edu.tuberlin.dbpro.ws19.ekfslam.mark;
 
 import cern.colt.matrix.DoubleMatrix1D;
-import edu.tuberlin.dbpro.ws19.ekfslam.StreamingJobMilestone;
 import edu.tuberlin.dbpro.ws19.ekfslam.data.KeyedDataPoint;
 import edu.tuberlin.dbpro.ws19.ekfslam.functions.ExtendedKalmanFilter;
 import org.apache.flink.api.common.functions.RichMapFunction;
@@ -9,11 +8,7 @@ import org.apache.flink.api.java.tuple.*;
 import org.apache.flink.core.fs.FileSystem;
 import org.apache.flink.streaming.api.TimeCharacteristic;
 import org.apache.flink.streaming.api.datastream.DataStream;
-import org.apache.flink.streaming.api.datastream.DataStreamSink;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
-
-import java.security.Key;
-import java.util.ArrayList;
 
 public class StreamingJobEKFMark {
     public static void main(String[] args) throws Exception {

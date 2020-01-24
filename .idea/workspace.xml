@@ -4,7 +4,11 @@
     <list default="true" id="a0e545e7-aebc-4cdf-baf2-769a8b8a86f3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/functions/EKF_SLAM.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/functions/EKF_SLAM.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/StreamingJobSlam.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/StreamingJobSLAM.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/EKF_SLAM_Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/EKF_SLAM_Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/StreamingJobEKFMark.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/StreamingJobEKFMark.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/StreamingJobSLAM.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/StreamingJobSLAM.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/util/SlamUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/util/SlamUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/hopefullyItDidntFuckUp.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hopefullyItDidntFuckUp.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/hopefullyItDidntFuckUpSLAM.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hopefullyItDidntFuckUpSLAM.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -116,7 +120,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.StreamingJobSLAM">
+  <component name="RunManager">
     <configuration name="EKF_SLAM_Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="INCLUDE_PROVIDED_SCOPE" value="true" />
       <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.mark.EKF_SLAM_Test" />
@@ -210,8 +214,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.StreamingJobSLAM" />
-        <item itemvalue="Application.SlamUtils" />
         <item itemvalue="Application.EKF_SLAM_Test" />
+        <item itemvalue="Application.SlamUtils" />
         <item itemvalue="Application.Playground" />
         <item itemvalue="Application.Test" />
       </list>
@@ -526,7 +530,14 @@
       <option name="project" value="LOCAL" />
       <updated>1579824786145</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="Bugfixes for the SLAM prediction state">
+      <created>1579825847637</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1579825847637</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -547,7 +558,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Extended Kalman Filter on trees is being worked on, not yet integrated." />
     <MESSAGE value="Added a csv with odometry, gps, and laser data in a single file, sorted by timestamp, called GPS_DRS_LASER.csv" />
     <MESSAGE value="Refactored proccessing of the laser readouts (trees) to be independant. Added methods for parsing tree data to be fit for processing, still needs full integration." />
     <MESSAGE value="Updated TreeProcessing to include all necessary methods for parsing" />
@@ -572,7 +582,8 @@
     <MESSAGE value="Implemented rudimentary tree recognition based on euclidean distance" />
     <MESSAGE value="Added csv with odometry and laser data" />
     <MESSAGE value="Implemented Streaming environment for the EKF_SLAM prediction step" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implemented Streaming environment for the EKF_SLAM prediction step" />
+    <MESSAGE value="Bugfixes for the SLAM prediction state" />
+    <option name="LAST_COMMIT_MESSAGE" value="Bugfixes for the SLAM prediction state" />
   </component>
   <component name="WindowStateProjectService">
     <state x="176" y="120" key="#com.intellij.execution.impl.EditConfigurationsDialog" />

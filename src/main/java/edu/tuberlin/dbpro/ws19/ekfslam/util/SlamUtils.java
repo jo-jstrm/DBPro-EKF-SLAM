@@ -63,10 +63,14 @@ public class SlamUtils {
     }
     public static DoubleMatrix2D makeUpdateHelperMatrix(DoubleMatrix2D mu, DoubleMatrix2D tree){
         int index = getTreeIndex(mu, tree);
+        //System.out.println("Index " + index);
         DoubleMatrix2D fx = makePredictionHelperMatrix(mu);
+        //System.out.println("fx " + fx);
         DoubleMatrix2D fxLowerRows = new DenseDoubleMatrix2D(2, fx.columns());
-        fxLowerRows.set(0, index*2+3, 1);
-        fxLowerRows.set(1, index*2+1+3, 1);
+        //System.out.println("fxLowerRows " + fxLowerRows);
+        fxLowerRows.set(0, index*2+1, 1);
+        //System.out.println("fxLowerRows " + fxLowerRows);
+        fxLowerRows.set(1, index*2+2, 1);
         return DoubleFactory2D.dense.appendRows(fx, fxLowerRows);
     }
     public static DoubleMatrix2D makeUpdateJacobian(DoubleMatrix2D q, DoubleMatrix2D delta){
