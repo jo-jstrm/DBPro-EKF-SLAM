@@ -6,15 +6,6 @@ import org.apache.flink.api.java.tuple.Tuple5;
 import java.util.ArrayList;
 
 public class TreeProcessing {
-    public static Double getCoordinate(Double degrees, Double gamma, Double phi, Boolean isX) {
-        if (isX) {
-            double x = gamma * Math.cos(Math.toRadians(degrees) - Math.toRadians(90) + phi) + 3.78;
-            return x;
-        } else {
-            double y = gamma * Math.sin(Math.toRadians(degrees) - Math.toRadians(90) + phi) + 0.5;
-            return y;
-        }
-    }
     private static ArrayList<ArrayList<Integer>> getIndices(Double[] input){
         Double rangeTolerance = 1.1;
         ArrayList<ArrayList<Integer>> indicesArr = new ArrayList<>();
@@ -102,6 +93,15 @@ public class TreeProcessing {
     /*
     Return trees as an X and Y coordinate with the diameter of the tree as a triple
      */
+    public static Double getCoordinate(Double degrees, Double gamma, Double phi, Boolean isX) {
+        if (isX) {
+            double x = gamma * Math.cos(Math.toRadians(degrees) - Math.toRadians(90) + phi) + 3.78;
+            return x;
+        } else {
+            double y = gamma * Math.sin(Math.toRadians(degrees) - Math.toRadians(90) + phi) + 0.5;
+            return y;
+        }
+    }
     private static ArrayList<Tuple5> getSingleCoordinateTrees(Double[] input, Double phi){
         ArrayList<ArrayList<Integer>> trees = getTrees(input);
         ArrayList<Double> deltas = deltaBeta(input);

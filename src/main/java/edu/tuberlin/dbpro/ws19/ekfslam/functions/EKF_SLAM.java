@@ -35,6 +35,9 @@ public class EKF_SLAM extends RichFlatMapFunction<KeyedDataPoint, KeyedDataPoint
     public static boolean printUpdate = true;
     public static int count = 0;
 
+    public static boolean workingTree = true;
+    public static boolean referredTree = false;
+
     private transient ValueState<Tuple3<DoubleMatrix2D, DoubleMatrix2D, Long>> filterParams;
 
     @Override
@@ -58,10 +61,14 @@ public class EKF_SLAM extends RichFlatMapFunction<KeyedDataPoint, KeyedDataPoint
             }
             if(inputPoint.f2.equals("laser")) {
                 System.out.println("filterParamsVectorUPDATE " + count);
+
                 Tuple2 updatedEstimate = update(filterParams, inputPoint1);
 
                 Tuple3 updateValue = new Tuple3(updatedEstimate.f0, updatedEstimate.f1, inputPoint1.getTimeStampMs());
                 filterParams.update(updateValue);
+
+                System.out.println("updatedMU " + updatedEstimate.f0);
+                System.out.println("updatedCov " + updatedEstimate.f1);
 
                 // return filtered point
                 //returned field is the state vector with [x,y,phi]
@@ -195,6 +202,7 @@ public class EKF_SLAM extends RichFlatMapFunction<KeyedDataPoint, KeyedDataPoint
             //TODO: figure out how to distingish new tree from old
             DoubleMatrix2D workingLandmark = null;
             DoubleMatrix2D referredLandmark = null;
+            System.out.println("ReferredLandmark " + SlamUtils.existingReferredLandmark(workingMu, tree));
             if (SlamUtils.existingReferredLandmark(workingMu, tree) == null){
                 //adding new tree to Mu
                 workingMu = SlamUtils.addTree(workingMu, tree);
@@ -252,8 +260,15 @@ public class EKF_SLAM extends RichFlatMapFunction<KeyedDataPoint, KeyedDataPoint
 
             //calculate the new updatedMu as workingMu
             //TODO: get range and bearing for observed trees to compare with estimated observation
-            DoubleMatrix2D workingTreeObservation = SlamUtils.getObservationModelTree(tree);
-            //System.out.println("workingTreeObservation " + workingTreeObservation);
+            DoubleMatrix2D workingTreeObservation = null;
+            if(workingTree){
+                workingTreeObservation = SlamUtils.getObservationModelTree(tree);
+                //System.out.println("workingTreeObservation " + workingTreeObservation);
+            }else if(referredTree){
+                workingTreeObservation = new DenseDoubleMatrix2D(2,1)
+                        .assign(new double[][]{{Math.sqrt(Math.pow(referredLandmark.get(0,0)-workingMu.get(0,0),2)+Math.pow(referredLandmark.get(1,0)-workingMu.get(1,0),2))}
+                        ,{Math.atan((referredLandmark.get(1,0)-workingMu.get(1,0))/(referredLandmark.get(0,0)-workingMu.get(0,0)))-workingMu.get(2,0)+Math.PI/2}});
+            }
             DoubleMatrix2D observedVsEstimated = workingTreeObservation.assign(estimatedObservation, (v, v1) -> v - v1);
             //System.out.println("observedVsEstimated " + observedVsEstimated);
             //update the estimated State aka workingMu

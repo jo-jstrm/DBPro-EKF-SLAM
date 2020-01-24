@@ -21,7 +21,10 @@ public class SlamUtils {
     public static DoubleMatrix2D expandCovMatrix(DoubleMatrix2D cov){
         DoubleMatrix2D columnExpansion = new DenseDoubleMatrix2D(cov.rows(), 2);
         DoubleMatrix2D rowExpansion = new DenseDoubleMatrix2D(2, cov.columns()+2);
-        return DoubleFactory2D.dense.appendRows(DoubleFactory2D.dense.appendColumns(cov, columnExpansion), rowExpansion);
+        DoubleMatrix2D newCov = DoubleFactory2D.dense.appendRows(DoubleFactory2D.dense.appendColumns(cov, columnExpansion), rowExpansion);
+        newCov.set(newCov.rows()-2, newCov.rows()-2, 1000000);
+        newCov.set(newCov.rows()-1, newCov.rows()-1, 1000000);
+        return newCov;
     }
     public static DoubleMatrix2D addTree(DoubleMatrix2D mu, Tuple5 input){
         return addTree(mu, Tuple2.of(input.f0, input.f1));
@@ -105,8 +108,9 @@ public class SlamUtils {
         DoubleMatrix2D referredLandmark = null;
         for (int i = 3; i < mu.size(); i += 2) {
             //System.out.println("Euclidean distance: " + Math.sqrt(Math.pow(mu.get(i,0)-landmark.get(0,0),2)+Math.pow(mu.get(i+1,0)-landmark.get(1,0),2)));
-            if (1.0 > Math.sqrt(Math.pow(mu.get(i,0)-landmark.get(0,0),2)+Math.pow(mu.get(i+1,0)-landmark.get(1,0),2))){
+            if (2.0 > Math.sqrt(Math.pow(mu.get(i,0)-landmark.get(0,0),2)+Math.pow(mu.get(i+1,0)-landmark.get(1,0),2))){
                 referredLandmark = new DenseDoubleMatrix2D(2,1).assign(new double[][]{{mu.get(i,0)},{mu.get(i+1, 0)}});
+                break;
             }
         }
         return referredLandmark;
