@@ -2,12 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a0e545e7-aebc-4cdf-baf2-769a8b8a86f3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/functions/EKF_SLAM.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/StreamingJobSlam.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/hopefullyItDidntFuckUpSLAM.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/functions/EkfSlam.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/StreamingJobEKFMark.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/StreamingJobEKFMark.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/functions/EKF_SLAM.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/functions/EKF_SLAM.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/StreamingJobSlam.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/StreamingJobSLAM.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/hopefullyItDidntFuckUpSLAM.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hopefullyItDidntFuckUpSLAM.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -118,7 +116,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.StreamingJobSlam">
+  <component name="RunManager" selected="Application.StreamingJobSLAM">
     <configuration name="EKF_SLAM_Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="INCLUDE_PROVIDED_SCOPE" value="true" />
       <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.mark.EKF_SLAM_Test" />
@@ -174,9 +172,9 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="StreamingJobSlam" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration name="StreamingJobSLAM" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="INCLUDE_PROVIDED_SCOPE" value="true" />
-      <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.mark.StreamingJobSlam" />
+      <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.mark.StreamingJobSLAM" />
       <module name="dbpro-ekf-slam" />
       <extension name="coverage">
         <pattern>
@@ -207,11 +205,11 @@
       <item itemvalue="Application.Playground" />
       <item itemvalue="Application.SlamUtils" />
       <item itemvalue="Application.EKF_SLAM_Test" />
-      <item itemvalue="Application.StreamingJobSlam" />
+      <item itemvalue="Application.StreamingJobSLAM" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.StreamingJobSlam" />
+        <item itemvalue="Application.StreamingJobSLAM" />
         <item itemvalue="Application.SlamUtils" />
         <item itemvalue="Application.EKF_SLAM_Test" />
         <item itemvalue="Application.Playground" />
@@ -521,7 +519,14 @@
       <option name="project" value="LOCAL" />
       <updated>1579815305522</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="Implemented Streaming environment for the EKF_SLAM prediction step">
+      <created>1579824786145</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1579824786145</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -542,7 +547,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="push for mark" />
     <MESSAGE value="Extended Kalman Filter on trees is being worked on, not yet integrated." />
     <MESSAGE value="Added a csv with odometry, gps, and laser data in a single file, sorted by timestamp, called GPS_DRS_LASER.csv" />
     <MESSAGE value="Refactored proccessing of the laser readouts (trees) to be independant. Added methods for parsing tree data to be fit for processing, still needs full integration." />
@@ -567,7 +571,8 @@
     <MESSAGE value="Finished Basic Slam with update" />
     <MESSAGE value="Implemented rudimentary tree recognition based on euclidean distance" />
     <MESSAGE value="Added csv with odometry and laser data" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added csv with odometry and laser data" />
+    <MESSAGE value="Implemented Streaming environment for the EKF_SLAM prediction step" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implemented Streaming environment for the EKF_SLAM prediction step" />
   </component>
   <component name="WindowStateProjectService">
     <state x="176" y="120" key="#com.intellij.execution.impl.EditConfigurationsDialog" />

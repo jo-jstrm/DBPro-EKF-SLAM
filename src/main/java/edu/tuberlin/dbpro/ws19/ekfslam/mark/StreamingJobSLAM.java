@@ -1,10 +1,8 @@
 package edu.tuberlin.dbpro.ws19.ekfslam.mark;
 
-import cern.colt.matrix.DoubleMatrix1D;
 import cern.colt.matrix.DoubleMatrix2D;
 import edu.tuberlin.dbpro.ws19.ekfslam.data.KeyedDataPoint;
 import edu.tuberlin.dbpro.ws19.ekfslam.functions.EKF_SLAM;
-import edu.tuberlin.dbpro.ws19.ekfslam.functions.ExtendedKalmanFilter;
 import org.apache.flink.api.common.functions.RichMapFunction;
 import org.apache.flink.api.java.tuple.Tuple3;
 import org.apache.flink.core.fs.FileSystem;
@@ -12,7 +10,7 @@ import org.apache.flink.streaming.api.TimeCharacteristic;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 
-public class StreamingJobSlam {
+public class StreamingJobSLAM {
     public static void main(String[] args) throws Exception {
         // set up the streaming execution environment
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
@@ -21,11 +19,11 @@ public class StreamingJobSlam {
         env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
 
         DataStream<KeyedDataPoint> fullData = env.readTextFile("src/main/resources/01_odo_laser_SLAM.csv")
-                .map(new StreamingJobSlam.ParseData())
+                .map(new StreamingJobSLAM.ParseData())
                 .keyBy("key")
                 .flatMap(new EKF_SLAM());
 
-        fullData.map(new StreamingJobSlam.getTuple3())
+        fullData.map(new StreamingJobSLAM.getTuple3())
                 .writeAsCsv("src/main/resources/hopefullyItDidntFuckUpSLAM.csv", FileSystem.WriteMode.OVERWRITE, "\n", ";");
 
         env.execute("EKF-Mark");

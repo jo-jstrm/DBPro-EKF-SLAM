@@ -56,12 +56,14 @@ public class EKF_SLAM extends RichFlatMapFunction<KeyedDataPoint, KeyedDataPoint
     }
     public static Tuple2<DoubleMatrix2D, DoubleMatrix2D> predict(ValueState<Tuple3<DoubleMatrix2D, DoubleMatrix2D, Long>> valueState, KeyedDataPoint<Tuple3> inputPoint) throws IOException {
         //Given inputs by the saved value State
-        Double x_prev = valueState.value().f0.get(0,0);
-        Double y_prev = valueState.value().f0.get(1,0);
-        Double phi_prev = valueState.value().f0.get(2,0);
-        phi_prev = phi_prev%(Math.PI*2);
-        double[][] previous = {{x_prev}, {y_prev}, {phi_prev}};
-        DoubleMatrix2D mu = DoubleFactory2D.dense.make(previous.length, 1).assign(previous);
+        //Double x_prev = valueState.value().f0.get(0,0);
+        //Double y_prev = valueState.value().f0.get(1,0);
+        //Double phi_prev = valueState.value().f0.get(2,0);
+        //phi_prev = phi_prev%(Math.PI*2);
+        //double[][] previous = {{x_prev}, {y_prev}, {phi_prev}};
+        //DoubleMatrix2D mu = DoubleFactory2D.dense.make(previous.length, 1).assign(previous);
+        DoubleMatrix2D mu = valueState.value().f0;
+        double phi_prev = mu.get(2,0)%(Math.PI*2);
         //System.out.println("mu " + mu);
         //Motion model for the car based on EKF implementation
         double timedif = (double)(inputPoint.getTimeStampMs() - valueState.value().f2)/1000;
@@ -86,7 +88,7 @@ public class EKF_SLAM extends RichFlatMapFunction<KeyedDataPoint, KeyedDataPoint
 
         //Preparing the prediction step for the covariance matrix
         //Previous covariance matrix
-        DoubleMatrix2D cov_prev = DoubleFactory2D.dense.identity(3);
+        DoubleMatrix2D cov_prev = valueState.value().f1;
         //System.out.println("cov_prev " + cov_prev);
         //motion model error matrix Rt
         double[][] rtArr = {{0.5,0,0},{0,0.5,0},{0,0,0.5}};
