@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a0e545e7-aebc-4cdf-baf2-769a8b8a86f3" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/01_odo_laser_SLAM_1000.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/functions/EKF_SLAM.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/functions/EKF_SLAM.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/util/SlamUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/util/SlamUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/StreamingJobSLAM.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/StreamingJobSLAM.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/hopefullyItDidntFuckUpSLAM.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hopefullyItDidntFuckUpSLAM.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -556,7 +557,14 @@
       <option name="project" value="LOCAL" />
       <updated>1580161566339</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="Slightly better version">
+      <created>1580163956571</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1580163956571</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -577,7 +585,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Kalman Gain calculated" />
     <MESSAGE value="EKF algorithm ready, but mathematically incorrect" />
     <MESSAGE value="Finished EKF, with uncertain results" />
     <MESSAGE value="Pushed for debugging" />
@@ -602,7 +609,8 @@
     <MESSAGE value="Implemented Slam in streaming, with a small data subset for validation" />
     <MESSAGE value="Added files for debugging SLAM" />
     <MESSAGE value="Best Slam version yet" />
-    <option name="LAST_COMMIT_MESSAGE" value="Best Slam version yet" />
+    <MESSAGE value="Slightly better version" />
+    <option name="LAST_COMMIT_MESSAGE" value="Slightly better version" />
   </component>
   <component name="WindowStateProjectService">
     <state x="176" y="120" key="#com.intellij.execution.impl.EditConfigurationsDialog" />
