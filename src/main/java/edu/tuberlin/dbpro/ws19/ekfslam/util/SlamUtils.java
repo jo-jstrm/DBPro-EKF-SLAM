@@ -9,6 +9,7 @@ import cern.colt.matrix.impl.DenseDoubleMatrix2D;
 import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.api.java.tuple.Tuple3;
 import org.apache.flink.api.java.tuple.Tuple5;
+import scala.Int;
 
 import java.util.ArrayList;
 
@@ -54,7 +55,7 @@ public class SlamUtils {
         }
         return zeros;
     }
-    private static int getTreeIndex(DoubleMatrix2D mu, DoubleMatrix2D tree){
+    public static int getTreeIndex(DoubleMatrix2D mu, DoubleMatrix2D tree){
         int index = -2;
         for (int i = 3; i < mu.size(); i += 2) {
             if(mu.get(i,0) == tree.get(0,0) && mu.get(i+1, 0) == tree.get(1,0)){
@@ -64,8 +65,8 @@ public class SlamUtils {
         }
         return index/2;
     }
-    public static DoubleMatrix2D makeUpdateHelperMatrix(DoubleMatrix2D mu, DoubleMatrix2D tree){
-        int index = getTreeIndex(mu, tree);
+    public static DoubleMatrix2D makeUpdateHelperMatrix(DoubleMatrix2D mu, Integer index) throws Exception {
+
         //System.out.println("Index " + index);
         DoubleMatrix2D fx = makePredictionHelperMatrix(mu);
         //System.out.println("fx " + fx);
@@ -103,28 +104,42 @@ public class SlamUtils {
      * @param tree
      * @return The original landmark or null if no similar landmark available
      */
-    public static DoubleMatrix2D existingReferredLandmark(DoubleMatrix2D mu, Tuple5 tree){
+    public static Tuple2<DoubleMatrix2D, Integer> existingReferredLandmark(DoubleMatrix2D mu, Tuple5 tree){
         DoubleMatrix2D landmark = tupleToLandmark(tree);
         DoubleMatrix2D referredLandmark = null;
+        Integer index = -2;
+        double lowerLimit = 1.0;
+        double upperLimit = 3.0;
         for (int i = 3; i < mu.size(); i += 2) {
+            double distance = Math.sqrt(Math.pow(mu.get(i,0)-landmark.get(0,0),2)+Math.pow(mu.get(i+1,0)-landmark.get(1,0),2));
             //System.out.println("Euclidean distance: " + Math.sqrt(Math.pow(mu.get(i,0)-landmark.get(0,0),2)+Math.pow(mu.get(i+1,0)-landmark.get(1,0),2)));
-            if (2.0 > Math.sqrt(Math.pow(mu.get(i,0)-landmark.get(0,0),2)+Math.pow(mu.get(i+1,0)-landmark.get(1,0),2))){
+            if (distance > lowerLimit && distance < upperLimit){
+                index = -10;
+            }else if (distance < lowerLimit){
                 referredLandmark = new DenseDoubleMatrix2D(2,1).assign(new double[][]{{mu.get(i,0)},{mu.get(i+1, 0)}});
+                index = getTreeIndex(mu, referredLandmark);
                 break;
             }
         }
-        return referredLandmark;
+        return Tuple2.of(referredLandmark, index);
+    }
+    public static ArrayList<Tuple2<Tuple5, Tuple2<DoubleMatrix2D, Integer>>> mapObservations(ArrayList<Tuple5> input, DoubleMatrix2D mu){
+        ArrayList<Tuple2<Tuple5, Tuple2<DoubleMatrix2D, Integer>>> mapped = new ArrayList<>();
+        for (int i = 0; i < input.size(); i++) {
+            mapped.add(i, Tuple2.of(input.get(i), existingReferredLandmark(mu, input.get(i))));
+        }
+        return mapped;
     }
 
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         System.out.println(makePredictionHelperMatrix(DoubleFactory2D.dense.make(9,1)));
         DoubleMatrix2D mu = new DenseDoubleMatrix2D(9,1 ).assign(new double[][]{{0},{1},{2},{20},{-12},{24},{10},{10},{4}});
         System.out.println(mu);
         System.out.println(getCarCoord(mu));
         System.out.println("Index " + getTreeIndex(mu, new DenseDoubleMatrix2D(2,1).assign(new double[][]{{3},{4}})));
-        System.out.println(makeUpdateHelperMatrix(mu, new DenseDoubleMatrix2D(2,1).assign(new double[][]{{3},{4}})));
+
 
         DoubleMatrix2D cov = DoubleFactory2D.dense.make(3,3,1);
         System.out.println("Cov " + cov);
@@ -134,7 +149,11 @@ public class SlamUtils {
         System.out.println("<<<<<<<<<<<<<<<<<<<<<<<------------------->>>>>>>>>>>>>>>>>>>>");
         Tuple5 tree = Tuple5.of(9.8, 4.1, 0.1, 0, 0);
         System.out.println(existingReferredLandmark(mu, tree));
-        System.out.println(getTreeIndex(mu, existingReferredLandmark(mu, tree)));
 
+        System.out.println("<<<<<<<<<<<<<<<<<<<<<<<------------------->>>>>>>>>>>>>>>>>>>>");
+        //  0,0,0,19.67809,-12.37402
+        DoubleMatrix2D state = new DenseDoubleMatrix2D(5,1).assign(new double[][]{{0},{0},{0},{19.67809},{-12.37402}});
+        DoubleMatrix2D oldTree = new DenseDoubleMatrix2D(2,1).assign(new double[][]{{19.67809},{-12.37402}});
+        System.out.println(makeUpdateHelperMatrix(state ,getTreeIndex(state, oldTree)));
     }
 }

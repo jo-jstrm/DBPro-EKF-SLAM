@@ -330,7 +330,7 @@ public class ExtendedKalmanFilter extends RichFlatMapFunction<KeyedDataPoint, Ke
         ValueStateDescriptor<Tuple3<DoubleMatrix1D, DoubleMatrix2D, Long>> descriptor = new ValueStateDescriptor<Tuple3<DoubleMatrix1D, DoubleMatrix2D, Long>>(
                 "ekf", // the state name
                 TypeInformation.of(new TypeHint<Tuple3<DoubleMatrix1D, DoubleMatrix2D, Long>>() {}), // type information
-                Tuple3.of(new DenseDoubleMatrix1D(3).assign(initialArray), new DenseDoubleMatrix2D(3,3).assign(0.0), 0L)); // default value of the state, if nothing was set  //TODO: check this initialisation!
+                Tuple3.of(new DenseDoubleMatrix1D(3).assign(initialArray), new DenseDoubleMatrix2D(3,3).assign(0.0), 20967L)); // default value of the state, if nothing was set  //TODO: check this initialisation!
         filterParams = getRuntimeContext().getState(descriptor);
     }
 }

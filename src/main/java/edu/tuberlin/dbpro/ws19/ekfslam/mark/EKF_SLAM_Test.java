@@ -19,7 +19,7 @@ public class EKF_SLAM_Test {
     public static double vehicleH = 0.76;
     public static double vehicleB = 0.5;
     public static double vehicleA = 3.78;
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         //Given inputs by the saved value State
         Double x_prev = 0.0;
         Double y_prev = 0.0;
@@ -135,7 +135,7 @@ public class EKF_SLAM_Test {
                 System.out.println("referredLandmark " + referredLandmark);
             }else{
                 workingLandmark = SlamUtils.tupleToLandmark(tree);
-                referredLandmark = SlamUtils.existingReferredLandmark(workingMu, tree);
+                //referredLandmark = SlamUtils.existingReferredLandmark(workingMu, tree);
             }
             //Car coordinates x and y from estimatedMu as a matrix
             DoubleMatrix2D carCoord = SlamUtils.getCarCoord(workingMu);
@@ -150,7 +150,7 @@ public class EKF_SLAM_Test {
             DoubleMatrix2D estimatedObservation = new DenseDoubleMatrix2D(2, 1).assign(new double[][]{{Math.sqrt(q.get(0,0))},{Math.atan2(delta.get(1,0), delta.get(0,0))-workingMu.get(2,0)}});
             System.out.println("estimatedObservation " + estimatedObservation);
             //Generate Fxj as a helper matrix to map the jacobian matrix
-            DoubleMatrix2D Fxj = SlamUtils.makeUpdateHelperMatrix(workingMu, referredLandmark);
+            DoubleMatrix2D Fxj = SlamUtils.makeUpdateHelperMatrix(workingMu, 0);
             System.out.println("Fxj " + Fxj);
             //Generate jacobian matrix based on freiburg uni slides page 39
             DoubleMatrix2D lowHti = SlamUtils.makeUpdateJacobian(q, delta);

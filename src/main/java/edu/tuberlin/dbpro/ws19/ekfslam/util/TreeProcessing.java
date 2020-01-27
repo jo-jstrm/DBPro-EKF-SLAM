@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class TreeProcessing {
     private static ArrayList<ArrayList<Integer>> getIndices(Double[] input){
-        Double rangeTolerance = 1.1;
+        Double rangeTolerance = 2.0;
         ArrayList<ArrayList<Integer>> indicesArr = new ArrayList<>();
         ArrayList<Integer> cluster = new ArrayList<>();
         cluster.add(0);
@@ -122,7 +122,7 @@ public class TreeProcessing {
             //System.out.println("minDistance: " + minDistance + "; Radius: " + radius);
             Double xCoordinate = getCoordinate(degrees, distanceToCentre, phi, true);
             Double yCoordinate = getCoordinate(degrees, distanceToCentre, phi, false);
-            Tuple5 tuple = new Tuple5(xCoordinate,yCoordinate,diameter, Math.sqrt(xCoordinate*xCoordinate+yCoordinate*yCoordinate), Math.atan2(yCoordinate, xCoordinate) - phi);
+            Tuple5 tuple = new Tuple5(xCoordinate,yCoordinate,diameter, Math.sqrt(xCoordinate*xCoordinate+yCoordinate*yCoordinate), (Math.atan2(yCoordinate, xCoordinate) - phi));
             singleCoordinateTrees.add(tuple);
             //System.out.println(tuple.toString());
         }

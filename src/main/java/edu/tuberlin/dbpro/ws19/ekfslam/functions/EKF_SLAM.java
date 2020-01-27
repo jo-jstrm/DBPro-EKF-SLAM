@@ -15,6 +15,7 @@ import org.apache.flink.api.common.state.ValueState;
 import org.apache.flink.api.common.state.ValueStateDescriptor;
 import org.apache.flink.api.common.typeinfo.TypeHint;
 import org.apache.flink.api.common.typeinfo.TypeInformation;
+import org.apache.flink.api.java.tuple.Tuple;
 import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.api.java.tuple.Tuple3;
 import org.apache.flink.api.java.tuple.Tuple5;
@@ -60,15 +61,18 @@ public class EKF_SLAM extends RichFlatMapFunction<KeyedDataPoint, KeyedDataPoint
 
             }
             if(inputPoint.f2.equals("laser")) {
-                System.out.println("filterParamsVectorUPDATE " + count);
+
 
                 Tuple2 updatedEstimate = update(filterParams, inputPoint1);
+
+
 
                 Tuple3 updateValue = new Tuple3(updatedEstimate.f0, updatedEstimate.f1, inputPoint1.getTimeStampMs());
                 filterParams.update(updateValue);
 
-                System.out.println("updatedMU " + updatedEstimate.f0);
-                System.out.println("updatedCov " + updatedEstimate.f1);
+                System.out.println("filterParamsVectorUPDATE " + count + " " + ((DoubleMatrix2D) updatedEstimate.f0).size());
+                //System.out.println("updatedMU " + updatedEstimate.f0);
+                //System.out.println("updatedCov " + updatedEstimate.f1);
 
                 // return filtered point
                 //returned field is the state vector with [x,y,phi]
@@ -172,18 +176,27 @@ public class EKF_SLAM extends RichFlatMapFunction<KeyedDataPoint, KeyedDataPoint
         //System.out.println("estimatedCov " + estimatedCov);
         return Tuple2.of(estimatedMu, estimatedCov);
     }
-    public static Tuple2<DoubleMatrix2D, DoubleMatrix2D> update(ValueState<Tuple3<DoubleMatrix2D, DoubleMatrix2D, Long>> valueState, KeyedDataPoint<Tuple3> inputPoint) throws IOException{
-        //TODO: Figure out mu Expansion and Sigma Expansion
+    public static Tuple2<DoubleMatrix2D, DoubleMatrix2D> update(ValueState<Tuple3<DoubleMatrix2D, DoubleMatrix2D, Long>> valueState, KeyedDataPoint<Tuple3> inputPoint) throws Exception {
+
         DoubleMatrix2D workingMu = new DenseDoubleMatrix2D(valueState.value().f0.rows(), valueState.value().f0.columns()).assign(valueState.value().f0);
         //System.out.println("workingMu " + workingMu);
         DoubleMatrix2D workingCov = new DenseDoubleMatrix2D(valueState.value().f1.rows(), valueState.value().f1.columns()).assign(valueState.value().f1);
         //System.out.println("workingCov " + workingCov);
+        //Observation error matrix
+        double[][] qtArr = {{0.01,0.0},{0.0,0.01}};
+        DoubleMatrix2D Qt = new DenseDoubleMatrix2D(2,2).assign(qtArr);
+        //System.out.println("Qt " + Qt);
         /*Example observation
         int[] observationRaw = {83, 84, 84, 85, 84, 84, 85, 85, 86, 86, 86, 89, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8187, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8187, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8187, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 2028, 2029, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 2947, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8187, 8191, 870, 853, 853, 855, 8191, 8191, 8183, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8183, 8187, 8191, 8187, 2856, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 1269, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 2372, 2380, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 2429, 2416, 2418, 2424, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 1257, 1246, 1247, 1251, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 311, 308, 309, 313, 8191, 8191, 8191, 8191, 8191, 8191, 8187, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191};
         Double[] observation = new Double[observationRaw.length];
         for (int i = 0; i < observationRaw.length; i++) {
             observation[i] = (double) observationRaw[i];
         }*/
+
+
+
+
+
         Double[] observation = (Double[]) inputPoint.getValue().f0;
         double phi = valueState.value().f0.get(2,0);
         ArrayList<Tuple5> singleTrees = TreeProcessing.singleTrees(observation, phi);
@@ -191,45 +204,73 @@ public class EKF_SLAM extends RichFlatMapFunction<KeyedDataPoint, KeyedDataPoint
                 singleTrees) {
             System.out.println(t);
         }*/
+
+
+
         //SLAM Coorection Step as shown on page 43 of the uni freiburg slides
-        //Observation error matrix
-        double[][] qtArr = {{0.1,0.0},{0.0,0.1}};
-        DoubleMatrix2D Qt = new DenseDoubleMatrix2D(2,2).assign(qtArr);
-        //System.out.println("Qt " + Qt);
+
+        ArrayList<Tuple2<Tuple5, Tuple2<DoubleMatrix2D, Integer>>> mappedTrees = SlamUtils.mapObservations(singleTrees, workingMu);
+        for (Tuple2 t: mappedTrees) {
+            DoubleMatrix2D d = (DoubleMatrix2D) ((Tuple2) t.f1).f0;
+            if(d != null) {
+                System.out.println(t.f0 + "; " + d.get(0, 0) + "," + d.get(1, 0) + "; " + ((Tuple2) t.f1).f1);
+            }else{
+                System.out.println(t.f0 + "; null; " + ((Tuple2) t.f1).f1);
+            }
+        }
         //for loop over all observed features
-        for (Tuple5 tree: singleTrees) {
+        for (Tuple2 mapped: mappedTrees) {
+            Integer index = ((Integer) ((Tuple2) mapped.f1).f1);
+            //System.out.println("mapped " + mapped);
             //TODO: figure out what j = cti stands for exactly
             //TODO: figure out how to distingish new tree from old
-            DoubleMatrix2D workingLandmark = null;
+            //DoubleMatrix2D workingLandmark = null;
             DoubleMatrix2D referredLandmark = null;
-            System.out.println("ReferredLandmark " + SlamUtils.existingReferredLandmark(workingMu, tree));
-            if (SlamUtils.existingReferredLandmark(workingMu, tree) == null){
-                //adding new tree to Mu
-                workingMu = SlamUtils.addTree(workingMu, tree);
-                workingCov = SlamUtils.expandCovMatrix(workingCov);
-                //System.out.println("workingMu " + workingMu);
-                //set the tree being worked on
-                workingLandmark = SlamUtils.getLastTree(workingMu);
-                referredLandmark = SlamUtils.getLastTree(workingMu);
-                //System.out.println("workingLandmark " + workingLandmark);
-            }else{
-                workingLandmark = SlamUtils.tupleToLandmark(tree);
-                referredLandmark = SlamUtils.existingReferredLandmark(workingMu, tree);
-            }
             //Car coordinates x and y from estimatedMu as a matrix
             DoubleMatrix2D carCoord = SlamUtils.getCarCoord(workingMu);
             //System.out.println("carCoord " + carCoord);
+            if (((Tuple2) mapped.f1).f0 == null && index == -2){
+                //adding new tree to Mu
+                workingMu = SlamUtils.addTree(workingMu, (Tuple5) mapped.f0);
+                workingCov = SlamUtils.expandCovMatrix(workingCov);
+                //System.out.println("workingMu " + workingMu);
+                //set the tree being worked on
+                //workingLandmark = SlamUtils.getLastTree(workingMu);
+
+                referredLandmark = SlamUtils.getLastTree(workingMu);
+                //System.out.println("workingLandmark " + workingLandmark);
+                index = SlamUtils.getTreeIndex(workingMu, referredLandmark);
+            }else if(index == -10){
+                System.out.println("ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ");
+                continue;
+            }else{
+                //workingLandmark = (Tuple5) mapped.f0;
+                referredLandmark = (DoubleMatrix2D) ((Tuple2) mapped.f1).f0;
+                referredLandmark.assign(carCoord, (v, v1) -> v+v1);
+            }
+
+
+
+
+
+
             //Calculate delta between the working tree coordinates and the car coordinates
-            DoubleMatrix2D delta = workingLandmark.assign(carCoord, (v, v1) -> v - v1);
+            DoubleMatrix2D delta = referredLandmark.assign(carCoord, (v, v1) -> v - v1);
             //System.out.println("delta " + delta);
             //Calculate q by multiplying transposed delta with delta
             DoubleMatrix2D q = delta.zMult(delta, null, 1.0, 1.0, true, false);
             //System.out.println("q " + q);
             //Calculate step 14 from slide 43 of uni freiburg, estimatedObservation
-            DoubleMatrix2D estimatedObservation = new DenseDoubleMatrix2D(2, 1).assign(new double[][]{{Math.sqrt(q.get(0,0))},{Math.atan2(delta.get(1,0), delta.get(0,0))-workingMu.get(2,0)}});
-            //System.out.println("estimatedObservation " + estimatedObservation);
+            Double range = Math.sqrt(q.get(0,0));
+            Double bearing = Math.atan2(delta.get(1,0), delta.get(0,0))-workingMu.get(2,0);
+            DoubleMatrix2D estimatedObservation = new DenseDoubleMatrix2D(2, 1).assign(new double[][]{{range},{bearing}});
+            System.out.println("estimatedObservation " + estimatedObservation);
             //Generate Fxj as a helper matrix to map the jacobian matrix
-            DoubleMatrix2D Fxj = SlamUtils.makeUpdateHelperMatrix(workingMu, referredLandmark);
+            //System.out.println("index " + index);
+            //System.out.println("workingMu " + workingMu);
+
+            //TODO: fix index problems
+            DoubleMatrix2D Fxj = SlamUtils.makeUpdateHelperMatrix(workingMu, index);
             //System.out.println("Fxj " + Fxj);
             //Generate jacobian matrix based on freiburg uni slides page 39
             DoubleMatrix2D lowHti = SlamUtils.makeUpdateJacobian(q, delta);
@@ -261,16 +302,11 @@ public class EKF_SLAM extends RichFlatMapFunction<KeyedDataPoint, KeyedDataPoint
             //calculate the new updatedMu as workingMu
             //TODO: get range and bearing for observed trees to compare with estimated observation
             DoubleMatrix2D workingTreeObservation = null;
-            if(workingTree){
-                workingTreeObservation = SlamUtils.getObservationModelTree(tree);
-                //System.out.println("workingTreeObservation " + workingTreeObservation);
-            }else if(referredTree){
-                workingTreeObservation = new DenseDoubleMatrix2D(2,1)
-                        .assign(new double[][]{{Math.sqrt(Math.pow(referredLandmark.get(0,0)-workingMu.get(0,0),2)+Math.pow(referredLandmark.get(1,0)-workingMu.get(1,0),2))}
-                        ,{Math.atan((referredLandmark.get(1,0)-workingMu.get(1,0))/(referredLandmark.get(0,0)-workingMu.get(0,0)))-workingMu.get(2,0)+Math.PI/2}});
-            }
+            workingTreeObservation = SlamUtils.getObservationModelTree((Tuple5) mapped.f0);
+            //System.out.println("workingTreeObservation " + workingTreeObservation);
+            //TODO: subtract right information
             DoubleMatrix2D observedVsEstimated = workingTreeObservation.assign(estimatedObservation, (v, v1) -> v - v1);
-            //System.out.println("observedVsEstimated " + observedVsEstimated);
+            System.out.println("observedVsEstimated " + observedVsEstimated);
             //update the estimated State aka workingMu
             //Step 1 multiply the kalman gain with the difference in observations
             DoubleMatrix2D kalmanObservation = kalmanGain.zMult(observedVsEstimated, null, 1.0, 1.0, false, false);
@@ -298,7 +334,7 @@ public class EKF_SLAM extends RichFlatMapFunction<KeyedDataPoint, KeyedDataPoint
         ValueStateDescriptor<Tuple3<DoubleMatrix2D, DoubleMatrix2D, Long>> descriptor = new ValueStateDescriptor<Tuple3<DoubleMatrix2D, DoubleMatrix2D, Long>>(
                 "SLAM", // the state name
                 TypeInformation.of(new TypeHint<Tuple3<DoubleMatrix2D, DoubleMatrix2D, Long>>() {}), // type information
-                Tuple3.of(new DenseDoubleMatrix2D(3,1).assign(0.0), new DenseDoubleMatrix2D(3,3).assign(0.0), 0L)); // default value of the state, if nothing was set  //TODO: check this initialisation!
+                Tuple3.of(new DenseDoubleMatrix2D(3,1).assign(0.0), new DenseDoubleMatrix2D(3,3).assign(0.0), 21819L)); // default value of the state, if nothing was set  //TODO: check this initialisation!
         filterParams = getRuntimeContext().getState(descriptor);
     }
 
