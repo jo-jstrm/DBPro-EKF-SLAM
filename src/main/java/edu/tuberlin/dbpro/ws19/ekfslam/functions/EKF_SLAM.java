@@ -3,8 +3,8 @@ package edu.tuberlin.dbpro.ws19.ekfslam.functions;
 import cern.colt.matrix.DoubleFactory2D;
 import cern.colt.matrix.DoubleMatrix1D;
 import cern.colt.matrix.DoubleMatrix2D;
-import cern.colt.matrix.impl.DenseDoubleMatrix1D;
-import cern.colt.matrix.impl.DenseDoubleMatrix2D;
+import cern.colt.matrix.impl.SparseDoubleMatrix1D;
+import cern.colt.matrix.impl.SparseDoubleMatrix2D;
 import cern.colt.matrix.linalg.Algebra;
 import edu.tuberlin.dbpro.ws19.ekfslam.data.KeyedDataPoint;
 import edu.tuberlin.dbpro.ws19.ekfslam.util.SlamUtils;
@@ -106,8 +106,8 @@ public class EKF_SLAM extends RichFlatMapFunction<KeyedDataPoint, KeyedDataPoint
             //Double phi_prev = valueState.value().f0.get(2,0);
             //phi_prev = phi_prev%(Math.PI*2);
             //double[][] previous = {{x_prev}, {y_prev}, {phi_prev}};
-            //DoubleMatrix2D mu = DoubleFactory2D.dense.make(previous.length, 1).assign(previous);
-            DoubleMatrix2D mu = new DenseDoubleMatrix2D(3,1).assign(valueState.value().f0.viewSelection(new int[]{0,1,2}, new int[]{0}));
+            //DoubleMatrix2D mu = DoubleFactory2D.Sparse.make(previous.length, 1).assign(previous);
+            DoubleMatrix2D mu = new SparseDoubleMatrix2D(3,1).assign(valueState.value().f0.viewSelection(new int[]{0,1,2}, new int[]{0}));
             double phi_prev = mu.get(2,0)%(Math.PI*2);
             //System.out.println("mu " + mu);
             //Motion model for the car based on EKF implementation
@@ -119,7 +119,7 @@ public class EKF_SLAM extends RichFlatMapFunction<KeyedDataPoint, KeyedDataPoint
             Double y_inc = timedif*(speed*Math.sin(phi_prev)+(speed/vehicleL)*Math.tan(steering)*(vehicleA*Math.cos(phi_prev)-vehicleB*Math.sin(phi_prev)));
             Double phi_inc = timedif*(speed/vehicleL)*Math.tan(steering);
             double[][] increments = {{x_inc}, {y_inc}, {phi_inc}};
-            DoubleMatrix2D muIncrement = new DenseDoubleMatrix2D(3, 1).assign(increments);
+            DoubleMatrix2D muIncrement = new SparseDoubleMatrix2D(3, 1).assign(increments);
             //System.out.println("muIncrement " + muIncrement);
             //Prediction Step for mu in EKF SLAM from the uni freiburg slides page 22
             DoubleMatrix2D estimatedMu = mu.assign(muIncrement, (v, v1) -> v+v1);
@@ -127,17 +127,17 @@ public class EKF_SLAM extends RichFlatMapFunction<KeyedDataPoint, KeyedDataPoint
 
             //Preparing the prediction step for the covariance matrix
             //Previous covariance matrix
-            DoubleMatrix2D cov_prev = new DenseDoubleMatrix2D(3,3).assign(valueState.value().f1.viewSelection(new int[]{0,1,2}, new int[]{0,1,2}));
+            DoubleMatrix2D cov_prev = new SparseDoubleMatrix2D(3,3).assign(valueState.value().f1.viewSelection(new int[]{0,1,2}, new int[]{0,1,2}));
             //System.out.println("cov_prev " + cov_prev);
             //motion model error matrix Rt
             double[][] rtArr = {{0.5,0,0},{0,0.5,0},{0,0,0.5}};
-            DoubleMatrix2D Rtx = new DenseDoubleMatrix2D(3,3).assign(rtArr);
+            DoubleMatrix2D Rtx = new SparseDoubleMatrix2D(3,3).assign(rtArr);
             //System.out.println("Rtx " + Rtx);
             //JacobianMatrix for Gt as the covariance update step
             Double upperValue = -timedif*(speed*Math.sin(phi_prev)+(speed/vehicleL)*Math.tan(steering)*(vehicleA*Math.cos(phi_prev)-vehicleB*Math.sin(phi_prev)));
             Double lowerValue = timedif*(speed*Math.cos(phi_prev)-(speed/vehicleL)*Math.tan(steering)*(vehicleA*Math.sin(phi_prev)+vehicleB*Math.cos(phi_prev)));
             double[][] jacobianArray = {{1.0, 0.0, upperValue}, {0.0, 1.0, lowerValue}, {0.0, 0.0, 1.0}};
-            DoubleMatrix2D jacobianMatrix = new DenseDoubleMatrix2D(3,3).assign(jacobianArray);
+            DoubleMatrix2D jacobianMatrix = new SparseDoubleMatrix2D(3,3).assign(jacobianArray);
             //System.out.println("jacobianMatrix " + jacobianMatrix);
             DoubleMatrix2D one = jacobianMatrix.zMult(cov_prev, null, 1.0,1.0,false,false);
             DoubleMatrix2D two = one.zMult(jacobianMatrix, null, 1.0, 1.0, false, true);
@@ -166,7 +166,7 @@ public class EKF_SLAM extends RichFlatMapFunction<KeyedDataPoint, KeyedDataPoint
             //Double phi_prev = valueState.value().f0.get(2,0);
             //phi_prev = phi_prev%(Math.PI*2);
             //double[][] previous = {{x_prev}, {y_prev}, {phi_prev}};
-            //DoubleMatrix2D mu = DoubleFactory2D.dense.make(previous.length, 1).assign(previous);
+            //DoubleMatrix2D mu = DoubleFactory2D.Sparse.make(previous.length, 1).assign(previous);
             DoubleMatrix2D mu = valueState.value().f0;
             double phi_prev = mu.get(2,0)%(Math.PI*2);
             //System.out.println("mu " + mu);
@@ -179,7 +179,7 @@ public class EKF_SLAM extends RichFlatMapFunction<KeyedDataPoint, KeyedDataPoint
             Double y_inc = timedif*(speed*Math.sin(phi_prev)+(speed/vehicleL)*Math.tan(steering)*(vehicleA*Math.cos(phi_prev)-vehicleB*Math.sin(phi_prev)));
             Double phi_inc = timedif*(speed/vehicleL)*Math.tan(steering);
             double[][] increments = {{x_inc}, {y_inc}, {phi_inc}};
-            DoubleMatrix2D muIncrement = new DenseDoubleMatrix2D(3, 1).assign(increments);
+            DoubleMatrix2D muIncrement = new SparseDoubleMatrix2D(3, 1).assign(increments);
             //System.out.println("muIncrement " + muIncrement);
             //Fx matrix from the prediction step based on the uni freiburg slides to map increments to 3+2N space
             DoubleMatrix2D Fx = SlamUtils.makePredictionHelperMatrix(mu);
@@ -197,13 +197,13 @@ public class EKF_SLAM extends RichFlatMapFunction<KeyedDataPoint, KeyedDataPoint
             //System.out.println("cov_prev " + cov_prev);
             //motion model error matrix Rt
             double[][] rtArr = {{0.5,0,0},{0,0.5,0},{0,0,0.5}};
-            DoubleMatrix2D Rtx = new DenseDoubleMatrix2D(3,3).assign(rtArr);
+            DoubleMatrix2D Rtx = new SparseDoubleMatrix2D(3,3).assign(rtArr);
             //System.out.println("Rtx " + Rtx);
             //JacobianMatrix for Gt as the covariance update step
             Double upperValue = -timedif*(speed*Math.sin(phi_prev)+(speed/vehicleL)*Math.tan(steering)*(vehicleA*Math.cos(phi_prev)-vehicleB*Math.sin(phi_prev)));
             Double lowerValue = timedif*(speed*Math.cos(phi_prev)-(speed/vehicleL)*Math.tan(steering)*(vehicleA*Math.sin(phi_prev)+vehicleB*Math.cos(phi_prev)));
             double[][] jacobianArray = {{0.0, 0.0, upperValue}, {0.0, 0.0, lowerValue}, {0.0, 0.0, 0.0}};
-            DoubleMatrix2D jacobianMatrix = new DenseDoubleMatrix2D(3,3).assign(jacobianArray);
+            DoubleMatrix2D jacobianMatrix = new SparseDoubleMatrix2D(3,3).assign(jacobianArray);
             //System.out.println("jacobianMatrix " + jacobianMatrix);
             //Step1 to calculate Gt: Fx transposed multiplied by the jacobianMatrix
             DoubleMatrix2D gtStep1 = Fx.zMult(jacobianMatrix, null, 1.0, 1.0, true, false);
@@ -212,7 +212,7 @@ public class EKF_SLAM extends RichFlatMapFunction<KeyedDataPoint, KeyedDataPoint
             DoubleMatrix2D gtStep2 = gtStep1.zMult(Fx, null, 1.0, 1.0, false, false);
             //System.out.println("gtStep2 " + gtStep2);
             //Step3 to calclulate Gt: Get the identity matrix with the same size as gtStep2
-            DoubleMatrix2D gtStep3 = DoubleFactory2D.dense.identity(gtStep2.rows());
+            DoubleMatrix2D gtStep3 = DoubleFactory2D.sparse.identity(gtStep2.rows());
             //System.out.println("gtStep3 " + gtStep3);
             //Calculate Gt
             DoubleMatrix2D Gt = gtStep3.assign(gtStep2, (v, v1) -> v + v1);
@@ -241,13 +241,13 @@ public class EKF_SLAM extends RichFlatMapFunction<KeyedDataPoint, KeyedDataPoint
     }
     public static Tuple2<DoubleMatrix2D, DoubleMatrix2D> update(ValueState<Tuple3<DoubleMatrix2D, DoubleMatrix2D, Long>> valueState, KeyedDataPoint<Tuple3> inputPoint) throws Exception {
 
-        DoubleMatrix2D workingMu = new DenseDoubleMatrix2D(valueState.value().f0.rows(), valueState.value().f0.columns()).assign(valueState.value().f0);
+        DoubleMatrix2D workingMu = new SparseDoubleMatrix2D(valueState.value().f0.rows(), valueState.value().f0.columns()).assign(valueState.value().f0);
         //System.out.println("workingMu " + workingMu);
-        DoubleMatrix2D workingCov = new DenseDoubleMatrix2D(valueState.value().f1.rows(), valueState.value().f1.columns()).assign(valueState.value().f1);
+        DoubleMatrix2D workingCov = new SparseDoubleMatrix2D(valueState.value().f1.rows(), valueState.value().f1.columns()).assign(valueState.value().f1);
         //System.out.println("workingCov " + workingCov);
         //Observation error matrix
         double[][] qtArr = {{0.01,0.0},{0.0,0.01}};
-        DoubleMatrix2D Qt = new DenseDoubleMatrix2D(2,2).assign(qtArr);
+        DoubleMatrix2D Qt = new SparseDoubleMatrix2D(2,2).assign(qtArr);
         //System.out.println("Qt " + Qt);
         /*Example observation
         int[] observationRaw = {83, 84, 84, 85, 84, 84, 85, 85, 86, 86, 86, 89, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8187, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8187, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8187, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 2028, 2029, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 2947, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8187, 8191, 870, 853, 853, 855, 8191, 8191, 8183, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8183, 8187, 8191, 8187, 2856, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 1269, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 2372, 2380, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 2429, 2416, 2418, 2424, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 1257, 1246, 1247, 1251, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 311, 308, 309, 313, 8191, 8191, 8191, 8191, 8191, 8191, 8187, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191, 8191};
@@ -328,7 +328,7 @@ public class EKF_SLAM extends RichFlatMapFunction<KeyedDataPoint, KeyedDataPoint
             //Calculate step 14 from slide 43 of uni freiburg, estimatedObservation
             Double range = Math.sqrt(q.get(0,0));
             Double bearing = Math.atan2(delta.get(1,0), delta.get(0,0))-workingMu.get(2,0);
-            DoubleMatrix2D estimatedObservation = new DenseDoubleMatrix2D(2, 1).assign(new double[][]{{range},{bearing}});
+            DoubleMatrix2D estimatedObservation = new SparseDoubleMatrix2D(2, 1).assign(new double[][]{{range},{bearing}});
             //System.out.println("estimatedObservation " + estimatedObservation);
             //Generate Fxj as a helper matrix to map the jacobian matrix
             //System.out.println("index " + index);
@@ -385,7 +385,7 @@ public class EKF_SLAM extends RichFlatMapFunction<KeyedDataPoint, KeyedDataPoint
             DoubleMatrix2D step1Cov = kalmanGain.zMult(Hti, null, 1.0, 1.0, false, false);
             //System.out.println("step1Cov " + step1Cov);
             //Step2 to calculate new workingCov: subtract step1Cov from Identity matrix
-            DoubleMatrix2D step2Cov = DoubleFactory2D.dense.identity(step1Cov.rows()).assign(step1Cov, (v, v1) -> v - v1);
+            DoubleMatrix2D step2Cov = DoubleFactory2D.sparse.identity(step1Cov.rows()).assign(step1Cov, (v, v1) -> v - v1);
             //System.out.println("step2Cov " + step2Cov);
             //update workingCov by multiplying step2Cov with working Cov
             workingCov = step2Cov.zMult(workingCov, null, 1.0, 1.0, false, false);
@@ -399,7 +399,7 @@ public class EKF_SLAM extends RichFlatMapFunction<KeyedDataPoint, KeyedDataPoint
         ValueStateDescriptor<Tuple3<DoubleMatrix2D, DoubleMatrix2D, Long>> descriptor = new ValueStateDescriptor<Tuple3<DoubleMatrix2D, DoubleMatrix2D, Long>>(
                 "SLAM", // the state name
                 TypeInformation.of(new TypeHint<Tuple3<DoubleMatrix2D, DoubleMatrix2D, Long>>() {}), // type information
-                Tuple3.of(new DenseDoubleMatrix2D(3,1).assign(0.0), new DenseDoubleMatrix2D(3,3).assign(0.0), 21819L)); // default value of the state, if nothing was set  //TODO: check this initialisation!
+                Tuple3.of(new SparseDoubleMatrix2D(3,1).assign(0.0), new SparseDoubleMatrix2D(3,3).assign(0.0), 21819L)); // default value of the state, if nothing was set  //TODO: check this initialisation!
         filterParams = getRuntimeContext().getState(descriptor);
     }
 
