@@ -47,7 +47,7 @@ public class EKF_SLAM extends RichFlatMapFunction<KeyedDataPoint, KeyedDataPoint
         count++;
         if(fullEKFSLAM){
             if(inputPoint.f2.equals("odo")) {
-                System.out.println("filterParamsVectorPREDICT " + count);
+                System.out.println(System.currentTimeMillis() + "filterParamsVectorPREDICT " + count);
                 Tuple2 estimate = predict(filterParams, inputPoint1);
 
                 Tuple3 updateValue = new Tuple3(estimate.f0, estimate.f1, inputPoint1.getTimeStampMs());
@@ -70,7 +70,7 @@ public class EKF_SLAM extends RichFlatMapFunction<KeyedDataPoint, KeyedDataPoint
                 Tuple3 updateValue = new Tuple3(updatedEstimate.f0, updatedEstimate.f1, inputPoint1.getTimeStampMs());
                 filterParams.update(updateValue);
 
-                System.out.println("filterParamsVectorUPDATE " + count + " " + ((DoubleMatrix2D) updatedEstimate.f0).size());
+                System.out.println(System.currentTimeMillis() + "filterParamsVectorUPDATE " + count + " " + ((DoubleMatrix2D) updatedEstimate.f0).size());
                 //System.out.println("updatedMU " + updatedEstimate.f0);
                 //System.out.println("updatedCov " + updatedEstimate.f1);
 
@@ -210,6 +210,7 @@ public class EKF_SLAM extends RichFlatMapFunction<KeyedDataPoint, KeyedDataPoint
         //SLAM Coorection Step as shown on page 43 of the uni freiburg slides
 
         ArrayList<Tuple2<Tuple5, Tuple2<DoubleMatrix2D, Integer>>> mappedTrees = SlamUtils.mapObservations(singleTrees, workingMu);
+        /*
         for (Tuple2 t: mappedTrees) {
             DoubleMatrix2D d = (DoubleMatrix2D) ((Tuple2) t.f1).f0;
             if(d != null) {
@@ -218,6 +219,7 @@ public class EKF_SLAM extends RichFlatMapFunction<KeyedDataPoint, KeyedDataPoint
                 System.out.println(t.f0 + "; null; " + ((Tuple2) t.f1).f1);
             }
         }
+         */
         //for loop over all observed features
         for (Tuple2 mapped: mappedTrees) {
             Integer index = ((Integer) ((Tuple2) mapped.f1).f1);
@@ -241,7 +243,7 @@ public class EKF_SLAM extends RichFlatMapFunction<KeyedDataPoint, KeyedDataPoint
                 //System.out.println("workingLandmark " + workingLandmark);
                 index = SlamUtils.getTreeIndex(workingMu, referredLandmark);
             }else if(index == -10){
-                System.out.println("ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ");
+                //System.out.println("ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ");
                 continue;
             }else{
                 //workingLandmark = (Tuple5) mapped.f0;
@@ -264,7 +266,7 @@ public class EKF_SLAM extends RichFlatMapFunction<KeyedDataPoint, KeyedDataPoint
             Double range = Math.sqrt(q.get(0,0));
             Double bearing = Math.atan2(delta.get(1,0), delta.get(0,0))-workingMu.get(2,0);
             DoubleMatrix2D estimatedObservation = new DenseDoubleMatrix2D(2, 1).assign(new double[][]{{range},{bearing}});
-            System.out.println("estimatedObservation " + estimatedObservation);
+            //System.out.println("estimatedObservation " + estimatedObservation);
             //Generate Fxj as a helper matrix to map the jacobian matrix
             //System.out.println("index " + index);
             //System.out.println("workingMu " + workingMu);
@@ -306,7 +308,7 @@ public class EKF_SLAM extends RichFlatMapFunction<KeyedDataPoint, KeyedDataPoint
             //System.out.println("workingTreeObservation " + workingTreeObservation);
             //TODO: subtract right information
             DoubleMatrix2D observedVsEstimated = workingTreeObservation.assign(estimatedObservation, (v, v1) -> v - v1);
-            System.out.println("observedVsEstimated " + observedVsEstimated);
+            //System.out.println("observedVsEstimated " + observedVsEstimated);
             //update the estimated State aka workingMu
             //Step 1 multiply the kalman gain with the difference in observations
             DoubleMatrix2D kalmanObservation = kalmanGain.zMult(observedVsEstimated, null, 1.0, 1.0, false, false);
