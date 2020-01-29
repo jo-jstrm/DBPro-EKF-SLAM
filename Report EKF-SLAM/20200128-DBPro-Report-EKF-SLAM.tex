@@ -33,23 +33,30 @@ T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \newpage
 
 \section{Einleitung}\label{Einleitung}
-In verschiedenen technischen Disziplinen ist es nützlich, auf Grundlage des bisherigen Verhaltens eines Systems eine Voraussage über dessen künftigen Zustand treffen zu können. Ein Beispiel dafür ist die Navigation: Mithilfe der bisherigen Bewegungsrichtung und der aktuellen Geschwindigkeit lässt sich die Position des Objektes zu einem zukünftigen Zeitpunkt schätzen. Um eine möglichst verlässliche Vorhersage treffen zu können, müssen verschiedene Aspekte des betreffenden Systems gemessen werden. Da Messungen jedoch stets - in unterschiedlichem Maß - fehlerbehaftet sind, sollten diese Messfehler auch in die Betrachtung des Systemzustandes einbezogen werden. Weiterhin unterscheidet sich die Komplexität der Methoden zur Vorhersage des zukünftigen Zustandes je nach betrachtetem System. Möglicherweise wird der Zustandsübergang des Systems durch komplexe Funktionen mit vielen Parametern dargestellt. Zuletzt erscheint es auch als sinnvoll, die getroffene Vorhersage anhand neuer Messungen zu überprüfen und gegebenenfalls anzupassen. Eine Methode, um solche Zustandsübergänge vorherzusagen und zu überprüfen, ist der sogenannte Kalman Filter \cite{kalman1960new}.
+In verschiedenen technischen Disziplinen ist es nützlich, auf Grundlage des bisherigen Verhaltens eines Systems eine Voraussage über dessen künftigen Zustand treffen zu können. Ein Beispiel dafür ist die Navigation: Mithilfe der bisherigen Bewegungsrichtung und der aktuellen Geschwindigkeit lässt sich die Position des Objektes zu einem zukünftigen Zeitpunkt schätzen. Um eine möglichst verlässliche Vorhersage treffen zu können, müssen verschiedene Aspekte des betreffenden Systems gemessen werden. Da Messungen jedoch stets - in unterschiedlichem Maß - fehlerbehaftet sind, sollten diese Messfehler auch in die Betrachtung des Systemzustandes einbezogen werden. Weiterhin unterscheidet sich die Komplexität der Methoden zur Vorhersage des zukünftigen Zustandes je nach betrachtetem System. Möglicherweise wird der Zustandsübergang des Systems durch komplexe Funktionen mit vielen Parametern dargestellt. Zuletzt erscheint es auch als sinnvoll, die getroffene Vorhersage anhand neuer Messungen zu überprüfen und gegebenenfalls anzupassen. Eine Methode, um solche Zustandsübergänge vorherzusagen und zu überprüfen, ist der sogenannte Kal\-man Filter~\cite{kalman1960new}.
 
 Ein weiteres, vor allem durch die moderne Robotik geprägtes, Problem ist das Kartographieren einer Umgebung. Zum einen muss der autonome Roboter stets seine eigene Position innerhalb der unbekannten Umgebung kennen, zum anderen soll er eben diese Umgebung erkunden und aufzeichnen. Die Erkundung der Umgebung basiert in der Regel auf der Messung mit eingebauten Sensoren, daher ist die Positionsbestimmung der Erkannten Objekte stets relativ zur eigenen Position. Andererseits verortet sich der messende Roboter innerhalb der soeben kartierten Umgebung. Die Genauigkeit der eigenen Positionsbestimmung und der erkundeten Objekte in der Umgebung hängen also in beide Richtungen unmittelbar zusammen. Beide Messungen unterliegen jedoch Fehlern, möglicherweise gibt es sogar Aussetzer bei der Erfassung der Sensordaten. Die Problemstellung erinnert an ein Henne-Ei Problem. Diese Problemstellung wird im englischen als ‘Simultaneous Localization and Mapping’ (SLAM) bezeichnet.
 
-Es ist möglich, den Kalman Filter zur Lösung des  SLAM Problems zu nutzen \cite{freiburg_SLAM}. Wie im Folgenden beschrieben werden wird, ist die Berechnung der Vorhersagen und deren Vergleiche mit den Messungen ein rechenaufwendiger Algorithmus.
+Es ist möglich, den Kalman Filter zur Lösung des  SLAM Problems zu nutzen~\cite{freiburg_SLAM}. Wie im Folgenden beschrieben werden wird, ist die Berechnung der Vorhersagen und deren Vergleiche mit den Messungen ein rech\-en\-auf\-wän\-di\-ger Algorithmus.
 
 \subsection{Motivation}
 In diesem Projekt wird als Datengrundlage der Victoria Park Datensatz betrachtet. Diesem Datensatz liegt die Bewegung eines Fahrzeugs durch besagten Park zugrunde. Der Zustand des Fahrzeugs wird durch eingebaute Sensoren sowie GPS regelmäßig gemessen. Darüber hinaus ermittelt das Fahrzeug mittels eines Lasersensors vor ihm liegende Objekte.
 
-Basierend auf diesen Messungen soll der EKF/SLAM Algorithmus implementiert werden. Da die reine Implementierung des Verfahrens basierend auf dem gegebenen Datensatz bereits erfolgt ist \cite{ute_SLAM}, wird es im Rahmen dieses Projektes darum gehen, wie ein solche Algorithmus parallelisiert werden kann. Um das EKF-SLAM Verfahren skalierbar zu machen, ist es folglich interessant dafür notwendigen Berechnungen zu parallelisieren. Es gilt zum Einen darum zu analysieren, inwiefern die Berechnungen selbst parallelisierbar sind. Weiterhin sind in den Anwendungsgebieten des Kalman Filter auch Szenarien denkbar, in denen Daten von mehr als einem System (z.B. Fahrzeug) verarbeitet werden sollen \cite{vessel}. Für solche Szenarien stellt sich die Frage, ob  und wie Daten von mehreren Fahrzeugen möglichst effektiv verarbeitet werden können.
+Basierend auf diesen Messungen soll der EKF/SLAM Algorithmus implementiert werden. Da die reine Implementierung des Verfahrens basierend auf dem gegebenen Datensatz bereits erfolgt ist~\cite{ute_SLAM}, wird es im Rahmen dieses Projektes darum gehen, wie ein solche Algorithmus parallelisiert werden kann. Um das EKF-SLAM Verfahren skalierbar zu machen, ist es folglich interessant dafür notwendigen Berechnungen zu parallelisieren. Es gilt zum Einen darum zu analysieren, inwiefern die Berechnungen selbst parallelisierbar sind. Weiterhin sind in den Anwendungsgebieten des Kalman Filter auch Szenarien denkbar, in denen Daten von mehr als einem System (z.B. Fahrzeug) verarbeitet werden sollen~\cite{vessel}. Für solche Szenarien stellt sich die Frage, ob  und wie Daten von mehreren Fahrzeugen möglichst effektiv verarbeitet werden können.
 
 Dieses Projekt zielt folglich darauf ab, die parallele Implementierung des EKF SLAM Algorithmus umzusetzen und zu evaluieren. Dabei wird die Software für parallele und verteilte Verarbeitung von Datenströmen Apache Flink\footnote{\url{https://flink.apache.org/}} eingesetzt.
 
 \subsection{Extended Kalman Filter}
-Der Kalman Filter wurde im Jahr 1960 von Rudolph E. Kalman im Rahmen seines Papers “A New Approach to Linear Filtering and Prediction Problems” \cite{kalman1960new} vorgestellt. Er ist ein Ansatz um Zustände zu schätzen. Der Kalman Filter minimiert die geschätzte Fehlervarianz. Der grundlegende Algorithmus funktioniert wie folgt: Zunächst wird im sog. prediction-step der Zustand eines Systems zu einem Zeitpunkt Xt auf Grundlage vorhergegangener Zustandsmessungen und einer Zustandsübergangsfunktion geschätzt. Diese Schätzung wird dann im update-step (auch correction-step) nach dem Erhalt neuer Messdaten korrigiert und der Algorithmus beginnt von vorne.
+Der Kalman Filter wurde im Jahr 1960 von Rudolph E. Kalman im Rahmen seines Papers “A New Approach to Linear Filtering and Prediction Problems”~\cite{kalman1960new} vorgestellt. Er ist ein Ansatz um Zustände zu schätzen. Der Kalman Filter minimiert die geschätzte Fehlervarianz. Der grundlegende Algorithmus funktioniert wie folgt: Zunächst wird im sog. prediction-step der Zustand eines Systems zu einem Zeitpunkt Xt auf Grundlage vorhergegangener Zustandsmessungen und einer Zustandsübergangsfunktion geschätzt. Diese Schätzung wird dann im update-step (auch correction-step) nach dem Erhalt neuer Messdaten korrigiert und der Algorithmus beginnt von vorne.
 
-Eine attraktive Eigenschaft dieses Algorithmus ist seine rekursive Natur; zur Berechnung des geschätzten neuen Zustands sind nur die Daten der vorherigen Messung nötig, da sich  in dieser alle vorherigen Messungen zusammengefasst wiederfinden. Der Extended Kalman FIlter unterscheidet sich vom Diskreten Kalman Filter darin, dass die Zustandsübergänge durch nichtlineare Funktionen abgebildet werden. Die Nichtlinearität verkompliziert den Algorithmus, wie im folgenden gezeigt wird.
+\begin{figure}[!t]
+	\centering
+	\includegraphics[width=3.5in]{EKF_algorithm.png}
+	\caption{Extended Kalman Filter Algorithmus~\cite{EKF_course}.}
+	\label{EKF-Algorithmus}
+\end{figure}
+
+Eine attraktive Eigenschaft dieses Algorithmus ist seine rekursive Natur; zur Berechnung des geschätzten neuen Zustands sind nur die Daten der vorherigen Messung nötig, da sich  in dieser alle vorherigen Messungen zusammengefasst wiederfinden. Der Extended Kalman Filter unterscheidet sich vom Diskreten Kalman Filter darin, dass die Zustandsübergänge durch nichtlineare Funktionen abgebildet werden. Die Nichtlinearität verkompliziert den Algorithmus, wie im folgenden gezeigt wird.
 
 \subsubsection{Prediction-Step}
 Der Zustand eines Systems kann über beliebig viele Parameter dargestellt werden. Um einen Zustand Xt in einen Zustand Xt+1 zu überführen, muss für jeden Parameter eine Funktion definiert werden, die diesen Übergang abbildet. Im falle eines Fahrzeuges erfolgt dies über die Erstellung eines Bewegungsmodells. Auf Grundlage der Sensorik und vorhandenen Messwerte muss das Bewegungsmodells den Zustand, korrekt und dargestellt in die gewünschten Metriken, berechnen.
@@ -63,10 +70,10 @@ Der im Prediciton-Step geschätzte Zustand wird nun basierend auf neuen, externe
 
 \section{Methodik}\label{Methodik}
 \subsection{Verwendete Software}
-Im folgenden werden zunächst die dem Projekt zugrunde liegenden Konzepte detailliert vorgestellt. Danach wird erklärt, welche softwareseitigen Werkzeuge zur Umsetzung benutzt werden und warum. An dieser Stelle wird der Fokus auf den für das Projekt relevanten Funktionalitäten der jeweiligen Software liegen. Anschließend werden wir ausführlich auf die bereitgestellten Daten eingehen und deren Spezifika erläutern, da dieses Wissen Grundlage der Implementierung des Algorithmus ist. Als nächstes werden wir ausgewählte Designentscheidungen der Implementierung vorstellen. Die Ergebnisse bzw. die Ausgabe unserer Implementierung werden im Anschluss dokumentiert, analysiert und bewertet.
+Im folgenden werden zunächst die dem Projekt zugrunde liegenden Konzepte detailliert vorgestellt. Danach wird erklärt, welche softwareseitigen Werk\-zeu\-ge zur Umsetzung benutzt werden und warum. An dieser Stelle wird der Fokus auf den für das Projekt relevanten Funktionalitäten der jeweiligen Software liegen. Anschließend werden wir ausführlich auf die bereitgestellten Daten eingehen und deren Spezifika erläutern, da dieses Wissen Grundlage der Implementierung des Algorithmus ist. Als nächstes werden wir ausgewählte Designentscheidungen der Implementierung vorstellen. Die Ergebnisse bzw. die Ausgabe unserer Implementierung werden im Anschluss dokumentiert, analysiert und bewertet.
 
 \subsubsection{Apache Flink}
-Flink ist eine Software zur verteilten und parallelen Verarbeitung von Stream- oder Batchdaten. Es ist aus dem Stratosphere Projekt\footnote{\url{http://stratosphere.eu}} \cite{alexandrov_stratosphere_2014} der TU-Berlin hervorgegangen und ein Top-Level-Projekt der Apache Foundation \footnote{\url{https://apache.org}}. Die Software ist per Open Source Lizenz verfügbar und aufgrund der hohen Performanz \cite{alexandrov_stratosphere_2014} ein beliebtes Werkzeug für verteilte und skalierbare Datenverarbeitung.
+Flink ist eine Software zur verteilten und parallelen Verarbeitung von Stream- oder Batch\-daten. Es ist aus dem Stratosphere Projekt\footnote{\url{http://stratosphere.eu}}~\cite{alexandrov_stratosphere_2014} der TU-Berlin hervorgegangen und ein Top-Level-Projekt der Apache Foundation \footnote{\url{https://apache.org}}. Die Software ist per Open Source Lizenz verfügbar und aufgrund der hohen Performanz~\cite{alexandrov_stratosphere_2014} ein beliebtes Werkzeug für verteilte und skalierbare Datenverarbeitung.
 
 Flink basiert auf der Java Virtual Machine (JVM) und ist in Scala und Java programmiert. Der Funktionsumfang, wie in Abbildung XXXXXXXXXXXXXXXXXX dargestellt umfasst verschiedene Application Programming Interfaces (APIs). 
 
@@ -104,7 +111,7 @@ Zusammengerechnet machten die genannten Probleme mit dem Datensatz circa die Hä
 Da es in diesem Projekt auch um die Parallelisierung der Verarbeitung von Daten unterschiedlicher Fahrzeuge geht, haben wir den vorhandenen Datensatz mehrfach repliziert. So kann die Berechnung mehrerer Systeme und deren Zustände simuliert und mit Hilfe von Flink parallelisiert werden. Die replizierten Daten haben wir zur besseren Veranschaulichung verändert; beispielsweise wurde die Reihenfolge der Tupel umgekehrt oder nur Teile des vollständigen Datensatzes für unterschiedliche simulierte Fahrzeuge verwendet.
 
 \subsubsection{Umsetzung in Apache Flink}
-Apache Flink unterscheidet Arbeitsaufträge in Streaming- und Batch-Aufträge. Diese unterscheiden sich in der Art und Weise der Parallelisierung der Berechnungen: bei Streams müssen beispielsweise Aggregationen mit einem Fenster versehen werden, da man sie bei einem potentiell unendlich langen Datenstrom nicht auf die gesamten Daten ausführen kann. Bei Batch-Daten ist das im Gegensatz möglich.
+Apache Flink unterscheidet Arbeitsaufträge in Streaming- und Batch-Auf\-trä\-ge. Diese unterscheiden sich in der Art und Weise der Parallelisierung der Berechnungen: bei Streams müssen beispielsweise Aggregationen mit einem Fenster versehen werden, da man sie bei einem potentiell unendlich langen Datenstrom nicht auf die gesamten Daten ausführen kann. Bei Batch-Daten ist das im Gegensatz möglich.
 
 Da die Nutzung des Kalman Filters vor allem vor dem Hintergrund von kontinuierlich, über einen langen Zeitraum eintreffenden Datenströmen sinnvoll ist, fiel die Entscheidung auf einen Streaming-Auftrag.
 
@@ -120,6 +127,38 @@ Darüber hinaus
 \section{Diskussion}\label{Diskussion}
 
 \section{Appendix}\label{Appendix}
+Für den EKF ohne SLAM, der folglich eine GPS-Messung als Grundlage des Update-Step verwendet, initialisierten wir den Filter mit folgenden Werten und Funktionen:
+\begin{equation}\label{State-Vector}
+	\hat{x}_t^- = \begin{pmatrix}
+		x \\
+		y \\
+		\phi \\
+	  \end{pmatrix}
+\end{equation}
+
+\begin{equation}\label{Motion-Model}
+	f(\hat{x}_{t-1},u_t,0) = \begin{pmatrix}
+		0 & 0 & lulu \\
+		0 & 0 & lala \\
+		1 & 1 & 1 \\
+	\end{pmatrix}
+\end{equation}
+
+\begin{equation}\label{Initiale-Kovarianzmatrix}
+	P_t^- = \begin{pmatrix}
+		1000 & 1000 & 1000 \\
+		1000 & 1000 & 1000 \\
+		1000 & 1000 & 1000 \\
+	  \end{pmatrix}
+\end{equation}
+
+\begin{equation}\label{Jakobs-Matrix}
+	H_t = \begin{pmatrix}
+		1000 & 1000 & 1000 \\
+		1000 & 1000 & 1000 \\
+		1000 & 1000 & 1000 \\
+	  \end{pmatrix}
+\end{equation}
 
 \bibliography{DBPro}
 \bibliographystyle{ieeetr}
