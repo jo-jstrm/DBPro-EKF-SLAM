@@ -12,8 +12,8 @@
 T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 
 \author{
-  Jestram, Johannes\\
-  \texttt{jestram@posteo.de}
+  	Jestram, Johannes\\
+  	\texttt{jestram@posteo.de}
 	\and
 	Livert, Benedikt\\
 	\texttt{benedikt.livert@gmx.de}
@@ -119,47 +119,92 @@ Abgesehen von der Implementierung des EKF/SLAM Algorithmus bestand die Kernherau
 
 Darüber hinaus
 
-
-\section{Evaluation}
-
-\section{Zusammenfassung}\label{Zusammenfassung}
-
-\section{Diskussion}\label{Diskussion}
-
-\section{Appendix}\label{Appendix}
-\subsection{EKF Implementierung}
+\subsubsection{EKF Implementierung}
+\paragraph{Prediction Schritt und Bewegungsmodell}
 Für den EKF ohne SLAM, der folglich eine GPS-Messung als Grundlage des Update-Step verwendet, initialisierten wir den Filter mit folgenden Werten und Funktionen:
 
+Der Zustand des Fahrzeugs wird durch die x- und y-Koordinaten sowie den Winkel des Fahrzeuges zur x-Achse des Koordinatensystems angegeben.
 \begin{equation}\label{EKF-State-Vector}
-	\hat{x}_t^- = \begin{pmatrix}
-		x \\
-		y \\
-		\phi \\
+	\hat{x}_t = \begin{pmatrix}
+		x_t \\
+		y_t \\
+		\phi_t \\
 	  \end{pmatrix}
 \end{equation}
 
+Da sich der Sensor zur Geschwindigkeitsmessung am linken Hinterrad befindet, muss die Messung noch auf die Fahrzeugmitte zentriert werden.
+\begin{equation}\label{Geschwindikeit}
+\begin{split}
+	v &= \frac{v_{Messung}}{1-\tan(\alpha)*\frac{H}{L}} \\
+	&\text{mit } \\
+	v &= \text{Fahrzeuggeschwindigkeit} \\
+	v_{Messung} &= \text{Geschwindigkeit am linken Hinterrad} \\
+	H &= \text{Achsabstand Sensor zur Fahrzeugmitte} = 0,76m \\
+	L &= \text{Abstand Hinterachse zur Vorderache} = 2,83m
+\end{split}
+\end{equation}
+
+Die Zustandsvorhersage $\hat{x}_{t+1}^-$ ergibt sich aus einem Bewegungsmodell, das anhand der vergangenen Zeit $\Delta T$ zwischen dem letzten Update- und dem jetzigen Prediction-Step die neue Position des Fahrzeuges schätzt. 
 \begin{equation}\label{EKF-Motion-Model}
-	f(\hat{x}_{t-1},u_t,0) = \begin{pmatrix}
-		0 & 0 & lulu \\
-		0 & 0 & lala \\
-		1 & 1 & 1 \\
+\begin{split}
+	\hat{x}_{t+1}^- &= f(\hat{x}_{t},u_t,0) = \begin{pmatrix}
+		x_{t+1} \\
+		y_{t+1} \\
+		\phi_{t+1} \\
+	  \end{pmatrix} \\
+	  &= \begin{pmatrix}
+		  x_{t}+\Delta T(v\cos(\phi_t)-\frac{v}{L}\tan(\alpha))*(a\sin(\phi_t)+b\cos(\phi_t)) \\
+		  x_{t}+\Delta T(v\sin(\phi_t)+\frac{v}{L}\tan(\alpha))*(a\cos(\phi_t)-b\sin(\phi_t)) \\
+		  \phi_t + \Delta(\frac{v}{L}\tan(\alpha)) \\
+	  \end{pmatrix}
+\end{split}
+\end{equation}
+
+Während des EKF wird die Kovarianzmatrix $P$ in jedem Durchlauf verändert. Wir initialisieren sie mit einem hohen Wert, sodass sie sich innerhalb der ersten Durchläufe stark verändert. 
+\begin{equation}\label{EKF-Initiale-Kovarianzmatrix}
+	P_{initial} = \begin{pmatrix}
+		1000 & 1000 & 1000 \\
+		1000 & 1000 & 1000 \\
+		1000 & 1000 & 1000 \\
+	  \end{pmatrix}
+\end{equation}
+
+Für die Linearisierung des Bewegungsmodells, i.e. zur Aktualisierung von $P$, im EKF wird außerdem noch die Jakobs-Matrix des Bewegungsmodells benötigt.
+\begin{equation}\label{EKF-Motion-Model-Jakobs-Matrix}
+\begin{split}
+	F_t &= \frac{\delta f}{\delta \hat{x}} \\
+	&= \begin{pmatrix}
+		1 & 0 & -\Delta T(v\sin(\phi_t)+\frac{v}{L}\tan(\alpha)*a\cos(\phi_t)-b\sin(\phi_t)) \\
+		0 & 1 & \Delta T(v\cos(\phi_t)-\frac{v}{L}\tan(\alpha)*a\sin(\phi_t)+b\cos(\phi_t)) \\
+		0 & 0 & 1 \\
+	  \end{pmatrix}
+\end{split}
+\end{equation}
+
+\paragraph{Update Schritt}
+Im Update Schritt werden die Ergebnisse des Prediction Schritt mit Hilfe der GPS-Messung aktualisiert. Dazu muss zunächst das Beobachtungsmodell definiert werden; dessen Aufgabe ist es, die Messungen des GPS-Sensors auf das Format des Zustandsvektors abzubilden. Im vorliegenden Fall werden x- und y-Koordinate im passenden Format gemssen. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxJedoch muss der Winkel $\phi$ in dem sich das Auto gemäß GPS seit der letzten Messung bewegt hat, aus den Koordinaten berechnet werden. IST DAS SO?xxxxxxxxxxx
+\begin{equation}\label{EKF-Observation-Model}
+	z = h(\hat{x}) = \begin{pmatrix}
+		x_{GPS} \\
+		y_{GPS} \\
+		\phi_t \\
 	\end{pmatrix}
 \end{equation}
 
-\begin{equation}\label{EKF-Initiale-Kovarianzmatrix}
-	P_t^- = \begin{pmatrix}
-		1000 & 1000 & 1000 \\
-		1000 & 1000 & 1000 \\
-		1000 & 1000 & 1000 \\
-	  \end{pmatrix}
+Zwar ist das Beobachtungsmodell linear, da jedoch aufgrund des nichtlinearen Bewegungsmodells der Extended Kalman Filter verwendet wird, muss auch vom Beobachtungsmodell die Jakobs-Matrix gebildet werden. 
+\begin{equation}\label{EKF-Observation-Model-Jakobs-Matrix}
+	H(\hat{x})= \frac{\delta h}{\delta \hat{x}} = \begin{pmatrix}
+		1 & 0 & 0 \\
+		0 & 1 & 0 \\
+		0 & 0 & 1 \\
+	\end{pmatrix}
 \end{equation}
 
-\begin{equation}\label{EKF-Jakobs-Matrix}
-	H_t = \begin{pmatrix}
-		1000 & 1000 & 1000 \\
-		1000 & 1000 & 1000 \\
-		1000 & 1000 & 1000 \\
-	  \end{pmatrix}
+\begin{equation}\label{GPS-Messungenauigkeits-Matrix}
+	R = \begin{pmatrix}
+		0,5 & 0 \\
+		0 & 0,5 \\
+	\end{pmatrix}
 \end{equation}
 
 \subsection{SLAM Implementierung}
@@ -178,6 +223,15 @@ Die SLAM Implementierung erfolgte mit folgenden Werten und Funktionen. Der Unter
 		y_{Objekt-n} \\
 	  \end{pmatrix}
 \end{equation}
+
+\section{Evaluation}
+
+\section{Zusammenfassung}\label{Zusammenfassung}
+
+\section{Diskussion}\label{Diskussion}
+
+\section{Appendix}\label{Appendix}
+
 
 \bibliography{DBPro}
 \bibliographystyle{ieeetr}
