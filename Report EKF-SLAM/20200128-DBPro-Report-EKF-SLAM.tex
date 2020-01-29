@@ -127,8 +127,10 @@ Darüber hinaus
 \section{Diskussion}\label{Diskussion}
 
 \section{Appendix}\label{Appendix}
+\subsection{EKF Implementierung}
 Für den EKF ohne SLAM, der folglich eine GPS-Messung als Grundlage des Update-Step verwendet, initialisierten wir den Filter mit folgenden Werten und Funktionen:
-\begin{equation}\label{State-Vector}
+
+\begin{equation}\label{EKF-State-Vector}
 	\hat{x}_t^- = \begin{pmatrix}
 		x \\
 		y \\
@@ -136,7 +138,7 @@ Für den EKF ohne SLAM, der folglich eine GPS-Messung als Grundlage des Update-S
 	  \end{pmatrix}
 \end{equation}
 
-\begin{equation}\label{Motion-Model}
+\begin{equation}\label{EKF-Motion-Model}
 	f(\hat{x}_{t-1},u_t,0) = \begin{pmatrix}
 		0 & 0 & lulu \\
 		0 & 0 & lala \\
@@ -144,7 +146,7 @@ Für den EKF ohne SLAM, der folglich eine GPS-Messung als Grundlage des Update-S
 	\end{pmatrix}
 \end{equation}
 
-\begin{equation}\label{Initiale-Kovarianzmatrix}
+\begin{equation}\label{EKF-Initiale-Kovarianzmatrix}
 	P_t^- = \begin{pmatrix}
 		1000 & 1000 & 1000 \\
 		1000 & 1000 & 1000 \\
@@ -152,11 +154,28 @@ Für den EKF ohne SLAM, der folglich eine GPS-Messung als Grundlage des Update-S
 	  \end{pmatrix}
 \end{equation}
 
-\begin{equation}\label{Jakobs-Matrix}
+\begin{equation}\label{EKF-Jakobs-Matrix}
 	H_t = \begin{pmatrix}
 		1000 & 1000 & 1000 \\
 		1000 & 1000 & 1000 \\
 		1000 & 1000 & 1000 \\
+	  \end{pmatrix}
+\end{equation}
+
+\subsection{SLAM Implementierung}
+Die SLAM Implementierung erfolgte mit folgenden Werten und Funktionen. Der Unterschied zum EKF ohne SLAM-Anteil liegt vor allem darin, dass der Update-Schritt nun auf Grundlage der in der Umgebung verorteten Objekte stattfindet.
+
+\begin{equation}\label{SLAM-State-Vector}
+	\hat{x}_t^- = \begin{pmatrix}
+		x_{Fahrzeug} \\
+		y_{Fahrzeug} \\
+		\phi \\
+		x_{Objekt-1} \\
+		y_{Objekt-1} \\
+		... \\
+		... \\
+		x_{Objekt-n} \\
+		y_{Objekt-n} \\
 	  \end{pmatrix}
 \end{equation}
 
