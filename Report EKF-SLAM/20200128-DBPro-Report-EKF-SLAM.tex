@@ -169,8 +169,8 @@ Während des EKF wird die Kovarianzmatrix $P$ in jedem Durchlauf verändert. Wir
 	  \end{pmatrix}
 \end{equation}
 
-Für die Linearisierung des Bewegungsmodells, i.e. zur Aktualisierung von $P$, im EKF wird außerdem noch die Jakobs-Matrix des Bewegungsmodells benötigt.
-\begin{equation}\label{EKF-Motion-Model-Jakobs-Matrix}
+Für die Linearisierung des Bewegungsmodells, i.e. zur Aktualisierung von $P$, im EKF wird außerdem noch die Jakobi-Matrix des Bewegungsmodells benötigt.
+\begin{equation}\label{EKF-Motion-Model-Jakobi-Matrix}
 \begin{split}
 	F_t &= \frac{\delta f}{\delta \hat{x}} \\
 	&= \begin{pmatrix}
@@ -184,15 +184,15 @@ Für die Linearisierung des Bewegungsmodells, i.e. zur Aktualisierung von $P$, i
 \paragraph{Update Schritt}
 Im Update Schritt werden die Ergebnisse des Prediction Schritt mit Hilfe der GPS-Messung aktualisiert. Dazu muss zunächst das Beobachtungsmodell definiert werden; dessen Aufgabe ist es, die Messungen des GPS-Sensors auf das Format des Zustandsvektors abzubilden. Im vorliegenden Fall werden x- und y-Koordinate im passenden Format gemssen. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxJedoch muss der Winkel $\phi$ in dem sich das Auto gemäß GPS seit der letzten Messung bewegt hat, aus den Koordinaten berechnet werden. IST DAS SO?xxxxxxxxxxx
 \begin{equation}\label{EKF-Observation-Model}
-	z = h(\hat{x}) = \begin{pmatrix}
+	z_{EKF} = h(\hat{x}) = \begin{pmatrix}
 		x_{GPS} \\
 		y_{GPS} \\
 		\phi_t \\
 	\end{pmatrix}
 \end{equation}
 
-Zwar ist das Beobachtungsmodell linear, da jedoch aufgrund des nichtlinearen Bewegungsmodells der Extended Kalman Filter verwendet wird, muss auch vom Beobachtungsmodell die Jakobs-Matrix gebildet werden. 
-\begin{equation}\label{EKF-Observation-Model-Jakobs-Matrix}
+Zwar ist das Beobachtungsmodell linear, da jedoch aufgrund des nichtlinearen Bewegungsmodells der Extended Kalman Filter verwendet wird, muss auch vom Beobachtungsmodell die Jakobi-Matrix gebildet werden. 
+\begin{equation}\label{EKF-Observation-Model-Jakobi-Matrix}
 	H(\hat{x})= \frac{\delta h}{\delta \hat{x}} = \begin{pmatrix}
 		1 & 0 & 0 \\
 		0 & 1 & 0 \\
@@ -208,10 +208,9 @@ Zwar ist das Beobachtungsmodell linear, da jedoch aufgrund des nichtlinearen Bew
 \end{equation}
 
 \subsection{SLAM Implementierung}
-Die SLAM Implementierung erfolgte mit folgenden Werten und Funktionen. Der Unterschied zum EKF ohne SLAM-Anteil liegt vor allem darin, dass der Update-Schritt nun auf Grundlage der in der Umgebung verorteten Objekte stattfindet.
-
+Der Unterschied zum EKF ohne SLAM-Anteil liegt vor allem darin, dass der Update-Schritt nun auf Grundlage der in der Umgebung verorteten Objekte stattfindet. Der Zustandsvektor $\hat{x}$ des Systems enthält nun zusätzlich zur Position und Fahrtrichtung des Fahrzeuges die Koordinaten jedes gemessenen Objektes - im Falle des Victoria Parks vor allem Bäume. 
 \begin{equation}\label{SLAM-State-Vector}
-	\hat{x}_t^- = \begin{pmatrix}
+	\hat{x} = \begin{pmatrix}
 		x_{Fahrzeug} \\
 		y_{Fahrzeug} \\
 		\phi \\
@@ -221,7 +220,41 @@ Die SLAM Implementierung erfolgte mit folgenden Werten und Funktionen. Der Unter
 		... \\
 		x_{Objekt-n} \\
 		y_{Objekt-n} \\
+	  \end{pmatrix} = \begin{pmatrix}
+		  x_i \\
+		  y_i \\
+		  \phi \\
+		  x_L \\
+		  y_L \\
 	  \end{pmatrix}
+\end{equation}
+
+Das Bewegungsmodell ändert sich im Vergleich zum EKF nicht. Jedoch ändert sich das Beobachtungsmodell $z_{SLAM}$, welches nun nicht mehr auf GPS Messungen, sondern auf den gemessenen Objekten im Umfeld des Fahrzeuges basiert.
+\begin{equation}\label{SLAM-Observation-Model}
+\begin{split}
+	z_{SLAM} = \begin{pmatrix}
+		z_\gamma^i \\
+		z_\beta^i \\
+	\end{pmatrix} = h(\hat{x}, x_i, y_i)
+	= \begin{pmatrix}
+		\sqrt{(x_i-x_L)^2 + (y_i-y_L)^2} \\
+		\arctan(\frac{y_i-y_l}{x_i-x_L} - \phi_L +\frac{\pi}{2} \\
+	\end{pmatrix} + \gamma_k
+\end{split}
+\end{equation}
+
+Im SLAM Fall ist also das Beobachtungsmodell im Gegensatz zum EKF mit GPS nicht linar. Demnach ist auch die Jakobi Matrix $H$ nicht mehr trivial.
+\begin{equation}\label{SLAM-Jakobi-Matrix}
+\begin{split}
+	H(\hat{x}) &= \frac{\delta h}{\delta \hat{x}} = \begin{pmatrix}
+		\frac{\delta z_\gamma}{\delta (x_i, y_i, \phi, \{x_L, y_L\})} \\
+		\frac{\delta h}{\delta (x_i, y_i, \phi, \{x_L, y_L\})}
+	\end{pmatrix} \\
+	&= \begin{pmatrix}
+		hi \\
+		hi\\
+	\end{pmatrix}
+\end{split}
 \end{equation}
 
 \section{Evaluation}
