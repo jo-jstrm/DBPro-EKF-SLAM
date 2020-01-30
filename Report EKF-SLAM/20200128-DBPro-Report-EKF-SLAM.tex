@@ -242,7 +242,7 @@ Das Bewegungsmodell des Fahrzeuges ändert sich im Vergleich zum EKF nicht. Die 
 \end{equation}
 
 \begin{equation}\label{SLAM-Bewegungsmodell-Jakobi-Matrix}
-	F_{SLAM} = \begin{pmatrix}
+	F_{slam} = \begin{pmatrix}
 		F_{ekf} & 0 \\
 		0 & I \\
 	\end{pmatrix}
@@ -262,12 +262,15 @@ Jedoch ändert sich das Beobachtungsmodell $z_{SLAM}$, welches nun nicht mehr au
 \end{split}
 \end{equation}
 
-Im SLAM Fall ist also das Beobachtungsmodell im Gegensatz zum EKF mit GPS nicht linar. Demnach ist auch die Jakobi Matrix $H_{SLAM}$~\ref{SLAM-Observation-Model-Jakobi-Matrix}komplexer als zuvor.
+Im SLAM Fall ist also das Beobachtungsmodell im Gegensatz zum EKF mit GPS nicht linar. Demnach ist auch die Jakobi Matrix $H_{SLAM}$~\ref{SLAM-Observation-Model-Jakobi-Matrix} komplexer als zuvor.
 \begin{equation}\label{SLAM-Observation-Model-Jakobi-Matrix}
 \begin{split}
 	H(\hat{x}) &= \frac{\delta h}{\delta \hat{x}} = \begin{pmatrix}
+		\frac{\delta h_\gamma}{\delta \hat{x}} \\
+		\frac{\delta h_\beta}{\delta \hat{x}} \\
+	\end{pmatrix} = \begin{pmatrix}
 		\frac{\delta z_\gamma}{\delta (x_i, y_i, \phi, \{x_L, y_L\})} \\
-		\frac{\delta h}{\delta (x_i, y_i, \phi, \{x_L, y_L\})}
+		\frac{\delta z_\beta}{\delta (x_i, y_i, \phi, \{x_L, y_L\})}
 	\end{pmatrix} \\
 	&= \begin{pmatrix}
 		hi \\
