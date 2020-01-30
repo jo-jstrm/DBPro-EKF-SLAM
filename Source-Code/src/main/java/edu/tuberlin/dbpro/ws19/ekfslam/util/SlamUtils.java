@@ -108,8 +108,8 @@ public class SlamUtils {
         DoubleMatrix2D landmark = tupleToLandmark(tree);
         DoubleMatrix2D referredLandmark = null;
         Integer index = -2;
-        double lowerLimit = 0.5;
-        double upperLimit = 3.0;
+        double lowerLimit = 0.4;
+        double upperLimit = 2.0;
         for (int i = 3; i < mu.size(); i += 2) {
             double distance = Math.sqrt(Math.pow(mu.get(i,0)-landmark.get(0,0),2)+Math.pow(mu.get(i+1,0)-landmark.get(1,0),2));
             //System.out.println("Euclidean distance: " + Math.sqrt(Math.pow(mu.get(i,0)-landmark.get(0,0),2)+Math.pow(mu.get(i+1,0)-landmark.get(1,0),2)));

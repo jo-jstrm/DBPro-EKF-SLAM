@@ -141,7 +141,7 @@ public class TreeProcessing {
     private static Double[] validTreesOnly(Double[] input){
         Double[] valid = input;
         for (int i = 0; i < valid.length; i++) {
-            if (valid[i] <= 80.00){
+            if (valid[i] <= 40.00){
                 continue;
             }else{
                 valid[i] = 0.0;
