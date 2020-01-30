@@ -47,7 +47,7 @@ Basierend auf diesen Messungen soll der EKF/SLAM Algorithmus implementiert werde
 Dieses Projekt zielt folglich darauf ab, die parallele Implementierung des EKF SLAM Algorithmus umzusetzen und zu evaluieren. Dabei wird die Software für parallele und verteilte Verarbeitung von Datenströmen Apache Flink\footnote{\url{https://flink.apache.org/}} eingesetzt.
 
 \subsection{Extended Kalman Filter}
-Der Kalman Filter wurde im Jahr 1960 von Rudolph E. Kalman im Rahmen seines Papers “A New Approach to Linear Filtering and Prediction Problems”~\cite{kalman1960new} vorgestellt. Er ist ein Ansatz um Zustände zu schätzen. Der Kalman Filter minimiert die geschätzte Fehlervarianz. Der grundlegende Algorithmus funktioniert wie folgt: Zunächst wird im sog. prediction-step der Zustand eines Systems zu einem Zeitpunkt Xt auf Grundlage vorhergegangener Zustandsmessungen und einer Zustandsübergangsfunktion geschätzt. Diese Schätzung wird dann im update-step (auch correction-step) nach dem Erhalt neuer Messdaten korrigiert und der Algorithmus beginnt von vorne.
+Der Kalman Filter wurde im Jahr 1960 von Rudolph E. Kalman im Rahmen seines Papers “A New Approach to Linear Filtering and Prediction Problems”~\cite{kalman1960new} vorgestellt. Er ist ein Ansatz um Zustände zu schätzen. Der Kalman Filter minimiert die geschätzte Fehlervarianz. Der grundlegende Algorithmus funktioniert wie folgt: Zunächst wird im sog. Prediction-Step der Zustand eines Systems zu einem Zeitpunkt $t$ auf Grundlage vorhergegangener Zustandsmessungen und einer Zustandsübergangsfunktion geschätzt. Diese Schätzung wird dann im update-step (auch Correction-Step) nach dem Erhalt neuer Messdaten korrigiert und der Algorithmus beginnt von vorne.
 
 \begin{figure}[!t]
 	\centering
@@ -59,7 +59,7 @@ Der Kalman Filter wurde im Jahr 1960 von Rudolph E. Kalman im Rahmen seines Pape
 Eine attraktive Eigenschaft dieses Algorithmus ist seine rekursive Natur; zur Berechnung des geschätzten neuen Zustands sind nur die Daten der vorherigen Messung nötig, da sich  in dieser alle vorherigen Messungen zusammengefasst wiederfinden. Der Extended Kalman Filter unterscheidet sich vom Diskreten Kalman Filter darin, dass die Zustandsübergänge durch nichtlineare Funktionen abgebildet werden. Die Nichtlinearität verkompliziert den Algorithmus, wie im folgenden gezeigt wird.
 
 \subsubsection{Prediction-Step}
-Der Zustand eines Systems kann über beliebig viele Parameter dargestellt werden. Um einen Zustand Xt in einen Zustand Xt+1 zu überführen, muss für jeden Parameter eine Funktion definiert werden, die diesen Übergang abbildet. Im falle eines Fahrzeuges erfolgt dies über die Erstellung eines Bewegungsmodells. Auf Grundlage der Sensorik und vorhandenen Messwerte muss das Bewegungsmodells den Zustand, korrekt und dargestellt in die gewünschten Metriken, berechnen.
+Der Zustand eines Systems kann über beliebig viele Parameter dargestellt werden. Um einen Zustand $\hat{x}_t$ in einen Zustand $\hat{x}_{t+1}$ zu überführen, muss für jeden Parameter eine Funktion definiert werden, die diesen Übergang abbildet. Im falle eines Fahrzeuges erfolgt dies über die Erstellung eines Bewegungsmodells. Auf Grundlage der Sensorik und vorhandenen Messwerte muss das Bewegungsmodells den Zustand, korrekt und dargestellt in die gewünschten Metriken, berechnen.
 
 Doch das Bewegungsmodell ist nicht der einzige Einflussfaktor für den Zustandsübergang: Messfehler und äußere Einflussfaktoren sorgen für Ungenauigkeiten. Diese Ungenauigkeiten werden im Extended Kalman Filter berücksichtigt, wie im folgenden erläutert wird.
 
@@ -147,7 +147,7 @@ Da sich der Sensor zur Geschwindigkeitsmessung am linken Hinterrad befindet, mus
 Die Zustandsvorhersage $\hat{x}_{t+1}^-$ ergibt sich aus einem Bewegungsmodell, das anhand der vergangenen Zeit $\Delta T$ zwischen dem letzten Update- und dem jetzigen Prediction-Step die neue Position des Fahrzeuges schätzt. 
 \begin{equation}\label{EKF-Motion-Model}
 \begin{split}
-	\hat{x}_{t+1}^- &= f(\hat{x}_{t},u_t,0) = \begin{pmatrix}
+	\hat{x}_{t+1}^- &= f(\hat{x}_{t},u_t) = \begin{pmatrix}
 		x_{t+1} \\
 		y_{t+1} \\
 		\phi_{t+1} \\
@@ -163,9 +163,9 @@ Die Zustandsvorhersage $\hat{x}_{t+1}^-$ ergibt sich aus einem Bewegungsmodell, 
 Während des EKF wird die Kovarianzmatrix $P$ in jedem Durchlauf verändert. Wir initialisieren sie mit einem hohen Wert, sodass sie sich innerhalb der ersten Durchläufe stark verändert. 
 \begin{equation}\label{EKF-Initiale-Kovarianzmatrix}
 	P_{initial} = \begin{pmatrix}
-		1000 & 1000 & 1000 \\
-		1000 & 1000 & 1000 \\
-		1000 & 1000 & 1000 \\
+		0 & 0 & 0 \\
+		0 & 0 & 0 \\
+		0 & 0 & 0 \\
 	  \end{pmatrix}
 \end{equation}
 
@@ -182,21 +182,19 @@ Für die Linearisierung des Bewegungsmodells, i.e. zur Aktualisierung von $P$, i
 \end{equation}
 
 \paragraph{Update Schritt}
-Im Update Schritt werden die Ergebnisse des Prediction Schritt mit Hilfe der GPS-Messung aktualisiert. Dazu muss zunächst das Beobachtungsmodell definiert werden; dessen Aufgabe ist es, die Messungen des GPS-Sensors auf das Format des Zustandsvektors abzubilden. Im vorliegenden Fall werden x- und y-Koordinate im passenden Format gemssen. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxJedoch muss der Winkel $\phi$ in dem sich das Auto gemäß GPS seit der letzten Messung bewegt hat, aus den Koordinaten berechnet werden. IST DAS SO?xxxxxxxxxxx
+Im Update Schritt werden die Ergebnisse des Prediction Schritt mit Hilfe der GPS-Messung aktualisiert. Dazu muss zunächst das Beobachtungsmodell definiert werden; dessen Aufgabe ist es, die Messungen des GPS-Sensors auf das Format des Zustandsvektors abzubilden. Im vorliegenden Fall werden x- und y-Koordinate im passenden Format gemssen. Der Winkel $\phi$ wird durch den GPS-Sensor nicht gemessen und daher auch nicht im Beobachtsungsmodell abgebildet. Der auf Grundlage des Beobachtungsmodells berechnete Kalman Gain $K_t$ wird aufgrund seiner Dimensionalität dennoch $\phi$ beeinflussen.
 \begin{equation}\label{EKF-Observation-Model}
 	z_{ekf} = h(\hat{x}) = \begin{pmatrix}
 		x_{gps} \\
 		y_{gps} \\
-		\phi_t \\
 	\end{pmatrix}
 \end{equation}
 
-Zwar ist das Beobachtungsmodell linear, da jedoch aufgrund des nichtlinearen Bewegungsmodells der Extended Kalman Filter verwendet wird, muss auch vom Beobachtungsmodell die Jakobi-Matrix gebildet werden. 
+Zwar ist das Beobachtungsmodell linear, da jedoch aufgrund des nichtlinearen Bewegungsmodells der Extended Kalman Filter verwendet wird, muss auch vom Beobachtungsmodell die Jakobi-Matrix gebildet werden.
 \begin{equation}\label{EKF-Observation-Model-Jakobi-Matrix}
 	H(\hat{x})= \frac{\delta h}{\delta \hat{x}} = \begin{pmatrix}
 		1 & 0 & 0 \\
 		0 & 1 & 0 \\
-		0 & 0 & 1 \\
 	\end{pmatrix}
 \end{equation}
 
@@ -232,7 +230,7 @@ Der Unterschied zum EKF ohne SLAM-Anteil liegt vor allem darin, dass der Update-
 Das Bewegungsmodell des Fahrzeuges ändert sich im Vergleich zum EKF nicht. Die Funktion $f(\hat{x}_t, u_t)$ wird allerdings um Funktionen für die Abbildung eines Objektes vom Zeitpunkt $t$ zum Zeitpunkt $t+1$ ergänzt. Die Objekte werden zur Vereinfachung als unbeweglich angenommen, daher sind die neue Abbildungsfunktion~\ref{SLAM-Bewegungsmodell}, wie auch die zugehörige Jakobi Matrix~\ref{SLAM-Bewegungsmodell-Jakobi-Matrix} trivial.
 
 \begin{equation}\label{SLAM-Bewegungsmodell}
-	\hat{x}_{t+1}^- = f(\hat{x}_{t},u_t,0) = \begin{pmatrix}
+	\hat{x}_{t+1}^- = f(\hat{x}_{t},u_t) = \begin{pmatrix}
 		x_{t+1} \\
 		y_{t+1} \\
 		\phi_{t+1} \\
@@ -251,14 +249,22 @@ Das Bewegungsmodell des Fahrzeuges ändert sich im Vergleich zum EKF nicht. Die 
 Jedoch ändert sich das Beobachtungsmodell $z_{SLAM}$, welches nun nicht mehr auf GPS Messungen, sondern auf den gemessenen Objekten im Umfeld des Fahrzeuges basiert.
 \begin{equation}\label{SLAM-Observation-Model}
 \begin{split}
-	z_{slam} = \begin{pmatrix}
+	z_{slam} &= \begin{pmatrix}
 		z_\gamma^i \\
 		z_\beta^i \\
-	\end{pmatrix} = h(\hat{x}, x_i, y_i)
-	= \begin{pmatrix}
-		\sqrt{(x_i-x_L)^2 + (y_i-y_L)^2} \\
-		\arctan(\frac{y_i-y_l}{x_i-x_L} - \phi_L +\frac{\pi}{2} \\
-	\end{pmatrix} + \gamma_k
+	\end{pmatrix} = h(\hat{x}, x_i, y_i) = \begin{pmatrix}
+		\sqrt{q} \\
+		\arctan 2(\delta_y, \delta_x) - \phi_t \\
+	\end{pmatrix}\\
+	&\text{mit} \\
+	q &= \delta^\intercal \delta \\
+	\delta &= \begin{pmatrix}
+		\delta_x \\
+		\delta_y \\
+	\end{pmatrix} = \begin{pmatrix}
+		x_{L, t+1} - x_{L, t}  \\
+		y_{L, t+1}  - y_{L, t} \\
+	\end{pmatrix}
 \end{split}
 \end{equation}
 
