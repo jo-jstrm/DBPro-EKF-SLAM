@@ -2,10 +2,26 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a0e545e7-aebc-4cdf-baf2-769a8b8a86f3" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/util/CleanData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/util/MergeCsvs.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/01_HOPEFULLY_FINAL-1.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/ODO_GPS_KEYED_1.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/ODO_GPS_KEYED_2.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/ODO_GPS_KEYED_3_REVERSE.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/SMALL_GPS.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Shifts.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/ekfSingleCar.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/parallelOutput.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/parallelizedResults" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/predictionErrors.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/predictionErrorsEdited.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/EKF_SLAM_Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/EKF_SLAM_Test.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/util/SlamUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/util/SlamUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/StreamingJobExtendedKalmanFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/StreamingJobExtendedKalmanFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/colt/BeneColtTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/colt/BeneColtTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/functions/ExtendedKalmanFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/functions/ExtendedKalmanFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/StreamingJobEKFMark.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/StreamingJobEKFMark.java" afterDir="false" />
     </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -38,7 +54,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="EKF-Flink-Function" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -92,15 +108,15 @@
     <property name="settings.editor.selected.configurable" value="preferences.editor" />
   </component>
   <component name="RecentsManager">
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="edu.tuberlin.dbpro.ws19.ekfslam" />
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Mark Paranskij\Documents\GitHub\DBPro-EKF-SLAM\src\main\resources" />
+      <recent name="C:\Users\jjest\InformatikSoftware\gitstuff\DBPro-EKF-SLAM\src\main\resources" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="edu.tuberlin.dbpro.ws19.ekfslam" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Mark Paranskij\Documents\GitHub\DBPro-EKF-SLAM\src\main\resources" />
-      <recent name="C:\Users\jjest\InformatikSoftware\gitstuff\DBPro-EKF-SLAM\src\main\resources" />
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="edu.tuberlin.dbpro.ws19.ekfslam" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -115,14 +131,13 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.EKF_SLAM_Test">
-    <configuration name="EKF_SLAM_Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="INCLUDE_PROVIDED_SCOPE" value="true" />
-      <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.mark.EKF_SLAM_Test" />
+  <component name="RunManager" selected="Application.CleanData">
+    <configuration name="BeneColtTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.colt.BeneColtTest" />
       <module name="dbpro-ekf-slam" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="edu.tuberlin.dbpro.ws19.ekfslam.mark.*" />
+          <option name="PATTERN" value="edu.tuberlin.dbpro.ws19.ekfslam.colt.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -130,8 +145,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Playground" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.mark.Playground" />
+    <configuration name="CleanData" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.util.CleanData" />
+      <module name="dbpro-ekf-slam" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.tuberlin.dbpro.ws19.ekfslam.util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EKF_SLAM_Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="INCLUDE_PROVIDED_SCOPE" value="true" />
+      <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.mark.EKF_SLAM_Test" />
       <module name="dbpro-ekf-slam" />
       <extension name="coverage">
         <pattern>
@@ -171,12 +200,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.mark.Test" />
+    <configuration name="StreamingJobExtendedKalmanFilter" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="INCLUDE_PROVIDED_SCOPE" value="true" />
+      <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.StreamingJobExtendedKalmanFilter" />
       <module name="dbpro-ekf-slam" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="edu.tuberlin.dbpro.ws19.ekfslam.mark.*" />
+          <option name="PATTERN" value="edu.tuberlin.dbpro.ws19.ekfslam.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -184,28 +214,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MovingCar_Script" type="RRunConfigurationType" factoryName="R" temporary="true">
-      <option name="SCRIPT_PATH" value="$PROJECT_DIR$/src/main/resources/MovingCar_Script.R" />
-      <option name="SCRIPT_ARGS" value="" />
-      <option name="WORKING_DIRECTORY_PATH" value="C:\Users\Mark Paranskij\Documents\GitHub\DBPro-EKF-SLAM\src\main\resources" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <method v="2" />
-    </configuration>
     <list>
       <item itemvalue="Application.StreamingJobEKFMark" />
-      <item itemvalue="Application.Test" />
-      <item itemvalue="Application.Playground" />
       <item itemvalue="Application.SlamUtils" />
       <item itemvalue="Application.EKF_SLAM_Test" />
-      <item itemvalue="R.MovingCar_Script" />
+      <item itemvalue="Application.StreamingJobExtendedKalmanFilter" />
+      <item itemvalue="Application.CleanData" />
+      <item itemvalue="Application.BeneColtTest" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.CleanData" />
+        <item itemvalue="Application.BeneColtTest" />
+        <item itemvalue="Application.StreamingJobExtendedKalmanFilter" />
         <item itemvalue="Application.EKF_SLAM_Test" />
         <item itemvalue="Application.SlamUtils" />
-        <item itemvalue="Application.Playground" />
-        <item itemvalue="Application.Test" />
-        <item itemvalue="R.MovingCar_Script" />
       </list>
     </recent_temporary>
   </component>
@@ -237,6 +260,15 @@
       <workItem from="1578847805827" duration="2112000" />
       <workItem from="1579016936332" duration="2558000" />
       <workItem from="1579178760429" duration="2935000" />
+      <workItem from="1579795323442" duration="38000" />
+      <workItem from="1579795436494" duration="3130000" />
+      <workItem from="1579868965844" duration="5627000" />
+      <workItem from="1579877241463" duration="112000" />
+      <workItem from="1579877931700" duration="4347000" />
+      <workItem from="1579882531746" duration="27000" />
+      <workItem from="1580116825565" duration="4786000" />
+      <workItem from="1580121765590" duration="687000" />
+      <workItem from="1580330188017" duration="14643000" />
     </task>
     <task id="LOCAL-00001" summary="added resources">
       <created>1574079898027</created>

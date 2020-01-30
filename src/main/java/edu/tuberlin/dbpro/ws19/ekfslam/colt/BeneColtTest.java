@@ -8,10 +8,6 @@ import java.sql.Timestamp;
 
 public class BeneColtTest {
     public static void main(String[] args) {
-        String num = "1,2,3";
-        String[] str = num.split(",");
-
-        String res = str.toString();
-        System.out.print(res);
+       System.out.println(Math.pow(2,3));
     }
 }

@@ -45,7 +45,7 @@ public class ExtendedKalmanFilter extends RichFlatMapFunction<KeyedDataPoint, Ke
         //predict a priori state
         if (fullEKF){
             if(inputPoint.f2.equals("odo")) {
-                System.out.println("filterParamsVectorPREDICT: " + filterParams.value().f0);
+                //System.out.println("filterParamsVectorPREDICT: " + filterParams.value().f0);
                 Tuple2 estimate = predict(filterParams, inputPoint1);
 
                 Tuple3 updateValue = new Tuple3(estimate.f0, estimate.f1, inputPoint1.getTimeStampMs());
@@ -54,26 +54,35 @@ public class ExtendedKalmanFilter extends RichFlatMapFunction<KeyedDataPoint, Ke
                 // return filtered point
                 //returned field is the state vector with [x,y,phi]
                 if(printPrediction){
-                    outFilteredPointCollector.collect(new KeyedDataPoint("prediction", inputPoint1.getTimeStampMs(), estimate.f0));
+                    outFilteredPointCollector.collect(new KeyedDataPoint(inputPoint1.getKey()+",prediction", inputPoint1.getTimeStampMs(), estimate.f0));
                 }
 
             }
             if(inputPoint.f2.equals("gps")) {
-                System.out.println("filterParamsVectorUPDATE:  " + filterParams.value().f0);
+                //System.out.println("filterParamsVectorUPDATE:  " + filterParams.value().f0);
+
+                //just for plotting some evaluation
+                //outFilteredPointCollector.collect(new KeyedDataPoint(inputPoint1.getKey()+",prediction", inputPoint1.getTimeStampMs(), filterParams.value().f0));
+
+                //final Tuple3<DoubleMatrix1D, DoubleMatrix2D, Long> beforeUpdate = filterParams.value();
+                //final DoubleMatrix1D a_priori = beforeUpdate.f0;
+
                 Tuple2 updatedEstimate = update(filterParams, inputPoint1);
 
                 Tuple3 updateValue = new Tuple3(updatedEstimate.f0, updatedEstimate.f1, inputPoint1.getTimeStampMs());
+
+
                 filterParams.update(updateValue);
 
                 // return filtered point
                 //returned field is the state vector with [x,y,phi]
                 if (printUpdate) {
-                    outFilteredPointCollector.collect(new KeyedDataPoint("update", inputPoint1.getTimeStampMs(), updatedEstimate.f0));
+                    outFilteredPointCollector.collect(new KeyedDataPoint(inputPoint1.getKey()+",update", inputPoint1.getTimeStampMs(), updatedEstimate.f0));
                 }
             }
         }else {
             if(inputPoint.f2.equals("odo")) {
-                System.out.println("filterParamsVectorPREDICT: " + filterParams.value().f0);
+                //System.out.println("filterParamsVectorPREDICT: " + filterParams.value().f0);
                 Tuple2 estimate = predict(filterParams, inputPoint1);
 
                 Tuple3 updateValue = new Tuple3(estimate.f0, estimate.f1, inputPoint1.getTimeStampMs());
@@ -324,8 +333,8 @@ public class ExtendedKalmanFilter extends RichFlatMapFunction<KeyedDataPoint, Ke
 
         @Override
     public void open(Configuration config) {
-        //double[] initialArray = {0.0,0.0,1.5708};
-        double[] initialArray = {-41.71421779374552,-67.64927093982358,0.0};
+        //double[] initialArray = {0.0,0.0,0.0};
+        double[] initialArray = {-67.64927093982358,-41.71421779374552,0.0};
             //double[] initialArray = {67.64927093982358,41.71421779374552,0.0};
         ValueStateDescriptor<Tuple3<DoubleMatrix1D, DoubleMatrix2D, Long>> descriptor = new ValueStateDescriptor<Tuple3<DoubleMatrix1D, DoubleMatrix2D, Long>>(
                 "ekf", // the state name
