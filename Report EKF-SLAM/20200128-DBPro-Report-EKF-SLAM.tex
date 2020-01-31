@@ -86,7 +86,7 @@ Flink ist eine Software zur verteilten und parallelen Verarbeitung von Stream- o
 \begin{figure}[!t]
 	\centering
 	\includegraphics[width=4in]{Flink-api-stack.png}
-	\caption{APIs auf verschiedenen Abstraktionsniveaus~\cite{Flink-Grafik-Link}.}
+	\caption{APIs auf verschiedenen Abstraktionsniveaus~\cite{Flink-APIs-Link}.}
 	\label{Flink-APIs}
 \end{figure}
 
@@ -256,7 +256,11 @@ Der Unterschied zum EKF ohne SLAM-Anteil liegt vor allem darin, dass der Update-
 \end{equation}
 
 \paragraph{Ableiten der Objektposition aus den Lasermessungen}
-Bezüglich der Lasermessungen, deren Tupel in jedem Datensatz vergleichbar aussehen und jeweils aus 361 einzelnen Abstandsmessungen mit einer Reichweite von 80 Metern bestehen, müssen entsprechend gesondert Berechnungen angestellt werden, damit man Bäume in Form von Koordinaten erhält. Dazu müssen zunächst ungültige Messpunkte, die eine zu geringe oder zu große Messentfernung aufweisen, sowie ungültige Messpunkte, die bei jeder Lasermessung zu Beginn der Messserie auftreten, auf 0 gesetzt werden, damit lediglich gültige Messungen übrig bleiben. Anschließend werden zusammenhängende Messpunkte, die einem individuellen Baum zugesprochen werden der eine bestimmte Distanz zum nächstgelegenen Baum aufweist, gruppiert um ein Cluster aus Messpunkten auf eine Koordinate mit Durchmesser per Baum reduzieren zu können. Dies geschieht mit den folgenden Formeln: FORMELN AUS DEM PAPER FÜR BÄUME EINFÜGEN.
+Bezüglich der Lasermessungen, deren Tupel in jedem Datensatz vergleichbar aussehen und jeweils aus 361 einzelnen Abstandsmessungen mit einer Reichweite von 80 Metern bestehen, müssen entsprechend gesondert Berechnungen angestellt werden, damit man Bäume in Form von Koordinaten erhält. Dazu müssen zunächst ungültige Messpunkte, die eine zu geringe oder zu große Messentfernung aufweisen, sowie ungültige Messpunkte, die bei jeder Lasermessung zu Beginn der Messserie auftreten, auf 0 gesetzt werden, damit lediglich gültige Messungen übrig bleiben. Anschließend werden zusammenhängende Messpunkte, die einem individuellen Baum zugesprochen werden der eine bestimmte Distanz zum nächstgelegenen Baum aufweist, gruppiert um ein Cluster aus Messpunkten auf eine Koordinate mit Durchmesser per Baum reduzieren zu können. Dies geschieht mit den folgenden Formeln: 
+
+\begin{equation}
+	\text{FORMELN AUS DEM PAPER FÜR BÄUME EINFÜGEN.}
+\end{equation}
 
 Als Teil des EKF-SLAM Algorithmus wird eine Zuordnung von observierten Bäumen einer Lasermessung zu bereits bekannten Bäumen aus dem Zustandsvektor der Fahrzeugs vorgenommen. Hierbei wird ebenfalls entschieden, ob der Zustandsvektor um eine neue Beobachtung erweitert wird, sollte der entsprechende Baum noch nie beobachtet worden sein. Diese Abfrage wurde heuristisch mithilfe einer Methode basierend auf Distanz zwischen beobachteten und existierenden Bäumen implementiert. Da der SLAM Algorithmus maßgeblich von dieser Methode hinsichtlich der Effizienz und Performanz abhängt, wird diese in der Evaluation (ABSATZ DEKLARIEREN ODER SO) nochmal diskutiert. 
 
@@ -323,7 +327,7 @@ Im SLAM Fall ist also das Beobachtungsmodell im Gegensatz zum EKF mit GPS nicht 
 
 \section{Evaluation}
 \subsection{Evaluation von SLAM}
-Da die Implementierung von EKF-SLAM als FullSLAM stattgefunden hat~\cite{Freiburg-SLAM-Formeln}, weist die Ausführung des Algorithmus auf einem Rechner mit 4 Kern Prozessor und 8 GB RAM bereits nach 1500 von ca. 70000 Tupeln erhebliche Verzögerungen im Sekundenbereich auf. Dies ist einer sehr hoher Komplexität von O(2N^2) bei N Beobachtungen~\cite{ute_SLAM} zuzuordnen, da alle Beobachtungen immer komplett aktualisiert werden. Dies macht es unmöglich den FullSLAM Algorithmus in Echtzeit, die ca. 25 Minuten beträgt, auszuführen. Außerdem führt es bei den Ausgangseinstellungen der JVM zu einem Heap Error.
+Da die Implementierung von EKF-SLAM als FullSLAM stattgefunden hat~\cite{Freiburg_SLAM_Formeln}, weist die Ausführung des Algorithmus auf einem Rechner mit 4 Kern Prozessor und 8 GB RAM bereits nach 1500 von ca. 70000 Tupeln erhebliche Verzögerungen im Sekundenbereich auf. Dies ist einer sehr hoher Komplexität von $O(2N^2)$ bei N Beobachtungen~\cite{ute_SLAM} zuzuordnen, da alle Beobachtungen immer komplett aktualisiert werden. Dies macht es unmöglich den FullSLAM Algorithmus in Echtzeit, die ca. 25 Minuten beträgt, auszuführen. Außerdem führt es bei den Ausgangseinstellungen der JVM zu einem Heap Error.
 
 Der Heap Error ist trivial zu beheben, aber eine relevante Änderung der Ausführungsumgebung. Dies ist notwendig um die pro Beobachtung um zwei Zeilen und Spalten wachsende Kovarianzmatrix zu berechnen, da diese zunehmend zu größer wird. Sobald diese etwa eine Größe von 1000x1000 hat, sind wie bereits erwähnt signifikante Verzögerungen in der Ausführung zu verzeichnen.
 
@@ -331,7 +335,15 @@ Ein erster Schritt zur Optimierung des Algorithmus war es auf die Colt 1.2 inter
 
 Gleichzeitig basierte die Implementierung unserer EKF Algorithmen auf der Colt 1.2 Library die nach offiziellen Angaben nicht ersichtlich für Parallelisierung geschrieben wurde. Somit haben wir die Implementierung zu ParallelColt~\footnote{\url{https://github.com/rwl/ParallelColt}} geändert, was jedoch zu einer signifikanten Verschlechterung der Performanz geführt hat.
 
-Basierend auf der Methode zur Differenzierung von Beobachtungen~\ref{SLAM Implementierung} werden observierte Bäume unterschiedlich gut wiedererkannt oder neue Bäume unterschiedlich schnell hinzugefügt. Dies wird beispielsweise in der Publikation zu FastSLAM 1.0 und FastSLAM 2.0~\cite{thrun_fastslam_nodate} behandelt. Hierbei ist es problematisch wie viele Beobachtungen man im Zustandsvektor und somit auch in der Kovarianzmatrix hat, da die Komplexität zur Berechnung der Matrix O(2N^2) bei N Beobachtungen~\cite{ute_SLAM} beträgt. Eine Möglichkeit wäre es beispielsweise Beobachtungen durchgehen eine Relevanz zuzuordnen die auch abnehmen kann, und die dazu führen kann das Beobachtungen wieder entfernt werden, sofern sie als wenig relevant eingestuft werden~\cite{thrun_fastslam_nodate}. Dies würde die Komplexität und somit die Berechnungszeit nachhaltig reduzieren, da nicht immer alle Beobachtungen aktualisiert werden müssten.
+Basierend auf der Methode zur Differenzierung von Beobachtungen~\ref{SLAM Implementierung} werden observierte Bäume unterschiedlich gut wiedererkannt oder neue Bäume unterschiedlich schnell hinzugefügt. Dies wird beispielsweise in der Publikation zu FastSLAM 1.0 und FastSLAM 2.0~\cite{thrun_fastslam_nodate} behandelt. Hierbei ist es problematisch wie viele Beobachtungen man im Zustandsvektor und somit auch in der Kovarianzmatrix hat, da die Komplexität zur Berechnung der Matrix $O(2N^2)$ bei N Beobachtungen~\cite{ute_SLAM} beträgt. Eine Möglichkeit wäre es beispielsweise Beobachtungen durchgehen eine Relevanz zuzuordnen die auch abnehmen kann, und die dazu führen kann das Beobachtungen wieder entfernt werden, sofern sie als wenig relevant eingestuft werden~\cite{thrun_fastslam_nodate}. Dies würde die Komplexität und somit die Berechnungszeit nachhaltig reduzieren, da nicht immer alle Beobachtungen aktualisiert werden müssten.
+
+\begin{figure}[!t]
+	\centering
+	\includegraphics[width=5.5in]{EKF-output.png}
+	\caption{Output des EKF mit GPS-Daten als Update.}
+	\label{Flink-Überblick}
+\end{figure}
+
 
 \section{Zusammenfassung}\label{Zusammenfassung}
 
