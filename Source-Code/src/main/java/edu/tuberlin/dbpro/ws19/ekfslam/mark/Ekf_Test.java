@@ -30,7 +30,7 @@ public class Ekf_Test {
         //Create Vector from current readings
         //:TODO: Change to appropriate movement model
         Double steering = -0.003472;
-        Double speed = 0.0;
+        Double speed = 2.0;
 
         /*motion model from the victoria park dataset
         Double x_new_inc =*/
