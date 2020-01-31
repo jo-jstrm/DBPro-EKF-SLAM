@@ -19,6 +19,7 @@
 package edu.tuberlin.dbpro.ws19.ekfslam;
 
 import edu.tuberlin.dbpro.ws19.ekfslam.data.KeyedDataPoint;
+import edu.tuberlin.dbpro.ws19.ekfslam.functions.ExtendedKalmanFilter;
 import edu.tuberlin.dbpro.ws19.ekfslam.functions.MoveFunction;
 import edu.tuberlin.dbpro.ws19.ekfslam.sinks.InfluxDBSink;
 import edu.tuberlin.dbpro.ws19.ekfslam.sinks.InfluxDBSinkGPS;
@@ -36,6 +37,7 @@ import org.apache.flink.core.fs.FileSystem;
 import org.apache.flink.streaming.api.TimeCharacteristic;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
+import org.apache.flink.streaming.api.functions.source.SourceFunction;
 import org.apache.flink.streaming.api.functions.timestamps.AscendingTimestampExtractor;
 import org.apache.flink.streaming.api.functions.windowing.WindowFunction;
 import org.apache.flink.streaming.api.windowing.assigners.TumblingEventTimeWindows;
@@ -47,7 +49,11 @@ import org.influxdb.InfluxDBFactory;
 import org.influxdb.dto.Query;
 import edu.tuberlin.dbpro.ws19.ekfslam.data.*;
 
+import javax.sql.DataSource;
+import javax.xml.crypto.Data;
+import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.FileReader;
 import java.lang.reflect.Array;
 import java.security.Key;
 import java.util.ArrayList;
@@ -79,14 +85,31 @@ public class StreamingJobExtendedKalmanFilter {
         influxDB.query(new Query("CREATE DATABASE " + dbName, dbName));
         influxDB.setDatabase(dbName);
 
+
+        DataStream<String> dataStream = env.readTextFile("src/main/resources/01_HOPEFULLY_FINAL-1.csv");
         //KeyedDataPoint<latitude>
-        DataStream<KeyedDataPoint> fullData = env.readTextFile("src/main/resources/time_xIncr_yIncr_laserArr_full.csv")
+        /*DataStream<KeyedDataPoint> dataStream = env.readTextFile("src/main/resources/01_HOPEFULLY_FINAL-1")
                 .map(new ParseData())
                 .keyBy("key")
-                .flatMap(new MoveFunction());
+                .flatMap(new MoveFunction());*/
 
-        fullData.map(new getTuple4())
-                .writeAsCsv("src/main/resources/positionWithLmrks.csv", FileSystem.WriteMode.OVERWRITE, "\n",";");
+        //other dataStreams
+        DataStream<String> stream2 = env.addSource(new MySource("src/main/resources/01_HOPEFULLY_FINAL-1.csv"));
+        DataStream<String> stream3 = env.addSource(new MySource("src/main/resources/01_HOPEFULLY_FINAL-1.csv"));
+        DataStream<String> stream4 = env.addSource(new MySource("src/main/resources/01_HOPEFULLY_FINAL-1.csv"));
+        DataStream<String> stream5 = env.addSource(new MySource("src/main/resources/01_HOPEFULLY_FINAL-1.csv"));
+        DataStream<String> stream6 = env.addSource(new MySource("src/main/resources/01_HOPEFULLY_FINAL-1.csv"));
+
+        DataStream<String> fullStream = dataStream
+                .union(stream2, stream3, stream4, stream5, stream6);
+
+        DataStream<KeyedDataPoint> filteredStream = fullStream
+                .map(new ParseData())
+                .keyBy("key")
+                .flatMap(new ExtendedKalmanFilter());
+
+        filteredStream.map(new getTuple4())
+                .writeAsCsv("src/main/resources/parallelOutput.csv", FileSystem.WriteMode.OVERWRITE, "\n",";");
         //fullData.addSink(new InfluxDBSinkGPS("DBProTest", "gpstest"));
         /*
          * Here, you can start creating your execution plan for Flink.
@@ -142,7 +165,29 @@ public class StreamingJobExtendedKalmanFilter {
             }
 
             Tuple4 tuple = new Tuple4<Double, Double, Double, Double[]>(xInc, yInc, phiInc, laserArr);
-            return new KeyedDataPoint<Tuple4>("full",timestamp, tuple);
+            return new KeyedDataPoint<Tuple4>("ekf",timestamp, tuple);
+        }
+    }
+
+    public final static class MySource implements SourceFunction<String>{
+        private volatile boolean isRunning = true;
+        private String path;
+
+        public MySource(String path){
+            this.path=path;
+        }
+        @Override
+        public void run(SourceContext<String> ctx) throws Exception {
+            BufferedReader reader = new BufferedReader(new FileReader(path));
+            String row;
+            while(isRunning&&(row = reader.readLine())!= null){
+                ctx.collect(row);
+            }
+        }
+
+        @Override
+        public void cancel() {
+            isRunning = false;
         }
     }
 
