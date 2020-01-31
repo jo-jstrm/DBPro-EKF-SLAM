@@ -1,7 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a0e545e7-aebc-4cdf-baf2-769a8b8a86f3" name="Default Changelist" comment="" />
+    <list default="true" id="a0e545e7-aebc-4cdf-baf2-769a8b8a86f3" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../Report EKF-SLAM/20200128-DBPro-Report-EKF-SLAM.aux" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Report EKF-SLAM/20200128-DBPro-Report-EKF-SLAM.bbl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Report EKF-SLAM/20200128-DBPro-Report-EKF-SLAM.blg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Report EKF-SLAM/20200128-DBPro-Report-EKF-SLAM.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Report EKF-SLAM/20200128-DBPro-Report-EKF-SLAM.synctex.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Report EKF-SLAM/20200128-DBPro-Report-EKF-SLAM.tex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Report EKF-SLAM/20200128-DBPro-Report-EKF-SLAM.toc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Report EKF-SLAM/DBPro.bib" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Report EKF-SLAM/EKF_algorithm.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__colt_colt_1_2_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__concurrent_concurrent_1_3_4.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_servicemix_bundles_org_apache_servicemix_bundles_colt_1_2_0_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml~Stashed changes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml~Stashed changes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml~Stashed changes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dbpro-ekf-slam.iml~Stashed changes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/colt/BeneColtTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/colt/ColtTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/functions/EKF_SLAM.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/functions/EKF_SLAM.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/functions/ExtendedKalmanFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/functions/ExtendedKalmanFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/EKF_SLAM_Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/EKF_SLAM_Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/Ekf_Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/Ekf_Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/StreamingJobEKFMark.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/StreamingJobEKFMark.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/StreamingJobSLAM.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/StreamingJobSLAM.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/mark/StreamingJobSLAMParallel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/util/SlamUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/util/SlamUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/tuberlin/dbpro/ws19/ekfslam/util/TreeProcessing.java~Stashed changes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/hopefullyItDidntFuckUp.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hopefullyItDidntFuckUp.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/hopefullyItDidntFuckUpSLAM.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hopefullyItDidntFuckUpSLAM.csv" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,6 +67,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
+        <entry key="$PROJECT_DIR$/.." value="master" />
         <entry key="$PROJECT_DIR$" value="EKF-Flink-Function" />
       </map>
     </option>
@@ -57,7 +90,7 @@
     <option name="version" value="1" />
   </component>
   <component name="ProjectId" id="1TeuvH2HPovuoHPt1kwjB5PXZvu" />
-  <component name="ProjectLevelVcsManager">
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
@@ -67,27 +100,28 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
-    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Downloaded.Files.Path.Enabled" value="true" />
     <property name="Git.Branch.Popup.ShowAllRemotes" value="true" />
     <property name="Repository.Attach.Annotations" value="false" />
-    <property name="Repository.Attach.JavaDocs" value="false" />
-    <property name="Repository.Attach.Sources" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="true" />
+    <property name="Repository.Attach.Sources" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="TODO_SCOPE" value="All Places" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources" />
+    <property name="findjar.last.used.dir" value="$PROJECT_DIR$/../../../Uni/DBPRO" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../Uni/DBPRO" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="recentsLimit" value="20" />
-    <property name="settings.editor.selected.configurable" value="preferences.editor" />
+    <property name="settings.editor.selected.configurable" value="JavaScript.Libraries" />
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
@@ -113,23 +147,10 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.StreamingJobSLAMParallel">
+  <component name="RunManager" selected="Application.StreamingJobSLAM">
     <configuration name="EKF_SLAM_Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="INCLUDE_PROVIDED_SCOPE" value="true" />
       <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.mark.EKF_SLAM_Test" />
-      <module name="dbpro-ekf-slam" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="edu.tuberlin.dbpro.ws19.ekfslam.mark.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Ekf_Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.mark.Ekf_Test" />
       <module name="dbpro-ekf-slam" />
       <extension name="coverage">
         <pattern>
@@ -197,20 +218,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="StreamingJobSLAMParallel" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="INCLUDE_PROVIDED_SCOPE" value="true" />
-      <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.mark.StreamingJobSLAMParallel" />
-      <module name="dbpro-ekf-slam" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="edu.tuberlin.dbpro.ws19.ekfslam.mark.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.mark.Test" />
       <module name="dbpro-ekf-slam" />
@@ -231,14 +238,10 @@
       <item itemvalue="Application.SlamUtils" />
       <item itemvalue="Application.EKF_SLAM_Test" />
       <item itemvalue="Application.StreamingJobSLAM" />
-      <item itemvalue="Application.Ekf_Test" />
-      <item itemvalue="Application.StreamingJobSLAMParallel" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.StreamingJobSLAMParallel" />
         <item itemvalue="Application.StreamingJobSLAM" />
-        <item itemvalue="Application.Ekf_Test" />
         <item itemvalue="Application.Playground" />
         <item itemvalue="Application.SlamUtils" />
         <item itemvalue="Application.EKF_SLAM_Test" />
@@ -274,7 +277,9 @@
       <workItem from="1578847805827" duration="2112000" />
       <workItem from="1579016936332" duration="2558000" />
       <workItem from="1579178760429" duration="2935000" />
-      <workItem from="1580391948009" duration="6499000" />
+      <workItem from="1580473531465" duration="134000" />
+      <workItem from="1580473725294" duration="4076000" />
+      <workItem from="1580478986959" duration="1459000" />
     </task>
     <task id="LOCAL-00001" summary="added resources">
       <created>1574079898027</created>

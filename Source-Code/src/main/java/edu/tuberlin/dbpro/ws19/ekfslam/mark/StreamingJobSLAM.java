@@ -1,6 +1,7 @@
 package edu.tuberlin.dbpro.ws19.ekfslam.mark;
 
-import cern.colt.matrix.DoubleMatrix2D;
+
+import cern.colt.matrix.tdouble.DoubleMatrix2D;
 import edu.tuberlin.dbpro.ws19.ekfslam.data.KeyedDataPoint;
 import edu.tuberlin.dbpro.ws19.ekfslam.functions.EKF_SLAM;
 import org.apache.flink.api.common.functions.RichMapFunction;

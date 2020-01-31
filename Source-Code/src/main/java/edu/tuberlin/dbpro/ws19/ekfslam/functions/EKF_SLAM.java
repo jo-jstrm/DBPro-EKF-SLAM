@@ -1,11 +1,10 @@
 package edu.tuberlin.dbpro.ws19.ekfslam.functions;
 
-import cern.colt.matrix.DoubleFactory2D;
-import cern.colt.matrix.DoubleMatrix1D;
-import cern.colt.matrix.DoubleMatrix2D;
-import cern.colt.matrix.impl.SparseDoubleMatrix1D;
-import cern.colt.matrix.impl.SparseDoubleMatrix2D;
-import cern.colt.matrix.linalg.Algebra;
+
+import cern.colt.matrix.tdouble.DoubleFactory2D;
+import cern.colt.matrix.tdouble.DoubleMatrix2D;
+import cern.colt.matrix.tdouble.algo.DenseDoubleAlgebra;
+import cern.colt.matrix.tdouble.impl.SparseDoubleMatrix2D;
 import edu.tuberlin.dbpro.ws19.ekfslam.data.KeyedDataPoint;
 import edu.tuberlin.dbpro.ws19.ekfslam.util.SlamUtils;
 import edu.tuberlin.dbpro.ws19.ekfslam.util.TreeProcessing;
@@ -355,7 +354,7 @@ public class EKF_SLAM extends RichFlatMapFunction<KeyedDataPoint, KeyedDataPoint
             DoubleMatrix2D inverseStep3 = inverseStep2.assign(Qt, (v, v1) -> v + v1);
             //System.out.println("inverseStep3 " + inverseStep3);
             //Calculate the inverse for the Kalman Gain by inverting inverseStep3
-            DoubleMatrix2D inverseKalman = new Algebra().inverse(inverseStep3);
+            DoubleMatrix2D inverseKalman = new DenseDoubleAlgebra().inverse(inverseStep3);
             //System.out.println("inverseKalman " + inverseKalman);
             //Step1 to calculate Kalman Gain: multiply workingCov with transposed Hti
             DoubleMatrix2D kalmanGainStep1 = workingCov.zMult(Hti, null, 1.0, 1.0, false, true);

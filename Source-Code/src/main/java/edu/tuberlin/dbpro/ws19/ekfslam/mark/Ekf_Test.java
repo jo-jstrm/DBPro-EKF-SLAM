@@ -1,10 +1,11 @@
 package edu.tuberlin.dbpro.ws19.ekfslam.mark;
 
-import cern.colt.matrix.DoubleMatrix1D;
-import cern.colt.matrix.DoubleMatrix2D;
-import cern.colt.matrix.impl.DenseDoubleMatrix1D;
-import cern.colt.matrix.impl.DenseDoubleMatrix2D;
-import cern.colt.matrix.linalg.Algebra;
+
+import cern.colt.matrix.tdouble.DoubleMatrix1D;
+import cern.colt.matrix.tdouble.DoubleMatrix2D;
+import cern.colt.matrix.tdouble.algo.DenseDoubleAlgebra;
+import cern.colt.matrix.tdouble.impl.DenseDoubleMatrix1D;
+import cern.colt.matrix.tdouble.impl.DenseDoubleMatrix2D;
 import com.sun.xml.internal.bind.v2.TODO;
 import javafx.beans.binding.DoubleExpression;
 import org.apache.flink.api.java.tuple.Tuple3;
@@ -30,7 +31,7 @@ public class Ekf_Test {
         //Create Vector from current readings
         //:TODO: Change to appropriate movement model
         Double steering = -0.003472;
-        Double speed = 2.0;
+        Double speed = 0.0;
 
         /*motion model from the victoria park dataset
         Double x_new_inc =*/
@@ -126,7 +127,7 @@ public class Ekf_Test {
         DoubleMatrix2D kalmanInvervseStep1_3 = kalmanInverseStep1_2.assign(gpsErrorMatrix, ((v, v1) -> v + v1));
         System.out.println("kalmanInvervseStep1_3 " + kalmanInvervseStep1_3);
         //Step 1.4: Calculate the inverse of the result of kalmanInverseStep1_3
-        DoubleMatrix2D kalmanInverse = new Algebra().inverse(kalmanInvervseStep1_3);
+        DoubleMatrix2D kalmanInverse = new DenseDoubleAlgebra().inverse(kalmanInvervseStep1_3);
         System.out.println("kalmanInverse " + kalmanInverse);
         //Step 2: Calculate the Kalman Gain
         //Step 2.1 Multiply the estimated Sigma with the transposed observation Jacobian Matrix

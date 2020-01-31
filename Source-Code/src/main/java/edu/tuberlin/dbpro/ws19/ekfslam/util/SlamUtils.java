@@ -1,11 +1,9 @@
 package edu.tuberlin.dbpro.ws19.ekfslam.util;
 
-import cern.colt.matrix.DoubleFactory2D;
-import cern.colt.matrix.DoubleMatrix1D;
-import cern.colt.matrix.DoubleMatrix2D;
-import cern.colt.matrix.DoubleMatrix2DProcedure;
-import cern.colt.matrix.impl.SparseDoubleMatrix1D;
-import cern.colt.matrix.impl.SparseDoubleMatrix2D;
+
+import cern.colt.matrix.tdouble.DoubleFactory2D;
+import cern.colt.matrix.tdouble.DoubleMatrix2D;
+import cern.colt.matrix.tdouble.impl.SparseDoubleMatrix2D;
 import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.api.java.tuple.Tuple3;
 import org.apache.flink.api.java.tuple.Tuple5;
@@ -49,7 +47,7 @@ public class SlamUtils {
         return mu.viewSelection(new int[]{0,1}, null);
     }
     public static DoubleMatrix2D makePredictionHelperMatrix(DoubleMatrix2D mu){
-        DoubleMatrix2D zeros = DoubleFactory2D.sparse.make(3, mu.size());
+        DoubleMatrix2D zeros = DoubleFactory2D.sparse.make(3, (int) mu.size());
         for (int i = 0; i < 3; i++) {
             zeros.set(i,i, 1);
         }

@@ -1,20 +1,19 @@
 package edu.tuberlin.dbpro.ws19.ekfslam.functions;
 
-import cern.colt.matrix.DoubleMatrix1D;
-import cern.colt.matrix.DoubleMatrix2D;
-import cern.colt.matrix.impl.DenseDoubleMatrix1D;
-import cern.colt.matrix.impl.DenseDoubleMatrix2D;
-import cern.colt.matrix.linalg.Algebra;
+import cern.colt.matrix.tdouble.DoubleMatrix1D;
+import cern.colt.matrix.tdouble.DoubleMatrix2D;
+import cern.colt.matrix.tdouble.algo.DenseDoubleAlgebra;
+import cern.colt.matrix.tdouble.algo.SparseDoubleAlgebra;
+import cern.colt.matrix.tdouble.impl.DenseDoubleMatrix1D;
+import cern.colt.matrix.tdouble.impl.DenseDoubleMatrix2D;
 import edu.tuberlin.dbpro.ws19.ekfslam.data.KeyedDataPoint;
 import org.apache.flink.api.common.functions.RichFlatMapFunction;
 import org.apache.flink.api.common.state.ValueState;
 import org.apache.flink.api.common.state.ValueStateDescriptor;
 import org.apache.flink.api.common.typeinfo.TypeHint;
 import org.apache.flink.api.common.typeinfo.TypeInformation;
-import org.apache.flink.api.java.tuple.Tuple;
 import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.api.java.tuple.Tuple3;
-import org.apache.flink.api.java.tuple.Tuple4;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.util.Collector;
 
@@ -228,7 +227,7 @@ public class ExtendedKalmanFilter extends RichFlatMapFunction<KeyedDataPoint, Ke
         //System.out.println("kalmanInvervseStep1_3 " + kalmanInvervseStep1_3);
 
         //Step 1.4: Calculate the inverse of the result of kalmanInverseStep1_3
-        DoubleMatrix2D kalmanInverse = new Algebra().inverse(kalmanInvervseStep1_3);
+        DoubleMatrix2D kalmanInverse = new DenseDoubleAlgebra().inverse(kalmanInvervseStep1_3);
         //System.out.println("kalmanInverse " + kalmanInverse);
 
         //Step 2: Calculate the Kalman Gain
@@ -325,7 +324,7 @@ public class ExtendedKalmanFilter extends RichFlatMapFunction<KeyedDataPoint, Ke
         @Override
     public void open(Configuration config) {
         //double[] initialArray = {0.0,0.0,1.5708};
-        double[] initialArray = {-41.71421779374552,-67.64927093982358,0.0};
+        double[] initialArray = {-67.64927093982358,-41.71421779374552,0.0};
             //double[] initialArray = {67.64927093982358,41.71421779374552,0.0};
         ValueStateDescriptor<Tuple3<DoubleMatrix1D, DoubleMatrix2D, Long>> descriptor = new ValueStateDescriptor<Tuple3<DoubleMatrix1D, DoubleMatrix2D, Long>>(
                 "ekf", // the state name
