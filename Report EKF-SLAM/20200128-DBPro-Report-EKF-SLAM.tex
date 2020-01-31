@@ -75,7 +75,14 @@ Im folgenden werden zunächst die dem Projekt zugrunde liegenden Konzepte detail
 \subsubsection{Apache Flink}
 Flink ist eine Software zur verteilten und parallelen Verarbeitung von Stream- oder Batch\-daten. Es ist aus dem Stratosphere Projekt\footnote{\url{http://stratosphere.eu}}~\cite{alexandrov_stratosphere_2014} der TU-Berlin hervorgegangen und ein Top-Level-Projekt der Apache Foundation \footnote{\url{https://apache.org}}. Die Software ist per Open Source Lizenz verfügbar und aufgrund der hohen Performanz~\cite{alexandrov_stratosphere_2014} ein beliebtes Werkzeug für verteilte und skalierbare Datenverarbeitung.
 
-Flink basiert auf der Java Virtual Machine (JVM) und ist in Scala und Java programmiert. Der Funktionsumfang, wie in Abbildung XXXXXXXXXXXXXXXXXX dargestellt umfasst verschiedene Application Programming Interfaces (APIs). 
+\begin{figure}[!t]
+	\centering
+	\includegraphics[width=3.5in]{Flink-api-stack.png}
+	\caption{APIs auf verschiedenen Abstraktionsniveaus~\cite{Flink-Grafik-Link}.}
+	\label{Flink-APIs}
+\end{figure}
+
+Flink basiert auf der Java Virtual Machine (JVM) und ist in Scala und Java implementiert~\footnote{\url{https://github.com/apache/flink}}. Der Funktionsumfang~[Abb.~\ref{Flink-APIs}] umfasst die parallele und verteilte Verarbeitung von Datenströmen, sowie einmaligen verschiedene Application Programming Interfaces (APIs).
 
 Da das Ziel dieses Projektes die Anwendung von EKF-SLAM auf mehrere Fahrzeuge in Echtzeit ist, wird vor allem die DataStream API genutzt. Diese liefert vorgefertigte Funktionalitäten für viele übliche Aufgaben in der Verarbeitung von Datenströmen. Diese umfassen unter anderem die automatisierte parallelisierung der Verarbeitung von Datenströmen. Weiterhin ist es möglich, eingehende Daten mit sog. Schlüsseln (engl. keys) zu versehen und die weitere Verarbeitung der Daten im Folgenden abhängig von dem zugeordneten Key zu mache. Dies erfolgt über die Klassen KeyedDataStream und KeyedDataPoint. Ein KeyedDataStream verarbeitet generische Datentupel, welche jeweils mit einem Zeitstempel und einem Schlüssel versehen sind. Dabei liefern KeyedDataPoint eine Art Blaupause für den Inhalt eines einzelnen Datentupels.
 
@@ -96,14 +103,21 @@ Neben den rohen Messungen existieren unterschiedlich aufgearbeitete Datensätze.
 
 Auch die GPS-Daten werden in mehreren Versionen geliefert. Generell ist festzustellen, dass die GPS-Messungen in regelmäßigen Abständen von 200ms geliefert werden. Jedoch sind teils starke zeitliche Lücken in den Messungen vorhanden, sodass über einen längeren Zeitraum keine Positionsbestimmung erfolgt. Auch enthält der Datensatz einige Ausreißer. Diese erkennt man daran, dass das Auto, falls diese Messungen korrekt wären, von einem zum nächsten Punkt eine viel zu große Distanz zurücklegen würde. Beide genannten Mängel wurden auch von den Autoren des Datensatzes erkannt und benannt.
 
-Der Lasersensor ist über der vorderen Stoßstange des Fahrzeugs positioniert und vermisst einen 180-Grad Winkel. Dieser Blickwinkel ist wird mit 361 Messpunkten von rechts nach links (in Fahrtrichtung) abgetastet. Für jeden einzelnen Messpunkt speichert der Laser den Abstand des gemessenen Objektes. Die Messungen sind für Objekte, die sich höchstens 80m entfernt befinden, hinreichend präzise.
+Der Lasersensor ist über der vorderen Stoßstange des Fahrzeugs positioniert und vermisst einen 180-Grad Winkel. Dieser Blickwinkel ist wird mit 361 Messpunkten von rechts nach links (in Fahrtrichtung) abgetastet. Für jeden einzelnen Messpunkt speichert der Laser den Abstand des gemessenen Objektes. Die Messungen sind für Objekte, die sich höchstens 80m entfernt befinden, hinreichend präzise. 
 
 \subsubsection{Probleme mit den Daten}
-Im Laufe des Projektes stellte sich der Umgang mit den Daten als das zeitaufwändigste Problem dar. Vor allem die vielen unterschiedlichen Versionen des selben Datensatzes sorgten für regelmäßige Probleme. Hier hat es sich bewährt, jede Version der Daten einzeln grafisch darzustellen und zu vergleichen.
+Im Laufe des Projektes stellte sich der Umgang mit den Daten als das zeitaufwändigste Problem dar. Vor allem die unterschiedlichen Versionen desselben Datensatzes sorgten für regelmäßige Probleme.
 
-Darüber hinaus empfanden wir den Datensatz als äußerst unbefriedigend dokumentiert. Das hatte zur Folge, dass wir viele Stunden darauf verwendeten, die Glaubhaftigkeit und Verwendbarkeit von verschiedenen Versionen der Daten zu testen. Es ging auch darum, die rohen Messwerte mit Hilfe verschiedener Funktionen so aufzubereiten, dass sie für den Kalman Filter verwendbar waren. Beispielsweise war es nicht offensichtlich, dass im durch die Autoren aufbereiteten Odometrie-Datensatz (Format {Zeitstempel, Inkrement in X, Inkrement in Y, Fahrtrichtung des Autos}) das Inkrement in X immer die Fahrtrichtung war. Deshalb muss für die Umrechnung auf ein Globales Koordinatensystem X- und Y-Inkrement mit der Fahrtrichtung des Autos verrechnet werden. 
+Auf der Website des Datensatzes~\footnote{\url{https://www.mrpt.org/Dataset_The_Victoria_Park}} befindet sich ein Datensatz bestehend aus 4832 Datenpunkten, der laut Dokumentation mit hilfe eines externen Tools, des Rawlog Viewers~\footnote{\url{https://www.mrpt.org/list-of-mrpt-apps/rawlogviewer}}, als Textdatei extrahiert und visualisiert werden kann. Diese 4832 Datenpunkte setzen sich zur Hälfte aus Inkrementen zwischen zwei Messungen in Richtung der X-Achse, Y-Achse und der Drehung des Fahrzeuges zusammen, sowie 2416 Lasermessungen. Problematisch bei diesem Datensatz ist hierbei jedoch die Tatsache, dass die komplexe Geometrie zwischen Geschwindigkeitsmessung und Laser- und GPS-Messung am Fahrzeug nicht näher dokumentiert war, was zu einem hohen Maß an Ambiguität bezüglich der Verarbeitung des Datensatzes geführt hat. 
 
-Zusammengerechnet machten die genannten Probleme mit dem Datensatz circa die Hälfte der Projektarbeit aus. Selbst am Ende des Projektes kam es noch dazu, dass wir verschiedene Eingangsdaten ausprobieren mussten, um valide und funktionierende Ergebnisse zu erzielen.
+Darüber hinaus befindet sich auf der originalen Seite für den Datensatz der Publikation~\footnote{\url{http://www-personal.acfr.usyd.edu.au/nebot/victoria_park.htm}} ein Datensatz im ASCII Format. Dieser ist aus 69941 Datenpunkten zusammengesetzt, von denen 61763 Odometrie Daten sind, die jeweils einen Zeitstempel, die Geschwindigkeit in Metern pro Sekunde und den Winkel der Vorderachse des Fahrzeuges beinhalten. Dazu kommen 948 Datenpunkte für GPS-Messungen, sowie 7230 Lasermessungen.
+
+Ebenfalls, befindet im originalen Download~\footnote{\url{https://www.mrpt.org/Dataset_The_Victoria_Park}} ein MatLab Datensatz, den wir mit Hilfe eines Python-Skriptes ausgelesen haben, welcher sich aus 61945 gleich zusammengesetzten Odometrie Datenpunkten, 4466 GPS-Messungen und 7249 Lasermessungen, insgesamt also 73660 Datenpunkten, ergibt.
+
+Aufgrund eines Mangels an definitiver Information und inkohärenter Datensätze wurde der Projektfortschritt lange durch das auswerten dieser Datensätze hinausgezögert. Hierbei haben wir versucht durch die Visualisierung der Daten diese zu validieren. Dies war führte bei dem kleinen Datensatz, bestehend aus 4832 Datenpunkten, zu keinem Erfolg, da das Format der Inkremente nicht ausreichend dokumentiert ist, und wir erst mit viel Recherche und durch interne Informationen aus dem Rawlog Viewer~\footnote{\url{https://www.mrpt.org/list-of-mrpt-apps/rawlogviewer}} auf das zugrundliegende Bewegungsmodel des Datensatzes~\footnote{\url{https://www.mrpt.org/tutorials/programming/odometry-and-motion-models/probabilistic_motion_models}} gestoßen sind.
+
+In visualisierter Form waren lediglich die GPS-Messungen des MatLab Datensatzes ähnlich der Form des bekannten Victoria Parks, wodurch wir uns entschlossen haben EKF aus Basis der GPS Daten auf diesem Datensatz anzuwenden um das Projekt voranzutreiben.
+Gesamtheitlich betrachtet machten die genannten Probleme mit dem Datensatz circa die Hälfte der Projektarbeit aus. Selbst am Ende des Projektes kam es noch dazu, dass wir verschiedene Eingangsdaten ausprobieren mussten, um valide und funktionierende Ergebnisse zu erzielen, da beispielsweise der ASCII Datensatz gravierend vom MatLab Datensatz abweicht und aus unserer Perspektive als falsch anzusehen ist. So weichen die GPS-Messungen der beiden Datensätze gänzlich voneinander ab und die Odometrie durch den gleichen EKF-Algorithmus verarbeitet, resultiert in komplett unterschiedlichen Ergebnissen.
 
 \subsection{Implementierung}
 
@@ -227,8 +241,11 @@ Der Unterschied zum EKF ohne SLAM-Anteil liegt vor allem darin, dass der Update-
 	  \end{pmatrix}
 \end{equation}
 
-Das Bewegungsmodell des Fahrzeuges ändert sich im Vergleich zum EKF nicht. Die Funktion $f(\hat{x}_t, u_t)$ wird allerdings um Funktionen für die Abbildung eines Objektes vom Zeitpunkt $t$ zum Zeitpunkt $t+1$ ergänzt. Die Objekte werden zur Vereinfachung als unbeweglich angenommen, daher sind die neue Abbildungsfunktion~\ref{SLAM-Bewegungsmodell}, wie auch die zugehörige Jakobi Matrix~\ref{SLAM-Bewegungsmodell-Jakobi-Matrix} trivial.
+\paragraph{Ableiten der Objektposition aus den Lasermessungen}
+Bezüglich der Lasermessungen, deren Tupel in jedem Datensatz vergleichbar aussehen und jeweils aus 361 einzelnen Abstandsmessungen mit einer Reichweite von 80 Metern bestehen, müssen entsprechend gesondert Berechnungen angestellt werden, damit man Bäume in Form von Koordinaten erhält. Dazu müssen zunächst ungültige Messpunkte, die eine zu geringe oder zu große Messentfernung aufweisen, sowie ungültige Messpunkte, die bei jeder Lasermessung zu Beginn der Messserie auftreten, auf 0 gesetzt werden, damit lediglich gültige Messungen übrig bleiben. Anschließend werden zusammenhängende Messpunkte, die einem individuellen Baum zugesprochen werden der eine bestimmte Distanz zum nächstgelegenen Baum aufweist, gruppiert um ein Cluster aus Messpunkten auf eine Koordinate mit Durchmesser per Baum reduzieren zu können. Dies geschieht mit den folgenden Formeln: FORMELN AUS DEM PAPER FÜR BÄUME EINFÜGEN.
 
+\paragraph{Prediction-Step}
+Das Bewegungsmodell des Fahrzeuges ändert sich im Vergleich zum EKF nicht. Die Funktion $f(\hat{x}_t, u_t)$ wird allerdings um Funktionen für die Abbildung eines Objektes vom Zeitpunkt $t$ zum Zeitpunkt $t+1$ ergänzt. Die Objekte werden zur Vereinfachung als unbeweglich angenommen, daher sind die neue Abbildungsfunktion~\ref{SLAM-Bewegungsmodell}, wie auch die zugehörige Jakobi Matrix~\ref{SLAM-Bewegungsmodell-Jakobi-Matrix} trivial.
 \begin{equation}\label{SLAM-Bewegungsmodell}
 	\hat{x}_{t+1}^- = f(\hat{x}_{t},u_t) = \begin{pmatrix}
 		x_{t+1} \\
