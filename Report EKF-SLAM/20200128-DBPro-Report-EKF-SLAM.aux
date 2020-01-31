@@ -15,6 +15,9 @@
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {1.2.2}Update-Step}{5}\protected@file@percent }
 \citation{alexandrov_stratosphere_2014}
 \citation{alexandrov_stratosphere_2014}
+\citation{Flink-Grafik-Link}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces APIs auf verschiedenen Abstraktionsniveaus\nobreakspace  {}\cite  {Flink-Grafik-Link}.}}{6}\protected@file@percent }
+\newlabel{Flink-APIs}{{2}{6}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {1.3}Simultaneous Localization and Mapping}{6}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {2}Methodik}{6}\protected@file@percent }
 \newlabel{Methodik}{{2}{6}}
@@ -22,40 +25,42 @@
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.1.1}Apache Flink}{6}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.1.2}InfluxDB}{7}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Victoria Park Datensatz}{7}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.1}Messungen}{7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.1}Messungen}{8}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.2}Probleme mit den Daten}{8}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Implementierung}{9}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.1}Simulatiaon mehrerer Fahrzeuge}{9}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.2}Umsetzung in Apache Flink}{9}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.3}EKF Implementierung}{10}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Prediction Schritt und Bewegungsmodell}{10}\protected@file@percent }
-\newlabel{EKF-State-Vector}{{1}{10}}
-\newlabel{Geschwindikeit}{{2}{10}}
-\newlabel{EKF-Motion-Model}{{3}{10}}
-\newlabel{EKF-Initiale-Kovarianzmatrix}{{4}{10}}
-\newlabel{EKF-Motion-Model-Jakobi-Matrix}{{5}{11}}
-\@writefile{toc}{\contentsline {paragraph}{Update Schritt}{11}\protected@file@percent }
-\newlabel{EKF-Observation-Model}{{6}{11}}
-\newlabel{EKF-Observation-Model-Jakobi-Matrix}{{7}{11}}
-\newlabel{GPS-Messungenauigkeits-Matrix}{{8}{11}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.4}SLAM Implementierung}{11}\protected@file@percent }
-\newlabel{SLAM-State-Vector}{{9}{12}}
-\newlabel{SLAM-Bewegungsmodell}{{10}{12}}
-\newlabel{SLAM-Bewegungsmodell-Jakobi-Matrix}{{11}{12}}
-\newlabel{SLAM-Observation-Model}{{12}{12}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Implementierung}{10}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.1}Simulatiaon mehrerer Fahrzeuge}{10}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.2}Umsetzung in Apache Flink}{10}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.3}EKF Implementierung}{11}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Prediction Schritt und Bewegungsmodell}{11}\protected@file@percent }
+\newlabel{EKF-State-Vector}{{1}{11}}
+\newlabel{Geschwindikeit}{{2}{11}}
+\newlabel{EKF-Motion-Model}{{3}{11}}
+\newlabel{EKF-Initiale-Kovarianzmatrix}{{4}{12}}
+\newlabel{EKF-Motion-Model-Jakobi-Matrix}{{5}{12}}
+\@writefile{toc}{\contentsline {paragraph}{Update Schritt}{12}\protected@file@percent }
+\newlabel{EKF-Observation-Model}{{6}{12}}
+\newlabel{EKF-Observation-Model-Jakobi-Matrix}{{7}{12}}
+\newlabel{GPS-Messungenauigkeits-Matrix}{{8}{12}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4}SLAM Implementierung}{12}\protected@file@percent }
+\newlabel{SLAM-State-Vector}{{9}{13}}
+\@writefile{toc}{\contentsline {paragraph}{Ableiten der Objektposition aus den Lasermessungen}{13}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Prediction-Step}{13}\protected@file@percent }
+\newlabel{SLAM-Bewegungsmodell}{{10}{13}}
 \bibdata{DBPro}
 \bibcite{kalman1960new}{1}
 \bibcite{freiburg_SLAM}{2}
 \bibcite{ute_SLAM}{3}
+\newlabel{SLAM-Bewegungsmodell-Jakobi-Matrix}{{11}{14}}
+\newlabel{SLAM-Observation-Model}{{12}{14}}
+\newlabel{SLAM-Observation-Model-Jakobi-Matrix}{{13}{14}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Evaluation}{14}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4}Zusammenfassung}{14}\protected@file@percent }
+\newlabel{Zusammenfassung}{{4}{14}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Diskussion}{14}\protected@file@percent }
+\newlabel{Diskussion}{{5}{14}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Appendix}{14}\protected@file@percent }
+\newlabel{Appendix}{{6}{14}}
 \bibcite{vessel}{4}
 \bibcite{EKF_course}{5}
 \bibcite{alexandrov_stratosphere_2014}{6}
 \bibstyle{ieeetr}
-\newlabel{SLAM-Observation-Model-Jakobi-Matrix}{{13}{13}}
-\@writefile{toc}{\contentsline {section}{\numberline {3}Evaluation}{13}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4}Zusammenfassung}{13}\protected@file@percent }
-\newlabel{Zusammenfassung}{{4}{13}}
-\@writefile{toc}{\contentsline {section}{\numberline {5}Diskussion}{13}\protected@file@percent }
-\newlabel{Diskussion}{{5}{13}}
-\@writefile{toc}{\contentsline {section}{\numberline {6}Appendix}{13}\protected@file@percent }
-\newlabel{Appendix}{{6}{13}}

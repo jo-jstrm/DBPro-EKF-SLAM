@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7250 64-bit) (preloaded format=pdflatex 2020.1.19)  30 JAN 2020 16:09
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7250 64-bit) (preloaded format=pdflatex 2020.1.19)  31 JAN 2020 15:35
 entering extended mode
 **"c:/Users/jjest/InformatikSoftware/gitstuff/DBPro-EKF-SLAM/Report EKF-SLAM/20200128-DBPro-Report-EKF-SLAM.tex"
 ("c:/Users/jjest/InformatikSoftware/gitstuff/DBPro-EKF-SLAM/Report EKF-SLAM/20200128-DBPro-Report-EKF-SLAM.tex"
@@ -404,34 +404,46 @@ Overfull \hbox (2.99295pt too wide) in paragraph at lines 76--77
 \OT1/cmr/m/n/10.95 Flink ist eine Soft-ware zur verteil-ten und par-al-le-len Ve-r-ar-beitung von Stream-
  []
 
+<Flink-api-stack.png, id=31, 1040.88875pt x 355.3275pt>
+File: Flink-api-stack.png Graphic file (type png)
+<use Flink-api-stack.png>
+Package pdftex.def Info: Flink-api-stack.png  used on input line 80.
+(pdftex.def)             Requested size: 252.94499pt x 86.34843pt.
 
-Overfull \hbox (76.04375pt too wide) in paragraph at lines 78--79
-\OT1/cmr/m/n/10.95 Java pro-gram-miert. Der Funk-tion-sum-fang, wie in Ab-bil-dung XXXXXXXXXXXXXXXXXX
- []
+LaTeX Warning: Citation `Flink-Grafik-Link' on page 6 undefined on input line 81.
 
-
-Overfull \hbox (3.38834pt too wide) in paragraph at lines 78--79
-\OT1/cmr/m/n/10.95 dargestellt um-fasst ver-schiedene Ap-pli-ca-tion Pro-gram-ming In-ter-faces (APIs). 
- []
-
-[6]
-Overfull \hbox (0.30107pt too wide) in paragraph at lines 95--96
+[6 <./Flink-api-stack.png>] [7]
+Overfull \hbox (0.30107pt too wide) in paragraph at lines 102--103
 \OT1/cmr/m/n/10.95 gemein-sam im For-mat Zeit-stem-pel, Lenkwinkel, Geschwindigkeit angegeben.
  []
 
-[7] [8] [9] [10] [11] [12] (20200128-DBPro-Report-EKF-SLAM.bbl) [13] (20200128-DBPro-Report-EKF-SLAM.aux) ) 
+[8]
+Underfull \hbox (badness 10000) in paragraph at lines 117--117
+[][]$\OT1/cmtt/m/n/9 https : / / www . mrpt . org / tutorials / programming / odometry -[] and -[] motion -[]
+ []
+
+
+Overfull \hbox (4.5746pt too wide) in paragraph at lines 119--121
+\OT1/cmr/m/n/10.95 EKF-Algorithmus ve-r-ar-beitet, re-sul-tiert in kom-plett un-ter-schiedlichen Ergeb-
+ []
+
+[9] [10] [11] [12] [13] (20200128-DBPro-Report-EKF-SLAM.bbl [14]) [15] (20200128-DBPro-Report-EKF-SLAM.aux)
+
+LaTeX Warning: There were undefined references.
+
+ ) 
 Here is how much of TeX's memory you used:
- 3646 strings out of 492449
- 47360 string characters out of 3119993
- 117334 words of memory out of 3000000
- 7961 multiletter control sequences out of 15000+200000
+ 3655 strings out of 492449
+ 47532 string characters out of 3119993
+ 117342 words of memory out of 3000000
+ 7969 multiletter control sequences out of 15000+200000
  14224 words of font info for 55 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  30i,23n,37p,1324b,256s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Users/jjest/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/jjest/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/jjest/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/jjest/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/jjest/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Users/jjest/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/jjest/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/jjest/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/jjest/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/jjest/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/jjest/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/jjest/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/jjest/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/jjest/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/jjest/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt12.pfb><C:/Users/jjest/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt9.pfb><C:/Users/jjest/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msam10.pfb>
-Output written on 20200128-DBPro-Report-EKF-SLAM.pdf (13 pages, 325182 bytes).
+Output written on 20200128-DBPro-Report-EKF-SLAM.pdf (15 pages, 427267 bytes).
 PDF statistics:
- 116 PDF objects out of 1000 (max. 8388607)
+ 124 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 6 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 11 words of extra memory for PDF output out of 10000 (max. 10000000)
 

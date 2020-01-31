@@ -9,16 +9,18 @@
 \contentsline {subsubsection}{\numberline {2.1.1}Apache Flink}{6}%
 \contentsline {subsubsection}{\numberline {2.1.2}InfluxDB}{7}%
 \contentsline {subsection}{\numberline {2.2}Victoria Park Datensatz}{7}%
-\contentsline {subsubsection}{\numberline {2.2.1}Messungen}{7}%
+\contentsline {subsubsection}{\numberline {2.2.1}Messungen}{8}%
 \contentsline {subsubsection}{\numberline {2.2.2}Probleme mit den Daten}{8}%
-\contentsline {subsection}{\numberline {2.3}Implementierung}{9}%
-\contentsline {subsubsection}{\numberline {2.3.1}Simulatiaon mehrerer Fahrzeuge}{9}%
-\contentsline {subsubsection}{\numberline {2.3.2}Umsetzung in Apache Flink}{9}%
-\contentsline {subsubsection}{\numberline {2.3.3}EKF Implementierung}{10}%
-\contentsline {paragraph}{Prediction Schritt und Bewegungsmodell}{10}%
-\contentsline {paragraph}{Update Schritt}{11}%
-\contentsline {subsection}{\numberline {2.4}SLAM Implementierung}{11}%
-\contentsline {section}{\numberline {3}Evaluation}{13}%
-\contentsline {section}{\numberline {4}Zusammenfassung}{13}%
-\contentsline {section}{\numberline {5}Diskussion}{13}%
-\contentsline {section}{\numberline {6}Appendix}{13}%
+\contentsline {subsection}{\numberline {2.3}Implementierung}{10}%
+\contentsline {subsubsection}{\numberline {2.3.1}Simulatiaon mehrerer Fahrzeuge}{10}%
+\contentsline {subsubsection}{\numberline {2.3.2}Umsetzung in Apache Flink}{10}%
+\contentsline {subsubsection}{\numberline {2.3.3}EKF Implementierung}{11}%
+\contentsline {paragraph}{Prediction Schritt und Bewegungsmodell}{11}%
+\contentsline {paragraph}{Update Schritt}{12}%
+\contentsline {subsection}{\numberline {2.4}SLAM Implementierung}{12}%
+\contentsline {paragraph}{Ableiten der Objektposition aus den Lasermessungen}{13}%
+\contentsline {paragraph}{Prediction-Step}{13}%
+\contentsline {section}{\numberline {3}Evaluation}{14}%
+\contentsline {section}{\numberline {4}Zusammenfassung}{14}%
+\contentsline {section}{\numberline {5}Diskussion}{14}%
+\contentsline {section}{\numberline {6}Appendix}{14}%
