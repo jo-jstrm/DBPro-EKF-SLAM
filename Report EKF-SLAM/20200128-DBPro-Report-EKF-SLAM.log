@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7250 64-bit) (preloaded format=pdflatex 2020.1.19)  31 JAN 2020 18:53
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7250 64-bit) (preloaded format=pdflatex 2020.1.19)  2 FEB 2020 14:20
 entering extended mode
 **"c:/Users/jjest/InformatikSoftware/gitstuff/DBPro-EKF-SLAM/Report EKF-SLAM/20200128-DBPro-Report-EKF-SLAM.tex"
 ("c:/Users/jjest/InformatikSoftware/gitstuff/DBPro-EKF-SLAM/Report EKF-SLAM/20200128-DBPro-Report-EKF-SLAM.tex"
@@ -367,11 +367,7 @@ Package: multicol 2019/03/01 v1.8w multicolumn formatting (FMi)
 \mult@nat@firstbox=\box53
 \colbreak@box=\box54
 \mc@col@check@num=\count115
-) (20200128-DBPro-Report-EKF-SLAM.aux
-
-LaTeX Warning: Label `Flink-Überblick' multiply defined.
-
-)
+) (20200128-DBPro-Report-EKF-SLAM.aux)
 \openout1 = `20200128-DBPro-Report-EKF-SLAM.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 28.
@@ -412,3 +408,127 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
 LaTeX Font Info:    Trying to load font information for U+msa on input line 30.
  ("C:\Users\jjest\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsfonts\umsa.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 30.
+ ("C:\Users\jjest\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsfonts\umsb.fd"
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+) [1
+
+{C:/Users/jjest/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] (20200128-DBPro-Report-EKF-SLAM.toc)
+\tf@toc=\write3
+\openout3 = `20200128-DBPro-Report-EKF-SLAM.toc'.
+
+ [2] [3]
+Overfull \hbox (20.17842pt too wide) in paragraph at lines 51--52
+\OT1/cmr/m/n/10.95 ge-gan-ge-ner Zu-stands-mes-sun-gen und ei-ner Zu-stands[]ubergangsfunktion gesch[]atzt.
+ []
+
+<EKF_algorithm.png, id=17, 1767.60374pt x 942.52126pt>
+File: EKF_algorithm.png Graphic file (type png)
+<use EKF_algorithm.png>
+Package pdftex.def Info: EKF_algorithm.png  used on input line 55.
+(pdftex.def)             Requested size: 361.34999pt x 192.6716pt.
+
+Overfull \hbox (1.34999pt too wide) in paragraph at lines 55--56
+ [][] 
+ []
+
+[4] [5 <./EKF_algorithm.png>]
+Overfull \hbox (2.99295pt too wide) in paragraph at lines 77--78
+\OT1/cmr/m/n/10.95 Flink ist ei-ne Soft-wa-re zur ver-teil-ten und par-al-le-len Ver-ar-bei-tung von Stream-
+ []
+
+<flink-home-graphic.png, id=31, 1612.0225pt x 528.97626pt>
+File: flink-home-graphic.png Graphic file (type png)
+<use flink-home-graphic.png>
+Package pdftex.def Info: flink-home-graphic.png  used on input line 81.
+(pdftex.def)             Requested size: 397.48499pt x 130.42764pt.
+
+Overfull \hbox (37.48499pt too wide) in paragraph at lines 81--82
+ [][] 
+ []
+
+<Flink-api-stack.png, id=32, 1040.88875pt x 355.3275pt>
+File: Flink-api-stack.png Graphic file (type png)
+<use Flink-api-stack.png>
+Package pdftex.def Info: Flink-api-stack.png  used on input line 88.
+(pdftex.def)             Requested size: 289.07999pt x 98.68315pt.
+[6] [7 <./flink-home-graphic.png> <./Flink-api-stack.png>] [8] [9]
+Underfull \hbox (badness 10000) in paragraph at lines 128--128
+[][]$\OT1/cmtt/m/n/9 https : / / www . mrpt . org / tutorials / programming / odometry -[] and -[] motion -[]
+ []
+
+[10] [11] [12] [13] [14]
+
+LaTeX Warning: Reference `SLAM-tzEvaluation' on page 15 undefined on input line 269.
+
+[15] [16]
+Overfull \hbox (3.9335pt too wide) in paragraph at lines 336--337
+\OT1/cmr/m/n/10.95 Da die Im-ple-men-tie-rung von EKF-SLAM als Full-SLAM statt-ge-fun-den hat [9],
+ []
+
+[17]
+Overfull \hbox (8.68085pt too wide) in paragraph at lines 344--345
+\OT1/cmr/m/n/10.95 wer-den ob-ser-vier-te B[]aume un-ter-schied-lich gut wie-der-er-kannt oder neue B[]aume
+ []
+
+<EKF-Schätzfehler.png, id=79, 447.92343pt x 350.81062pt>
+File: EKF-Schätzfehler.png Graphic file (type png)
+<use EKF-Schätzfehler.png>
+Package pdftex.def Info: EKF-Schätzfehler.png  used on input line 349.
+(pdftex.def)             Requested size: 397.48499pt x 311.31581pt.
+
+Overfull \hbox (37.48499pt too wide) in paragraph at lines 349--350
+ [][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 350--350
+[]\OT1/cmr/m/n/10.95 Abbildung 4: Ab-wei-chun-gen zwi-schen GPS-Messung und EKF-
+ []
+
+
+LaTeX Warning: Reference `EKF-Prediction-Error' on page 18 undefined on input line 354.
+
+[18]
+<EKF-output.png, id=83, 524.71031pt x 415.5525pt>
+File: EKF-output.png Graphic file (type png)
+<use EKF-output.png>
+Package pdftex.def Info: EKF-output.png  used on input line 365.
+(pdftex.def)             Requested size: 397.48499pt x 314.8023pt.
+
+Overfull \hbox (37.48499pt too wide) in paragraph at lines 365--366
+ [][] 
+ []
+
+[19 <./EKF-Schätzfehler.png>]
+<EKF-output-parallel.png, id=89, 447.92343pt x 350.81062pt>
+File: EKF-output-parallel.png Graphic file (type png)
+<use EKF-output-parallel.png>
+Package pdftex.def Info: EKF-output-parallel.png  used on input line 372.
+(pdftex.def)             Requested size: 397.48499pt x 311.31581pt.
+
+Overfull \hbox (37.48499pt too wide) in paragraph at lines 372--373
+ [][] 
+ []
+
+(20200128-DBPro-Report-EKF-SLAM.bbl [20 <./EKF-output.png>] [21 <./EKF-output-parallel.png>]) [22] (20200128-DBPro-Report-EKF-SLAM.aux)
+
+LaTeX Warning: There were undefined references.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 4356 strings out of 492449
+ 58220 string characters out of 3119993
+ 140837 words of memory out of 3000000
+ 8639 multiletter control sequences out of 15000+200000
+ 14224 words of font info for 55 fonts, out of 3000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 30i,28n,37p,1325b,258s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Users/jjest/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/jjest/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/jjest/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/jjest/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/jjest/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Users/jjest/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/jjest/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/jjest/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/jjest/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/jjest/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/jjest/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/jjest/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/jjest/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/jjest/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/jjest/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt12.pfb><C:/Users/jjest/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt9.pfb><C:/Users/jjest/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msam10.pfb>
+Output written on 20200128-DBPro-Report-EKF-SLAM.pdf (22 pages, 798788 bytes).
+PDF statistics:
+ 154 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 31 words of extra memory for PDF output out of 10000 (max. 10000000)
+
