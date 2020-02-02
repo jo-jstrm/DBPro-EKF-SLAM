@@ -15,40 +15,46 @@
 \@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Extended Kalman Filter Algorithmus~\cite  {EKF_course}.}}{5}\protected@file@percent }
 \newlabel{EKF-Algorithmus}{{1}{5}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {1.2.1}Prediction-Step}{5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.2.2}Update-Step}{5}\protected@file@percent }
 \citation{alexandrov_stratosphere_2014}
 \citation{alexandrov_stratosphere_2014}
 \citation{Flink-Overview-Link}
 \citation{Flink-APIs-Link}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.2.2}Update-Step}{6}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {1.3}Simultaneous Localization and Mapping}{6}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {2}Methodik}{6}\protected@file@percent }
 \newlabel{Methodik}{{2}{6}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Verwendete Software}{6}\protected@file@percent }
+\newlabel{Verwendete-Software}{{2.1}{6}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.1.1}Apache Flink}{6}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Überblick über die Funktionen von Apache Flink~\cite  {Flink-Overview-Link}.}}{7}\protected@file@percent }
 \newlabel{Flink-Überblick}{{2}{7}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces APIs auf verschiedenen Abstraktionsniveaus~\cite  {Flink-APIs-Link}.}}{7}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Flink's APIs auf verschiedenen Abstraktionsniveaus~\cite  {Flink-APIs-Link}.}}{7}\protected@file@percent }
 \newlabel{Flink-APIs}{{3}{7}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.1.2}InfluxDB}{8}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.1.3}Colt}{8}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Victoria Park Datensatz}{8}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.1}Messungen}{8}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.2}Probleme mit den Daten}{9}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Victoria Park Datensatz}{9}\protected@file@percent }
+\newlabel{Datensatz}{{2.2}{9}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.1}Messungen}{9}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.2}Probleme mit den Daten}{10}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.3}Ausreißer}{11}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Implementierung}{11}\protected@file@percent }
+\newlabel{Implementierung}{{2.3}{11}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.1}Simulatiaon mehrerer Fahrzeuge}{11}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.2}Umsetzung in Apache Flink}{11}\protected@file@percent }
+\citation{ute_SLAM}
+\citation{Freiburg_SLAM_Formeln}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.3}EKF Implementierung}{13}\protected@file@percent }
+\newlabel{EKF-Implementierung}{{2.3.3}{13}}
 \@writefile{toc}{\contentsline {paragraph}{Prediction Schritt und Bewegungsmodell}{13}\protected@file@percent }
 \newlabel{EKF-State-Vector}{{1}{13}}
 \newlabel{Geschwindikeit}{{2}{13}}
-\newlabel{EKF-Motion-Model}{{3}{14}}
+\newlabel{EKF-Motion-Model}{{3}{13}}
 \newlabel{EKF-Initiale-Kovarianzmatrix}{{4}{14}}
 \newlabel{EKF-Motion-Model-Jakobi-Matrix}{{5}{14}}
 \@writefile{toc}{\contentsline {paragraph}{Update Schritt}{14}\protected@file@percent }
 \newlabel{EKF-Observation-Model}{{6}{14}}
-\newlabel{EKF-Observation-Model-Jakobi-Matrix}{{7}{15}}
-\newlabel{GPS-Messungenauigkeits-Matrix}{{8}{15}}
+\newlabel{EKF-Observation-Model-Jakobi-Matrix}{{7}{14}}
+\newlabel{GPS-Messungenauigkeits-Matrix}{{8}{14}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.4}SLAM Implementierung}{15}\protected@file@percent }
 \newlabel{SLAM Implementierung}{{2.3.4}{15}}
 \newlabel{SLAM-State-Vector}{{9}{15}}
@@ -57,34 +63,34 @@
 \newlabel{SLAM-Bewegungsmodell}{{10}{16}}
 \newlabel{SLAM-Bewegungsmodell-Jakobi-Matrix}{{11}{16}}
 \newlabel{SLAM-Observation-Model}{{12}{16}}
-\citation{Freiburg_SLAM_Formeln}
-\citation{ute_SLAM}
 \newlabel{SLAM-Observation-Model-Jakobi-Matrix}{{13}{17}}
 \@writefile{toc}{\contentsline {section}{\numberline {3}Evaluation}{17}\protected@file@percent }
 \newlabel{Evaluation}{{3}{17}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Evaluation von SLAM}{17}\protected@file@percent }
-\newlabel{SLAM-Evaluation}{{3.1}{17}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Qualität des EKF}{17}\protected@file@percent }
+\citation{Freiburg_SLAM_Formeln}
+\citation{ute_SLAM}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Output des EKF mit GPS-Daten als Update.}}{18}\protected@file@percent }
+\newlabel{EKF-Output}{{4}{18}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Evaluation von SLAM}{18}\protected@file@percent }
+\newlabel{SLAM-Evaluation}{{3.2}{18}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Abweichungen zwischen GPS-Messung und EKF-Positionsberechnung}}{19}\protected@file@percent }
+\newlabel{EKF-Schätzfehler}{{5}{19}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Output des parallelisierten EKF mit mehreren simulierten Fahrzeugen.}}{20}\protected@file@percent }
+\newlabel{EKF-Output-Parallel}{{6}{20}}
 \citation{thrun_fastslam_nodate}
 \citation{ute_SLAM}
 \citation{thrun_fastslam_nodate}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Qualität des EKF}{18}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Abweichungen zwischen GPS-Messung und EKF-Positionsberechnung}}{19}\protected@file@percent }
-\newlabel{EKF-Schätzfehler}{{4}{19}}
 \bibdata{DBPro}
 \bibcite{kalman1960new}{1}
 \bibcite{freiburg_SLAM}{2}
 \bibcite{ute_SLAM}{3}
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Output des EKF mit GPS-Daten als Update.}}{20}\protected@file@percent }
-\newlabel{EKF-Output}{{5}{20}}
-\@writefile{toc}{\contentsline {section}{\numberline {4}Zusammenfassung}{20}\protected@file@percent }
-\newlabel{Zusammenfassung}{{4}{20}}
-\@writefile{toc}{\contentsline {section}{\numberline {5}Diskussion}{20}\protected@file@percent }
-\newlabel{Diskussion}{{5}{20}}
 \bibcite{vessel}{4}
 \bibcite{EKF_course}{5}
 \bibcite{alexandrov_stratosphere_2014}{6}
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Output des parallelisierten EKF mit mehreren simulierten Fahrzeugen.}}{21}\protected@file@percent }
-\newlabel{EKF-Output-Parallel}{{6}{21}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Zusammenfassung}{21}\protected@file@percent }
+\newlabel{Zusammenfassung}{{4}{21}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Diskussion}{21}\protected@file@percent }
+\newlabel{Diskussion}{{5}{21}}
 \bibcite{Flink-Overview-Link}{7}
 \bibcite{Flink-APIs-Link}{8}
 \bibcite{Freiburg_SLAM_Formeln}{9}

@@ -3,16 +3,16 @@
 \contentsline {subsection}{\numberline {1.1}Motivation}{4}%
 \contentsline {subsection}{\numberline {1.2}Extended Kalman Filter}{4}%
 \contentsline {subsubsection}{\numberline {1.2.1}Prediction-Step}{5}%
-\contentsline {subsubsection}{\numberline {1.2.2}Update-Step}{5}%
+\contentsline {subsubsection}{\numberline {1.2.2}Update-Step}{6}%
 \contentsline {subsection}{\numberline {1.3}Simultaneous Localization and Mapping}{6}%
 \contentsline {section}{\numberline {2}Methodik}{6}%
 \contentsline {subsection}{\numberline {2.1}Verwendete Software}{6}%
 \contentsline {subsubsection}{\numberline {2.1.1}Apache Flink}{6}%
 \contentsline {subsubsection}{\numberline {2.1.2}InfluxDB}{8}%
 \contentsline {subsubsection}{\numberline {2.1.3}Colt}{8}%
-\contentsline {subsection}{\numberline {2.2}Victoria Park Datensatz}{8}%
-\contentsline {subsubsection}{\numberline {2.2.1}Messungen}{8}%
-\contentsline {subsubsection}{\numberline {2.2.2}Probleme mit den Daten}{9}%
+\contentsline {subsection}{\numberline {2.2}Victoria Park Datensatz}{9}%
+\contentsline {subsubsection}{\numberline {2.2.1}Messungen}{9}%
+\contentsline {subsubsection}{\numberline {2.2.2}Probleme mit den Daten}{10}%
 \contentsline {subsubsection}{\numberline {2.2.3}Ausreißer}{11}%
 \contentsline {subsection}{\numberline {2.3}Implementierung}{11}%
 \contentsline {subsubsection}{\numberline {2.3.1}Simulatiaon mehrerer Fahrzeuge}{11}%
@@ -24,7 +24,7 @@
 \contentsline {paragraph}{Ableiten der Objektposition aus den Lasermessungen}{15}%
 \contentsline {paragraph}{Prediction-Step}{16}%
 \contentsline {section}{\numberline {3}Evaluation}{17}%
-\contentsline {subsection}{\numberline {3.1}Evaluation von SLAM}{17}%
-\contentsline {subsection}{\numberline {3.2}Qualität des EKF}{18}%
-\contentsline {section}{\numberline {4}Zusammenfassung}{20}%
-\contentsline {section}{\numberline {5}Diskussion}{20}%
+\contentsline {subsection}{\numberline {3.1}Qualität des EKF}{17}%
+\contentsline {subsection}{\numberline {3.2}Evaluation von SLAM}{18}%
+\contentsline {section}{\numberline {4}Zusammenfassung}{21}%
+\contentsline {section}{\numberline {5}Diskussion}{21}%
