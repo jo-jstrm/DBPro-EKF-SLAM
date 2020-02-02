@@ -2,21 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a0e545e7-aebc-4cdf-baf2-769a8b8a86f3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../Report EKF-SLAM/20200128-DBPro-Report-EKF-SLAM.bbl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Report EKF-SLAM/20200128-DBPro-Report-EKF-SLAM.blg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Report EKF-SLAM/EKF-Schätzfehler.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Report EKF-SLAM/EKF-output-parallel.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Report EKF-SLAM/EKF-output.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Report EKF-SLAM/EKF_algorithm.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Report EKF-SLAM/Flink-api-stack.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Report EKF-SLAM/flink-home-graphic.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Report EKF-SLAM/20200128-DBPro-Report-EKF-SLAM.aux" beforeDir="false" afterPath="$PROJECT_DIR$/../Report EKF-SLAM/20200128-DBPro-Report-EKF-SLAM.aux" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Report EKF-SLAM/20200128-DBPro-Report-EKF-SLAM.log" beforeDir="false" afterPath="$PROJECT_DIR$/../Report EKF-SLAM/20200128-DBPro-Report-EKF-SLAM.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Report EKF-SLAM/20200128-DBPro-Report-EKF-SLAM.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/../Report EKF-SLAM/20200128-DBPro-Report-EKF-SLAM.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Report EKF-SLAM/20200128-DBPro-Report-EKF-SLAM.synctex.gz" beforeDir="false" afterPath="$PROJECT_DIR$/../Report EKF-SLAM/20200128-DBPro-Report-EKF-SLAM.synctex.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Report EKF-SLAM/20200128-DBPro-Report-EKF-SLAM.tex" beforeDir="false" afterPath="$PROJECT_DIR$/../Report EKF-SLAM/20200128-DBPro-Report-EKF-SLAM.tex" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Report EKF-SLAM/20200128-DBPro-Report-EKF-SLAM.toc" beforeDir="false" afterPath="$PROJECT_DIR$/../Report EKF-SLAM/20200128-DBPro-Report-EKF-SLAM.toc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Report EKF-SLAM/DBPro.bib" beforeDir="false" afterPath="$PROJECT_DIR$/../Report EKF-SLAM/DBPro.bib" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -642,7 +628,14 @@
       <option name="project" value="LOCAL" />
       <updated>1580680622335</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="Updated Latex report">
+      <created>1580687263020</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1580687263021</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -663,7 +656,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Fixed EKF streaming issue via Tuples" />
     <MESSAGE value="changes to motion model for prediction step, and boolean flags" />
     <MESSAGE value="parameterized position and observation matrix (2,1)" />
     <MESSAGE value="using gps_odo_sorted dataset" />
@@ -688,7 +680,8 @@
     <MESSAGE value="FastPredict not ready for prime time" />
     <MESSAGE value="Replaced all matrices with sparce matrix implementation, improved performance" />
     <MESSAGE value="Refactored Project, main package is &quot;implementation&quot; now, moved invalidDatasets" />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactored Project, main package is &quot;implementation&quot; now, moved invalidDatasets" />
+    <MESSAGE value="Updated Latex report" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated Latex report" />
   </component>
   <component name="WindowStateProjectService">
     <state x="176" y="120" key="#com.intellij.execution.impl.EditConfigurationsDialog" />
