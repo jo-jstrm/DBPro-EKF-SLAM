@@ -1,5 +1,6 @@
 \documentclass[11pt]{article}
 
+\usepackage[english,ngerman]{babel}
 \usepackage{cite}
 \usepackage{amsmath,amssymb,amsfonts} 
 \usepackage{algorithmic}
@@ -47,11 +48,11 @@ Basierend auf diesen Messungen soll der EKF/SLAM Algorithmus implementiert werde
 Dieses Projekt zielt folglich darauf ab, die parallele Implementierung des EKF SLAM Algorithmus umzusetzen und zu evaluieren. Dabei wird die Software für parallele und verteilte Verarbeitung von Datenströmen Apache Flink\footnote{\url{https://flink.apache.org/}} eingesetzt.
 
 \subsection{Extended Kalman Filter}
-Der Kalman Filter wurde im Jahr 1960 von Rudolph E. Kalman im Rahmen seines Papers “A New Approach to Linear Filtering and Prediction Problems”~\cite{kalman1960new} vorgestellt. Er ist ein Ansatz um Zustände zu schätzen. Der Kalman Filter minimiert die geschätzte Fehlervarianz. Der grundlegende Algorithmus funktioniert wie folgt: Zunächst wird im sog. Prediction-Step der Zustand eines Systems zu einem Zeitpunkt $t$ auf Grundlage vorhergegangener Zustandsmessungen und einer Zustandsübergangsfunktion geschätzt. Diese Schätzung wird dann im update-step (auch Correction-Step) nach dem Erhalt neuer Messdaten korrigiert und der Algorithmus beginnt von vorne.
+Der Kalman Filter wurde im Jahr 1960 von Rudolph E. Kalman im Rahmen seines Papers “A New Approach to Linear Filtering and Prediction Problems”~\cite{kalman1960new} vorgestellt. Er ist ein Ansatz um Zustände zu schätzen. Der Kalman Filter minimiert die geschätzte Fehlervarianz. Der grundlegende Algorithmus funktioniert wie folgt~[Abb.~\ref{EKF-Algorithmus}]: Zunächst wird im sog. Prediction-Step der Zustand eines Systems zu einem Zeitpunkt $t$ auf Grundlage vorhergegangener Zustandsmessungen und einer Zustandsübergangsfunktion geschätzt. Diese Schätzung wird dann im Update-step (auch Correction-Step) nach dem Erhalt neuer Messdaten korrigiert und der Algorithmus beginnt von vorne.
 
 \begin{figure}[!t]
 	\centering
-	\includegraphics[width=3.5in]{EKF_algorithm.png}
+	\includegraphics[width=5in]{EKF_algorithm.png}
 	\caption{Extended Kalman Filter Algorithmus~\cite{EKF_course}.}
 	\label{EKF-Algorithmus}
 \end{figure}
@@ -77,12 +78,19 @@ Flink ist eine Software zur verteilten und parallelen Verarbeitung von Stream- o
 
 \begin{figure}[!t]
 	\centering
-	\includegraphics[width=3.5in]{Flink-api-stack.png}
-	\caption{APIs auf verschiedenen Abstraktionsniveaus~\cite{Flink-Grafik-Link}.}
+	\includegraphics[width=5.5in]{flink-home-graphic.png}
+	\caption{Überblick über die Funktionen von Apache Flink~\cite{Flink-Overview-Link}.}
+	\label{Flink-Überblick}
+\end{figure}
+
+\begin{figure}[!t]
+	\centering
+	\includegraphics[width=4in]{Flink-api-stack.png}
+	\caption{APIs auf verschiedenen Abstraktionsniveaus~\cite{Flink-APIs-Link}.}
 	\label{Flink-APIs}
 \end{figure}
 
-Flink basiert auf der Java Virtual Machine (JVM) und ist in Scala und Java implementiert~\footnote{\url{https://github.com/apache/flink}}. Der Funktionsumfang~[Abb.~\ref{Flink-APIs}] umfasst die parallele und verteilte Verarbeitung von Datenströmen, sowie einmaligen verschiedene Application Programming Interfaces (APIs).
+Flink basiert auf der Java Virtual Machine (JVM) und ist in Scala und Java implementiert~\footnote{\url{https://github.com/apache/flink}}. Der Funktionsumfang umfasst die parallele und verteilte Verarbeitung von Datenströmen, sowie einmaligen (in der Regel sehr rechenaufwändigen) sog. Batch-Aufträgen~[Abb.~\ref{Flink-APIs}]. Dazu stehen verschiedene Application Programming Interfaces (APIs) auf unterschiedlichen Abstraktionsebenen zur Verfügung~[Abb.~\ref{Flink-Überblick}].
 
 Da das Ziel dieses Projektes die Anwendung von EKF-SLAM auf mehrere Fahrzeuge in Echtzeit ist, wird vor allem die DataStream API genutzt. Diese liefert vorgefertigte Funktionalitäten für viele übliche Aufgaben in der Verarbeitung von Datenströmen. Diese umfassen unter anderem die automatisierte parallelisierung der Verarbeitung von Datenströmen. Weiterhin ist es möglich, eingehende Daten mit sog. Schlüsseln (engl. keys) zu versehen und die weitere Verarbeitung der Daten im Folgenden abhängig von dem zugeordneten Key zu mache. Dies erfolgt über die Klassen KeyedDataStream und KeyedDataPoint. Ein KeyedDataStream verarbeitet generische Datentupel, welche jeweils mit einem Zeitstempel und einem Schlüssel versehen sind. Dabei liefern KeyedDataPoint eine Art Blaupause für den Inhalt eines einzelnen Datentupels.
 
@@ -92,6 +100,9 @@ Mit Hilfe solcher geschlüsselter Datenströme ist es möglich, für jeden Schl�
 InfluxDB\footnote{\url{https://www.influxdata.com/products/influxdb-overview}} ist eine für Zeitreihendaten optimierte Datenbank. Die Interaktion erfolgt in einer Anfragesprache ähnlich zu SQL. Es existieren APIs für verschiedene Programmiersprachen, unter anderem Java. 
 
 Jedes zu speichernde Datentupel muss mit einem Zeitstempel versehen sein. Wie in Flink ist auch hier möglich, eingehende Daten anhand eines Schlüssels zu unterscheiden. Daten können in unterschiedliche Datenbanken gespeichert werden und innerhalb einer Datenbank nach Messreihen unterschieden werden. Einzelne Messungen werden in sog. Feldern gespeichert. Anzahl und Typ des Inhalts der einzelnen Felder können durch den Nutzer festgelegt werden. Dank der genannten Funktionen bietet InfluxDB eine leistungsfähige Lösung für die anwendungsspezifische Speicherung von Echtzeitdaten.
+
+\subsubsection{Colt}
+Zur Implementierung des Extended Kalman Filter benötigt man in Java eine externe Library, da Java in der Version 1.8, die wir verwendet haben, keine native Möglichkeit bereitstellt auf Matrizen und Vektoren, anders als in Form von Listen oder Arrays, zu arbeiten. Somit haben wir uns für die Colt 1.2 Library~\footnote{\url{https://dst.lbl.gov/ACSSoftware/colt}} entschieden, welche am CERN entwickelt wurde, da alle für uns notwendigen Matrix- und Vektoroperationen durch Colt zur Verfügung gestellt werden.
 
 \subsection{Victoria Park Datensatz}
 Die Inhalte dieses Datensatzes \footnote{\url{https://www.mrpt.org/Dataset_The_Victoria_Park}} wurden im Jahr 2006 im Victoria Park in Sydney gesammelt. Es wurde die Bewegung eines Fahrzeugs durch den Park aufgezeichnet und währenddessen vom Fahrzeug Objekte in der nahen Umgebung erfasst. Die Dauer der Aufzeichnungen ist rund 25 Minuten.
@@ -119,19 +130,30 @@ Aufgrund eines Mangels an definitiver Information und inkohärenter Datensätze 
 In visualisierter Form waren lediglich die GPS-Messungen des MatLab Datensatzes ähnlich der Form des bekannten Victoria Parks, wodurch wir uns entschlossen haben EKF aus Basis der GPS Daten auf diesem Datensatz anzuwenden um das Projekt voranzutreiben.
 Gesamtheitlich betrachtet machten die genannten Probleme mit dem Datensatz circa die Hälfte der Projektarbeit aus. Selbst am Ende des Projektes kam es noch dazu, dass wir verschiedene Eingangsdaten ausprobieren mussten, um valide und funktionierende Ergebnisse zu erzielen, da beispielsweise der ASCII Datensatz gravierend vom MatLab Datensatz abweicht und aus unserer Perspektive als falsch anzusehen ist. So weichen die GPS-Messungen der beiden Datensätze gänzlich voneinander ab und die Odometrie durch den gleichen EKF-Algorithmus verarbeitet, resultiert in komplett unterschiedlichen Ergebnissen.
 
+\subsubsection{Ausreißer}
+Wie bereits aus der Quelle für den Datensatz (viktoria park paper reference) hervorgeht, sind die GPS-Messungen fehlerhaft und unvollständig und wurden daher nicht weiter verwendet. Da es aufgrund der unterschiedlichen Datensätze notwendig wurde den EKF in der einfachsten Form mit GPS zu implementieren, mussten wir dennoch auf den Datensatz zurückgreifen. Damit es trotzdem vergleichbare und repräsentative Ergebnis für den EKF mit GPS geben konnte, entschieden wir uns dazu den GPS Datensatz um Ausreißer basierend auf einer Heuristik zu bereinigen. Hierbei werden Datenpunkte die eine zu hohe Distanz zu vorherigen GPS Messungen aufweisen, sowie in kleinen Gruppen von wenigen Tupeln vorkommen aussortiert. Dabei waren bereits mit 21 Tupeln weniger die signifikantesten Ausreißer beseitigt.
+
 \subsection{Implementierung}
 
 \subsubsection{Simulatiaon mehrerer Fahrzeuge}
-Da es in diesem Projekt auch um die Parallelisierung der Verarbeitung von Daten unterschiedlicher Fahrzeuge geht, haben wir den vorhandenen Datensatz mehrfach repliziert. So kann die Berechnung mehrerer Systeme und deren Zustände simuliert und mit Hilfe von Flink parallelisiert werden. Die replizierten Daten haben wir zur besseren Veranschaulichung verändert; beispielsweise wurde die Reihenfolge der Tupel umgekehrt oder nur Teile des vollständigen Datensatzes für unterschiedliche simulierte Fahrzeuge verwendet.
+Da es in diesem Projekt auch um die Parallelisierung der Verarbeitung von Daten unterschiedlicher Fahrzeuge geht, haben wir den vorhandenen Datensatz mehrfach repliziert. So kann die Berechnung mehrerer Systeme und deren Zustände simuliert und mit Hilfe von Flink parallelisiert werden. Zur Simulation haben wir unseren Datensatz dupliziert und außerdem einen neuen Datensatz erzeugt, in dem wir die Reihenfolge der Messwerte umgekehrt haben. Im einfachsten Fall wurden 2 Datensätze eingelesen.Dabei werden 2 Streams generiert, welche sog. KeyedDataPoints verarbeiten, welche wir beim Parsen erzeugen. Als nächstes werden die verschiedenen Fahrzeug-Streams vereint bevor der EKF auf dem vereinten Stream angewendet wird.
+
+An dieser Stelle bedienen wir uns einem interessanten Datentyp in Flink: Dem sog. ValueState. Dieser ValueState wird in einer Mapper-Klasse initialisiert und ermöglicht es, die von der map()-Funktion verarbeiteten Werte während der Laufzeit zu persistieren. Darüber hinaus wird ein eigener ValueState pro Schlüssel, in unserem Fall also pro Fahrzeug erstellt, wodurch wir den EKF auf jedes Fahrzeug einzeln anwenden können.
 
 \subsubsection{Umsetzung in Apache Flink}
 Apache Flink unterscheidet Arbeitsaufträge in Streaming- und Batch-Auf\-trä\-ge. Diese unterscheiden sich in der Art und Weise der Parallelisierung der Berechnungen: bei Streams müssen beispielsweise Aggregationen mit einem Fenster versehen werden, da man sie bei einem potentiell unendlich langen Datenstrom nicht auf die gesamten Daten ausführen kann. Bei Batch-Daten ist das im Gegensatz möglich.
 
 Da die Nutzung des Kalman Filters vor allem vor dem Hintergrund von kontinuierlich, über einen langen Zeitraum eintreffenden Datenströmen sinnvoll ist, fiel die Entscheidung auf einen Streaming-Auftrag.
 
+In Apache Flink ist sowohl die EKF auf Basis von GPS Daten, als auch die Implementierung der EKF-SLAM Algorithmus als eine Map-Funktion umgesetzt. Dies bedeutet, dass die Funktion ein Tupel nach dem anderen übergeben bekommt, was die Problematik mit sich bringt, die Tupel des Prediction-Step und die Tupel des Update-Step zu unterscheiden, als auch vorhergegangene Rückgabewerte die zur Berechnung des neuen Zustandes notwendig sind zu persistieren. Die erste Problematik wurde gelöst indem jedem KeyedDataPoint ein Parameter beim Parsing übergeben. So bekommen beispielsweise Odometrie Datenpunkte den bezeichner “odo” hinzu. Das Problem der Persistierung zwischen einzelnen Map-Schritten, wird dadurch behandelt, dass ein Zustandsobjekt erzeugt wird, welches den vorherigen Zustand des Fahrzeuges als Vektor, sowie die Kovarianzmatrix, und den Zeitstempel des vorherigen Tupels beinhaltet um nachgelagerte Berechnungen zu ermöglichen.
+
 Abgesehen von der Implementierung des EKF/SLAM Algorithmus bestand die Kernherausforderung beim Implementieren in der Parallelisierung der Berechnungen. Dazu mussten zum einen die Daten der unterschiedlichen Fahrzeuge auch bei der Verarbeitung dem entsprechenden Fahrzeug zugeordnet werden. Da jedes Fahrzeug einen eigenen, distinkten Zustand hat, dürfen die eingehenden Daten nicht vermischt werden. Zur Umsetzung dieser Unterscheidung dienten uns vor allem KeyedDataStreams. Jedes Fahrzeug verfügt über eine eigene ID. Diese ID wird dann zum Schlüssel des KeyedDataStreams, sodass die interne Zuordnung der Eingangsdaten eindeutig und korrekt ist. Die Berechnungen können durch die Schlüssel also für jedes Fahrzeug parallelisiert werden.
 
-Darüber hinaus
+Weiterhin kann das einlesen der Daten eines Fahrzeuges nicht parallelisiert werden. Andernfalls würde die Reihenfolge der Datenpunkte vertauscht werden und unser Algorithmus würde falsche Ergebnisse liefern. Dieses Problem liegt allerdings auch in der Natur unserer Simulation. Wir lesen die Daten lediglich aus einer CSV-Datei aus, sodass von Beginn an alle Werte vorliegen. In einem realen Szenario würden die Daten erst zur Laufzeit generiert werden, sodass kein Bedarf an Parallelisierung besteht. Daten von verschiedenen Fahrzeugen werden in verschiedenen Streams parallel eingelesen.
+Die Ausführung des EKF dagegen ist ebenfalls schwer zu parallelisieren. Jeder Schritt des EKF basiert auf dem Resultat eines oder mehrerer vorhergegangenen Schritte. Dies macht es unmöglich die Berechnung des a-priori oder a-posteriori Zustands zu parallelisieren. 
+
+Allerdings kann die Berechnung der jeweiligen EKF-Schritte von verschiedenen Fahrzeugen parallel ausgeführt werden. Da wir alle Datenpunkte aller Fahrzeuge in einem (Keyed-) Stream verarbeiten, macht es Sinn, die \textit{map()}-Funktion parallel auszuführen. Flink verarbeitet Datenpunkte mit verschiedenen Keys automatisch in verschiedenen Threads. Die Positionsbestimmung verschiedener Fahrzeuge erfolgt also parallel und vollkommen unabhängig voneinander. Wir konnten feststellen, dass die Ausführungszeit bei einem und 4 Fahrzeugen konstant blieb.
+
 
 \subsubsection{EKF Implementierung}
 \paragraph{Prediction Schritt und Bewegungsmodell}
@@ -176,7 +198,7 @@ Die Zustandsvorhersage $\hat{x}_{t+1}^-$ ergibt sich aus einem Bewegungsmodell, 
 
 Während des EKF wird die Kovarianzmatrix $P$ in jedem Durchlauf verändert. Wir initialisieren sie mit einem hohen Wert, sodass sie sich innerhalb der ersten Durchläufe stark verändert. 
 \begin{equation}\label{EKF-Initiale-Kovarianzmatrix}
-	P_{initial} = \begin{pmatrix}
+	P_{0} = \begin{pmatrix}
 		0 & 0 & 0 \\
 		0 & 0 & 0 \\
 		0 & 0 & 0 \\
@@ -186,7 +208,7 @@ Während des EKF wird die Kovarianzmatrix $P$ in jedem Durchlauf verändert. Wir
 Für die Linearisierung des Bewegungsmodells, i.e. zur Aktualisierung von $P$, im EKF wird außerdem noch die Jakobi-Matrix des Bewegungsmodells benötigt.
 \begin{equation}\label{EKF-Motion-Model-Jakobi-Matrix}
 \begin{split}
-	F_{ekf} &= \frac{\delta f}{\delta \hat{x}} \\
+	F_{ekf} &= \frac{\partial f}{\partial \hat{x}} \\
 	&= \begin{pmatrix}
 		1 & 0 & -\Delta T(v\sin(\phi_t)+\frac{v}{L}\tan(\alpha)*a\cos(\phi_t)-b\sin(\phi_t)) \\
 		0 & 1 & \Delta T(v\cos(\phi_t)-\frac{v}{L}\tan(\alpha)*a\sin(\phi_t)+b\cos(\phi_t)) \\
@@ -206,7 +228,7 @@ Im Update Schritt werden die Ergebnisse des Prediction Schritt mit Hilfe der GPS
 
 Zwar ist das Beobachtungsmodell linear, da jedoch aufgrund des nichtlinearen Bewegungsmodells der Extended Kalman Filter verwendet wird, muss auch vom Beobachtungsmodell die Jakobi-Matrix gebildet werden.
 \begin{equation}\label{EKF-Observation-Model-Jakobi-Matrix}
-	H(\hat{x})= \frac{\delta h}{\delta \hat{x}} = \begin{pmatrix}
+	H(\hat{x})= \frac{\partial h}{\partial \hat{x}} = \begin{pmatrix}
 		1 & 0 & 0 \\
 		0 & 1 & 0 \\
 	\end{pmatrix}
@@ -219,7 +241,7 @@ Zwar ist das Beobachtungsmodell linear, da jedoch aufgrund des nichtlinearen Bew
 	\end{pmatrix}
 \end{equation}
 
-\subsection{SLAM Implementierung}
+\subsubsection{SLAM Implementierung}\label{SLAM Implementierung}
 Der Unterschied zum EKF ohne SLAM-Anteil liegt vor allem darin, dass der Update-Schritt nun auf Grundlage der in der Umgebung verorteten Objekte stattfindet. Der Zustandsvektor $\hat{x}$ des Systems enthält nun zusätzlich zur Position und Fahrtrichtung des Fahrzeuges die Koordinaten jedes gemessenen Objektes - im Falle des Victoria Parks vor allem Bäume. 
 \begin{equation}\label{SLAM-State-Vector}
 	\hat{x} = \begin{pmatrix}
@@ -242,10 +264,12 @@ Der Unterschied zum EKF ohne SLAM-Anteil liegt vor allem darin, dass der Update-
 \end{equation}
 
 \paragraph{Ableiten der Objektposition aus den Lasermessungen}
-Bezüglich der Lasermessungen, deren Tupel in jedem Datensatz vergleichbar aussehen und jeweils aus 361 einzelnen Abstandsmessungen mit einer Reichweite von 80 Metern bestehen, müssen entsprechend gesondert Berechnungen angestellt werden, damit man Bäume in Form von Koordinaten erhält. Dazu müssen zunächst ungültige Messpunkte, die eine zu geringe oder zu große Messentfernung aufweisen, sowie ungültige Messpunkte, die bei jeder Lasermessung zu Beginn der Messserie auftreten, auf 0 gesetzt werden, damit lediglich gültige Messungen übrig bleiben. Anschließend werden zusammenhängende Messpunkte, die einem individuellen Baum zugesprochen werden der eine bestimmte Distanz zum nächstgelegenen Baum aufweist, gruppiert um ein Cluster aus Messpunkten auf eine Koordinate mit Durchmesser per Baum reduzieren zu können. Dies geschieht mit den folgenden Formeln: FORMELN AUS DEM PAPER FÜR BÄUME EINFÜGEN.
+Bezüglich der Lasermessungen, deren Tupel in jedem Datensatz vergleichbar aussehen und jeweils aus 361 einzelnen Abstandsmessungen mit einer Reichweite von 80 Metern bestehen, müssen entsprechend gesondert Berechnungen angestellt werden, damit man Bäume in Form von Koordinaten erhält. Dazu müssen zunächst ungültige Messpunkte, die eine zu geringe oder zu große Messentfernung aufweisen, sowie ungültige Messpunkte, die bei jeder Lasermessung zu Beginn der Messserie auftreten, auf 0 gesetzt werden, damit lediglich gültige Messungen übrig bleiben. Anschließend werden zusammenhängende Messpunkte, die einem individuellen Baum zugesprochen werden, der eine bestimmte Distanz zum nächstgelegenen Baum aufweist, gruppiert um ein Cluster aus Messpunkten auf eine Koordinate mit Durchmesser pro Baum reduzieren zu können. Hierzu wird aus den beiden äußersten Messungen, die dem selben Baum zugeordnet werden, dessen Mittelpunkt errechnet.
+
+Als Teil des EKF-SLAM Algorithmus wird eine Zuordnung von observierten Bäumen einer Lasermessung zu bereits bekannten Bäumen aus dem Zustandsvektor der Fahrzeugs vorgenommen. Hierbei wird ebenfalls entschieden, ob der Zustandsvektor um eine neue Beobachtung erweitert wird, sollte der entsprechende Baum noch nie beobachtet worden sein. Diese Abfrage wurde heuristisch mithilfe einer Methode basierend auf Distanz zwischen beobachteten und existierenden Bäumen implementiert. Da die Performanz des SLAM Algorithmus maßgeblich von dieser Methode abhängt, wird diese in Abschnitt~\ref{SLAM-tzEvaluation} nochmal diskutiert. 
 
 \paragraph{Prediction-Step}
-Das Bewegungsmodell des Fahrzeuges ändert sich im Vergleich zum EKF nicht. Die Funktion $f(\hat{x}_t, u_t)$ wird allerdings um Funktionen für die Abbildung eines Objektes vom Zeitpunkt $t$ zum Zeitpunkt $t+1$ ergänzt. Die Objekte werden zur Vereinfachung als unbeweglich angenommen, daher sind die neue Abbildungsfunktion~\ref{SLAM-Bewegungsmodell}, wie auch die zugehörige Jakobi Matrix~\ref{SLAM-Bewegungsmodell-Jakobi-Matrix} trivial.
+Das Bewegungsmodell des Fahrzeuges ändert sich im Vergleich zum EKF nicht. Die Funktion $f(\hat{x}_t, u_t)$ wird allerdings um Funktionen für die Abbildung eines Objektes vom Zeitpunkt $t$ zum Zeitpunkt $t+1$ ergänzt. Die Objekte werden zur Vereinfachung als unbeweglich angenommen, daher sind die neue Abbildungsfunktion~\ref{SLAM-Bewegungsmodell}, wie auch die zugehörige Jakobi Matrix~\eqref{SLAM-Bewegungsmodell-Jakobi-Matrix} trivial.
 \begin{equation}\label{SLAM-Bewegungsmodell}
 	\hat{x}_{t+1}^- = f(\hat{x}_{t},u_t) = \begin{pmatrix}
 		x_{t+1} \\
@@ -266,7 +290,7 @@ Das Bewegungsmodell des Fahrzeuges ändert sich im Vergleich zum EKF nicht. Die 
 Jedoch ändert sich das Beobachtungsmodell $z_{SLAM}$, welches nun nicht mehr auf GPS Messungen, sondern auf den gemessenen Objekten im Umfeld des Fahrzeuges basiert.
 \begin{equation}\label{SLAM-Observation-Model}
 \begin{split}
-	z_{slam} &= \begin{pmatrix}
+	&z_{slam} = \begin{pmatrix}
 		z_\gamma^i \\
 		z_\beta^i \\
 	\end{pmatrix} = h(\hat{x}, x_i, y_i) = \begin{pmatrix}
@@ -274,8 +298,8 @@ Jedoch ändert sich das Beobachtungsmodell $z_{SLAM}$, welches nun nicht mehr au
 		\arctan 2(\delta_y, \delta_x) - \phi_t \\
 	\end{pmatrix}\\
 	&\text{mit} \\
-	q &= \delta^\intercal \delta \\
-	\delta &= \begin{pmatrix}
+	&q = \delta^\intercal \delta \\
+	&\delta = \begin{pmatrix}
 		\delta_x \\
 		\delta_y \\
 	\end{pmatrix} = \begin{pmatrix}
@@ -286,30 +310,73 @@ Jedoch ändert sich das Beobachtungsmodell $z_{SLAM}$, welches nun nicht mehr au
 \end{equation}
 
 Im SLAM Fall ist also das Beobachtungsmodell im Gegensatz zum EKF mit GPS nicht linar. Demnach ist auch die Jakobi Matrix $H_{SLAM}$~\ref{SLAM-Observation-Model-Jakobi-Matrix} komplexer als zuvor.
+
 \begin{equation}\label{SLAM-Observation-Model-Jakobi-Matrix}
 \begin{split}
-	H(\hat{x}) &= \frac{\delta h}{\delta \hat{x}} = \begin{pmatrix}
-		\frac{\delta h_\gamma}{\delta \hat{x}} \\
-		\frac{\delta h_\beta}{\delta \hat{x}} \\
-	\end{pmatrix} = \begin{pmatrix}
-		\frac{\delta z_\gamma}{\delta (x_i, y_i, \phi, \{x_L, y_L\})} \\
-		\frac{\delta z_\beta}{\delta (x_i, y_i, \phi, \{x_L, y_L\})}
+	&H^{voll}(\hat{x}) = H^{min}(\hat{x})F_{\hat{x},j} \\
+	&\text{mit} \\
+	&H^{min}(\hat{x}) = \frac{\partial h}{\partial \hat{x}} = \frac{1}{q} \begin{pmatrix}
+		-\sqrt{q}\delta_x & -\sqrt{q}\delta_y & 0 & \sqrt{q}\delta_x & \sqrt{q}\delta_y \\
+		\delta_y & -\delta_x & -q & -\delta_y & -\delta_x\\
 	\end{pmatrix} \\
-	&= \begin{pmatrix}
-		hi \\
-		hi \\
-	\end{pmatrix}
+	&F_{\hat{x},j} = \begin{pmatrix}
+		1 & 0 & 0 & 0 \dots 0 & 0 & 0 & 0 \dots 0 \\
+		0 & 1 & 0 & 0 \dots 0 & 0 & 0 & 0 \dots 0 \\
+		0 & 0 & 1 & 0 \dots 0 & 0 & 0 & 0 \dots 0 \\
+		0 & 0 & 0 & 0 \dots 0 & 1 & 0 & 0 \dots 0 \\
+		0 & 0 & 0 & \underbrace{0 \dots 0}_{2j-2} & 0 & 1 & \underbrace{0 \dots 0}_{2N-2j} \\
+	\end{pmatrix} \\
+	&N= \text{aktuelle Größe der Matrix} \\
+	&j= \text{derzeit betrachteter Baum}
 \end{split}
 \end{equation}
 
-\section{Evaluation}
+\section{Evaluation}\label{Evaluation}
+\subsection{Evaluation von SLAM}\label{SLAM-Evaluation}
+Da die Implementierung von EKF-SLAM als FullSLAM stattgefunden hat~\cite{Freiburg_SLAM_Formeln}, weist die Ausführung des Algorithmus auf einem Rechner mit 4 Kern Prozessor und 8 GB RAM bereits nach 1500 von ca. 70000 Tupeln erhebliche Verzögerungen im Sekundenbereich auf. Dies ist einer sehr hoher Komplexität von $O(2N^2)$ bei N Beobachtungen~\cite{ute_SLAM} zuzuordnen, da alle Beobachtungen immer komplett aktualisiert werden. Dies macht es unmöglich den FullSLAM Algorithmus in Echtzeit, die ca. 25 Minuten beträgt, auszuführen. Außerdem führt es bei den Ausgangseinstellungen der JVM zu einem Heap Error.
+
+Der Heap Error ist trivial zu beheben, aber eine relevante Änderung der Ausführungsumgebung. Dies ist notwendig um die pro Beobachtung um zwei Zeilen und Spalten wachsende Kovarianzmatrix zu berechnen, da diese zunehmend zu größer wird. Sobald diese etwa eine Größe von 1000x1000 hat, sind wie bereits erwähnt signifikante Verzögerungen in der Ausführung zu verzeichnen.
+
+Ein erster Schritt zur Optimierung des Algorithmus war es auf die Colt 1.2 internen SparseDoubleMatrix2D zu verwenden, da diese im Gegensatz zur vorher genutzten DenseDoubleMatrix2D die Matrizen reihenweise verarbeiten, was dem internen Speicherzustand  der Matrizen entspricht und somit schneller ist. Diese Maßnahme allein hat eine Beschleunigung um ein Vielfaches bewirkt. Ein denkbarer weiterer Schritt zur Optimierung, wäre es die intern verwendeten Gleitkommazahlen im Zustandsvektor und in der Kovarianzmatrix auf einige wenige Nachkommastellen zu begrenzen. Ebenfalls wäre ein minimaler Prediction-Step, der lediglich die ersten drei Einträge der Zustandsvektors, und die ersten drei mal drei Einträge der Kovarianzmatrix aktualisiert denkbar. Jedoch sind diese Methoden der Optimierung im Kontext der Komplexität nicht signifikant.
+
+Gleichzeitig basierte die Implementierung unserer EKF Algorithmen auf der Colt 1.2 Library die nach offiziellen Angaben nicht ersichtlich für Parallelisierung geschrieben wurde. Somit haben wir die Implementierung zu ParallelColt~\footnote{\url{https://github.com/rwl/ParallelColt}} geändert, was jedoch zu einer signifikanten Verschlechterung der Performanz geführt hat.
+
+Basierend auf der Methode zur Differenzierung von Beobachtungen~\ref{SLAM Implementierung} werden observierte Bäume unterschiedlich gut wiedererkannt oder neue Bäume unterschiedlich schnell hinzugefügt. Dies wird beispielsweise in der Publikation zu FastSLAM 1.0 und FastSLAM 2.0~\cite{thrun_fastslam_nodate} behandelt. Hierbei ist es problematisch wie viele Beobachtungen man im Zustandsvektor und somit auch in der Kovarianzmatrix hat, da die Komplexität zur Berechnung der Matrix $O(2N^2)$ bei N Beobachtungen~\cite{ute_SLAM} beträgt. Eine Möglichkeit wäre es beispielsweise Beobachtungen durchgehen eine Relevanz zuzuordnen die auch abnehmen kann, und die dazu führen kann das Beobachtungen wieder entfernt werden, sofern sie als wenig relevant eingestuft werden~\cite{thrun_fastslam_nodate}. Dies würde die Komplexität und somit die Berechnungszeit nachhaltig reduzieren, da nicht immer alle Beobachtungen aktualisiert werden müssten.
+
+\subsection{Qualität des EKF}
+\begin{figure}[!t]
+	\centering
+	\includegraphics[width=5.5in]{EKF-Schätzfehler.png}
+	\caption{Abweichungen zwischen GPS-Messung und EKF-Positionsberechnung}
+	\label{EKF-Schätzfehler}
+\end{figure}
+
+In Abb.~\ref{EKF-Prediction-Error} ist dargestellt, wie sich der Schätzfehler über die Dauer des Experimentes entwickelt. Als Schätzfehler bezeichnen wir hier die Distanz, welche zwischen der durch den Prediction-Step bestimmten Position und der vom GPS-Signal gemessenen Position liegt. Die GPS-Position kann unserer Ansicht nach als korrekte Position angesehen werden. 
+Dabei fällt auf, dass es einige größere Schätzfehler gegeben hat. Diese lassen sich aus verschiedenen, aber 2 wesentlichen Gründen erklären.
+
+Erstens waren die GPS-Daten fehlerhaft und es gab Ausreißermessungen. Wir konnten einige wesentliche zwar mit der oben beschriebenen Heuristik beseitigen, jedoch ist es denkbar, dass es immer noch falsche GPS-Messungen in unserem Datensatz gibt, welche große Diskrepanzen zwischen geschätzter und gemessener Position hervorrufen.
+
+Zweitens und interessanter, ist das GPS-Signal hin und wieder über einen kurzen Zeitraum ausgefallen. Diese Ausfälle erkennt man an den Lücken im obigen Diagramm, denn in diesen Zeiträumen wurde kein vollständiger EKF durchgeführt. Man sieht, dass am Ende der Lücken jeweils relativ hohe Schätzfehler aufgetreten sind. Das bedeutet, dass die Positionsschätzung nur aufgrund der Odometriedaten relativ fehlerhaft ist. Es wird ein regelmäßiges Update der Position durch eine externe Messung benötigt, um eine präzise Positionsbestimmung zu gewährleisten.
+
+Im Slam-Kontext würde dieses Update durch einen Scan der Umgebung geschehen. Es bleibt auszuwerten, wie präzise die Positionsbestimmung mit dieser Form der externen Messung ist. Zur Evaluierung könnten erneut die GPS Daten verwendet werden.
+
+\begin{figure}[!t]
+	\centering
+	\includegraphics[width=5.5in]{EKF-output.png}
+	\caption{Output des EKF mit GPS-Daten als Update.}
+	\label{EKF-Output}
+\end{figure}
+
+\begin{figure}[!t]
+	\centering
+	\includegraphics[width=5.5in]{EKF-output-parallel.png}
+	\caption{Output des parallelisierten EKF mit mehreren simulierten Fahrzeugen.}
+	\label{EKF-Output-Parallel}
+\end{figure}
 
 \section{Zusammenfassung}\label{Zusammenfassung}
 
 \section{Diskussion}\label{Diskussion}
-
-\section{Appendix}\label{Appendix}
-
 
 \bibliography{DBPro}
 \bibliographystyle{ieeetr}
