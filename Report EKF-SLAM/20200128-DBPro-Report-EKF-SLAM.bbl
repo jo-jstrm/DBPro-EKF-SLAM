@@ -1,0 +1,48 @@
+\begin{thebibliography}{10}
+
+\bibitem{kalman1960new}
+R.~E. Kalman, ``A new approach to linear filtering and prediction problems,''
+  1960.
+
+\bibitem{freiburg_SLAM}
+W.~Burgard and K.~Arras, ``Introduction to {Mobile} {Robotics}: {SLAM}:
+  {Simultaneous} {Localization} and {Mapping},'' 2017.
+
+\bibitem{ute_SLAM}
+G.~Jose and E.~Nebot, ``Simultaneous {Localization} and {Map} {Building}:
+  {Test} case for {Outdoor} {Applications}.''
+
+\bibitem{vessel}
+K.~Juraszek, N.~Saini, M.~Charfuelan, H.~Hemsen, and V.~Markl, ``Extended
+  {Kalman} {Filter} for {Large} {Scale} {Vessels} {Trajectory} {Tracking} in
+  {Distributed} {Stream} {Processing} {Systems},'' in {\em Advanced {Analytics}
+  and {Learning} on {Temporal} {Data}} (V.~Lemaire, S.~Malinowski, A.~Bagnall,
+  A.~Bondu, T.~Guyet, and R.~Tavenard, eds.), vol.~11986, pp.~151--166, Cham:
+  Springer International Publishing, 2020.
+
+\bibitem{EKF_course}
+G.~Welch and G.~Bishop, ``An {Introduction} to the {Kalman} {Filter},'' p.~81.
+
+\bibitem{alexandrov_stratosphere_2014}
+A.~Alexandrov, R.~Bergmann, S.~Ewen, J.-C. Freytag, F.~Hueske, A.~Heise,
+  O.~Kao, M.~Leich, U.~Leser, V.~Markl, F.~Naumann, M.~Peters, A.~Rheinländer,
+  M.~J. Sax, S.~Schelter, M.~Höger, K.~Tzoumas, and D.~Warneke, ``The
+  {Stratosphere} platform for big data analytics,'' {\em The VLDB Journal},
+  vol.~23, pp.~939--964, Dec. 2014.
+
+\bibitem{Flink-Overview-Link}
+``Apache {Flink}: {Stateful} {Computations} over {Data} {Streams}.''
+
+\bibitem{Flink-APIs-Link}
+``Apache {Flink}: {Stateful} {Computations} over {Data} {Streams}.''
+
+\bibitem{Freiburg_SLAM_Formeln}
+C.~Stachniss, ``Robot {Mapping}: {EKF} {SLAM},'' 2013.
+
+\bibitem{thrun_fastslam_nodate}
+S.~Thrun, M.~Montemerlo, D.~Koller, B.~Wegbreit, J.~Nieto, and E.~Nebot,
+  ``{FastSLAM}: {An} {Efﬁcient} {Solution} to the {Simultaneous}
+  {Localization} {And} {Mapping} {Problem} with {Unknown} {Data}
+  {Association},'' p.~48.
+
+\end{thebibliography}
