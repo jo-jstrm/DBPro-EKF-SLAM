@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a0e545e7-aebc-4cdf-baf2-769a8b8a86f3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/ekfSingleCar.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ekfSingleCar.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/00_Result_SLAM.csv" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/00_Result_SLAM.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ekfSingleCar.csv" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ekfSingleCar.csv" afterDir="false" />
-    </list>
+    <list default="true" id="a0e545e7-aebc-4cdf-baf2-769a8b8a86f3" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -310,13 +305,6 @@
       <workItem from="1580116825565" duration="4786000" />
       <workItem from="1580121765590" duration="687000" />
       <workItem from="1580330188017" duration="14643000" />
-    </task>
-    <task id="LOCAL-00005" summary="Removed Colt completely">
-      <created>1575043039726</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1575043039726</updated>
     </task>
     <task id="LOCAL-00006" summary="Added BeneTestColt, EKFSLAM-Function and Parse data for laser_full">
       <created>1575047983755</created>
@@ -654,7 +642,14 @@
       <option name="project" value="LOCAL" />
       <updated>1580724291510</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="Final Submission Update3">
+      <created>1580724677358</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1580724677358</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -675,7 +670,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="using gps_odo_sorted dataset" />
     <MESSAGE value="latest version" />
     <MESSAGE value="hopefully final not working" />
     <MESSAGE value="latest data works" />
@@ -700,7 +694,8 @@
     <MESSAGE value="Updated Latex report" />
     <MESSAGE value="Final Submission Update" />
     <MESSAGE value="Final Submission Update2" />
-    <option name="LAST_COMMIT_MESSAGE" value="Final Submission Update2" />
+    <MESSAGE value="Final Submission Update3" />
+    <option name="LAST_COMMIT_MESSAGE" value="Final Submission Update3" />
   </component>
   <component name="WindowStateProjectService">
     <state x="176" y="120" key="#com.intellij.execution.impl.EditConfigurationsDialog" />
