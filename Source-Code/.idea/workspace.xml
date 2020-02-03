@@ -292,20 +292,6 @@
       <workItem from="1580121765590" duration="687000" />
       <workItem from="1580330188017" duration="14643000" />
     </task>
-    <task id="LOCAL-00001" summary="added resources">
-      <created>1574079898027</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1574079898027</updated>
-    </task>
-    <task id="LOCAL-00002" summary="added resources">
-      <created>1574115774900</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1574115774900</updated>
-    </task>
     <task id="LOCAL-00003" summary="added resources">
       <created>1574176680873</created>
       <option name="number" value="00003" />
@@ -635,7 +621,21 @@
       <option name="project" value="LOCAL" />
       <updated>1580687263021</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="Updated Latex report">
+      <created>1580687952158</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1580687952159</updated>
+    </task>
+    <task id="LOCAL-00051" summary="Updated Latex report">
+      <created>1580688022081</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1580688022081</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
