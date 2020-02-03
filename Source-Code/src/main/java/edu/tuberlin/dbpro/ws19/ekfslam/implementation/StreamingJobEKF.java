@@ -56,7 +56,7 @@ public class StreamingJobEKF {
         filteredStream
                 .map(new getTuple3withTime())
                 .setParallelism(1)
-                .writeAsCsv("src/main/resources/ekfSingleCar.csv", FileSystem.WriteMode.OVERWRITE, "\n", ",")
+                .writeAsCsv("src/main/resources/parallelOutput.csv", FileSystem.WriteMode.OVERWRITE, "\n", ",")
                 .setParallelism(1);
 
         env.execute("EKF-Mark");

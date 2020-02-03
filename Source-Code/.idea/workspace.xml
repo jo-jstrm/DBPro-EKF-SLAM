@@ -3,6 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="a0e545e7-aebc-4cdf-baf2-769a8b8a86f3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ekfSingleCar.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ekfSingleCar.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/00_Result_SLAM.csv" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/00_Result_SLAM.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ekfSingleCar.csv" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ekfSingleCar.csv" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -121,7 +124,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.StreamingJobSLAMParallel">
+  <component name="RunManager" selected="Application.StreamingJobEKFMark">
     <configuration name="BeneColtTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.colt.BeneColtTest" />
       <module name="dbpro-ekf-slam" />
@@ -204,6 +207,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="StreamingJobRessources" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="INCLUDE_PROVIDED_SCOPE" value="true" />
+      <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.implementation.StreamingJobRessources" />
+      <module name="dbpro-ekf-slam" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.tuberlin.dbpro.ws19.ekfslam.implementation.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="StreamingJobSLAM" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="INCLUDE_PROVIDED_SCOPE" value="true" />
       <option name="MAIN_CLASS_NAME" value="edu.tuberlin.dbpro.ws19.ekfslam.implementation.StreamingJobSLAM" />
@@ -241,9 +258,11 @@
       <item itemvalue="Application.BeneColtTest" />
       <item itemvalue="Application.StreamingJobSLAM" />
       <item itemvalue="Application.StreamingJobSLAMParallel" />
+      <item itemvalue="Application.StreamingJobRessources" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.StreamingJobRessources" />
         <item itemvalue="Application.StreamingJobSLAMParallel" />
         <item itemvalue="Application.StreamingJobSLAM" />
         <item itemvalue="Application.CleanData" />
@@ -291,20 +310,6 @@
       <workItem from="1580116825565" duration="4786000" />
       <workItem from="1580121765590" duration="687000" />
       <workItem from="1580330188017" duration="14643000" />
-    </task>
-    <task id="LOCAL-00003" summary="added resources">
-      <created>1574176680873</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1574176680873</updated>
-    </task>
-    <task id="LOCAL-00004" summary="removed previous resources">
-      <created>1575042764713</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1575042764713</updated>
     </task>
     <task id="LOCAL-00005" summary="Removed Colt completely">
       <created>1575043039726</created>
@@ -635,7 +640,21 @@
       <option name="project" value="LOCAL" />
       <updated>1580688022081</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="Final Submission Update">
+      <created>1580724125341</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1580724125341</updated>
+    </task>
+    <task id="LOCAL-00053" summary="Final Submission Update2">
+      <created>1580724291510</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1580724291510</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -656,8 +675,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="changes to motion model for prediction step, and boolean flags" />
-    <MESSAGE value="parameterized position and observation matrix (2,1)" />
     <MESSAGE value="using gps_odo_sorted dataset" />
     <MESSAGE value="latest version" />
     <MESSAGE value="hopefully final not working" />
@@ -681,7 +698,9 @@
     <MESSAGE value="Replaced all matrices with sparce matrix implementation, improved performance" />
     <MESSAGE value="Refactored Project, main package is &quot;implementation&quot; now, moved invalidDatasets" />
     <MESSAGE value="Updated Latex report" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated Latex report" />
+    <MESSAGE value="Final Submission Update" />
+    <MESSAGE value="Final Submission Update2" />
+    <option name="LAST_COMMIT_MESSAGE" value="Final Submission Update2" />
   </component>
   <component name="WindowStateProjectService">
     <state x="176" y="120" key="#com.intellij.execution.impl.EditConfigurationsDialog" />
