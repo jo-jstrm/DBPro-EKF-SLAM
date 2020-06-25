@@ -1,3 +1,5 @@
+#Plots movement data and landmarks.
+
 library(stringr)
 
 MyData <- read.csv(file="C:/Users/Bene/DBPro-EKF-SLAM/src/main/resources/positionWithLmrks.csv", header=FALSE, sep=";")
