@@ -1,4 +1,4 @@
-# DBPro-EKF-SLAM
+# DBPro-EKF-SLAM :car: :globe_with_meridians:
 
 This is our project on implementing an Extended Kalman Filter for Simultaneous Localization and Mapping of a moving car through a distributed streaming engine, in this case Apache Flink. It took place in DIMA Group's Winterterm 2019 Database Project class at TU Berlin.
 
